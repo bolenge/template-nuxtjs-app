@@ -29,13 +29,7 @@
 
                 <!-- partial -->
                 <div class="main-panel">
-                    <!-- Start content-wrapper -->
-                    <div class="content-wrapper">
-                        <div>
-                          <Nuxt />
-                        </div>
-                    </div>
-                    <!-- ENd content-wrapper -->
+                    <Nuxt />
 
                     <!-- Sart footer -->
                     <Footer />
