@@ -9,15 +9,25 @@
               </div>
               <div class="sidebar-profile-name">
                 <p class="sidebar-name">
-                  Kenneth Osborne
+                  Don de Dieu Bolenge
                 </p>
                 <p class="sidebar-designation">
-                  Welcome
+                  En ligne
                 </p>
               </div>
             </div>
             <p class="sidebar-menu-title">Menu</p>
           </li>
+
+          <!-- Item Dashboard -->
+          <li class="nav-item active">
+            <nuxt-link class="nav-link" to="/">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">Accueil</span>
+            </nuxt-link>
+          </li>
+          <!-- End item Dashboard -->
+
           <!-- Item config. systeme -->
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#configs" aria-expanded="false" aria-controls="configs">
