@@ -22251,7 +22251,7 @@ dl li {
   color: #f2125e;
 }
 
-.profile-navbar .nav-item .nav-link i {
+.profile-navbar .nav-item .nav-link em {
   font-size: 1.25rem;
 }
 
@@ -23252,27 +23252,27 @@ body.avgrund-active {
   -webkit-transition-property: color;
 }
 
-.sidebar .nav .nav-item .nav-link i {
+.sidebar .nav .nav-item .nav-link em {
   color: inherit;
 }
 
-.sidebar .nav .nav-item .nav-link i.menu-icon {
+.sidebar .nav .nav-item .nav-link em.menu-icon {
   font-size: 1.125rem;
   line-height: 1;
   margin-right: 1.125rem;
   color: #bfccda;
 }
 
-.rtl .sidebar .nav .nav-item .nav-link i.menu-icon {
+.rtl .sidebar .nav .nav-item .nav-link em.menu-icon {
   margin-left: 2rem;
   margin-right: 0;
 }
 
-.sidebar .nav .nav-item .nav-link i.menu-icon:before {
+.sidebar .nav .nav-item .nav-link em.menu-icon:before {
   vertical-align: middle;
 }
 
-.sidebar .nav .nav-item .nav-link i.menu-arrow {
+.sidebar .nav .nav-item .nav-link em.menu-arrow {
   display: inline-block;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23281,12 +23281,12 @@ body.avgrund-active {
   color: #939393;
 }
 
-.rtl .sidebar .nav .nav-item .nav-link i.menu-arrow {
+.rtl .sidebar .nav .nav-item .nav-link em.menu-arrow {
   margin-left: 0;
   margin-right: auto;
 }
 
-.sidebar .nav .nav-item .nav-link i.menu-arrow:before {
+.sidebar .nav .nav-item .nav-link em.menu-arrow:before {
   content: "\e049";
   font-family: "typicons";
   font-style: normal;
@@ -23336,7 +23336,7 @@ body.avgrund-active {
   color: #fff;
 }
 
-.sidebar .nav .nav-item.active > .nav-link i {
+.sidebar .nav .nav-item.active > .nav-link em {
   color: #2b80ff;
 }
 
@@ -23484,11 +23484,11 @@ body.avgrund-active {
   color: #001737;
 }
 
-.sidebar-light .sidebar .nav .nav-item .nav-link i {
+.sidebar-light .sidebar .nav .nav-item .nav-link em {
   color: inherit;
 }
 
-.sidebar-light .sidebar .nav .nav-item .nav-link i.menu-icon {
+.sidebar-light .sidebar .nav .nav-item .nav-link em.menu-icon {
   color: #939393;
 }
 
@@ -23504,7 +23504,7 @@ body.avgrund-active {
   color: #f2125e;
 }
 
-.sidebar-light .sidebar .nav .nav-item.active > .nav-link i {
+.sidebar-light .sidebar .nav .nav-item.active > .nav-link em {
   color: #2b80ff;
 }
 
@@ -24268,13 +24268,13 @@ body.avgrund-active {
     margin-left: 5px;
     display: none;
   }
-  .sidebar-mini .sidebar .nav .nav-item .nav-link i.menu-icon {
+  .sidebar-mini .sidebar .nav .nav-item .nav-link em.menu-icon {
     display: block;
     margin-right: auto;
     margin-left: auto;
     margin-bottom: .625rem;
   }
-  .sidebar-mini .sidebar .nav .nav-item .nav-link i.menu-arrow {
+  .sidebar-mini .sidebar .nav .nav-item .nav-link em.menu-arrow {
     display: inline-block;
     margin-left: 5px;
     position: absolute;
@@ -24358,12 +24358,12 @@ body.avgrund-active {
   .rtl.sidebar-icon-only .sidebar .nav .nav-item .nav-link .menu-title {
     border-radius: 5px 0 0 5px;
   }
-  .sidebar-icon-only .sidebar .nav .nav-item .nav-link i.menu-icon {
+  .sidebar-icon-only .sidebar .nav .nav-item .nav-link em.menu-icon {
     margin-right: 0;
     margin-left: 0;
     margin-bottom: 0;
   }
-  .sidebar-icon-only .sidebar .nav .nav-item .nav-link i.menu-arrow {
+  .sidebar-icon-only .sidebar .nav .nav-item .nav-link em.menu-arrow {
     display: none;
   }
   .sidebar-icon-only .sidebar .nav .nav-item .nav-link[aria-expanded] .menu-title {
