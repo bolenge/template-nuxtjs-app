@@ -58,7 +58,6 @@
             <script src="js/file-upload.js"></script>
             <script src="js/typeahead.js"></script>
             <script src="js/select2.js"></script>
-            <!-- End custom js for this page-->
         </body>
     </html>
 </template>
