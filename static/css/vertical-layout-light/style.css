@@ -23375,12 +23375,12 @@ body.avgrund-active {
   height: 8px;
   position: absolute;
   margin-top: 0;
-  top: 3px;
+  top: 10px;
   border-radius: 0;
-  background: #8e95aa;
+  background: #2b80ff !important;
 }
 
-.sidebar .nav.sub-menu .nav-item::after {
+/* .sidebar .nav.sub-menu .nav-item::after {
   content: '';
   width: 2px;
   height: 8px;
@@ -23389,7 +23389,7 @@ body.avgrund-active {
   bottom: 3px;
   border-radius: 0;
   background: #8e95aa;
-}
+} */
 
 .sidebar .nav.sub-menu .nav-item .nav-link {
   color: #939393;
