@@ -59,7 +59,7 @@
                 </li>
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
-                        <img src="images/faces/face25.jpg" alt="image">
+                        <img src="images/faces/bolenge.jpeg" alt="image">
                         <span class="nav-profile-name mb-0 font-weight-bold">Don de Dieu Bolenge</span><br>
                         <p class="sidebar-designation" style="margin-bottom: -2px;margin-top: -9px;margin-left: 2.5rem;">Super admin</p>
                     </a>
