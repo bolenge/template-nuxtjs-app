@@ -31,7 +31,7 @@
                   <button class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn">CONNEXION</button>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
-                  <a href="/forgot-password">Mot de passe oublié ?</a>
+                  <nuxt-link to="/forgot-password">Mot de passe oublié ?</nuxt-link>
                 </div>
               </form>
             </div>
