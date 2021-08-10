@@ -38,6 +38,8 @@
 
 <script>
 export default {
+  watch: {
+  },
   layout: 'login',
   head() {
     return {
