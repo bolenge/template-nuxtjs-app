@@ -20262,7 +20262,7 @@ code {
   width: 18px;
   height: 18px;
   border-radius: 2px;
-  border: solid #f2125e;
+  border: solid #2b80ff;
   border-width: 2px;
   -webkit-transition: all;
   -moz-transition: all;
@@ -20298,7 +20298,7 @@ code {
 }
 
 .form-check .form-check-label input[type="checkbox"]:checked + .input-helper:before {
-  background: #f2125e;
+  background: #2b80ff;
   border-width: 0;
 }
 
