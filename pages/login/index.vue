@@ -58,7 +58,9 @@
 </template>
 
 <script>
+import Account from '~/mixins/Account'
 export default {
+  mixins: [Account],
   components: {},
   props: {
   },
@@ -85,8 +87,6 @@ export default {
         const response =  await this.$auth.loginWith('local', {
           data: this.form
         })
-
-        console.log(response)
 
         if (response.state) {
           this.$toast.success(response.message)

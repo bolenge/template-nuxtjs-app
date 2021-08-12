@@ -66,6 +66,10 @@ export default {
     baseURL: `${API_BASE_URL}/api`
   },
   auth: {
+    redirect: {
+      logout: '/login',
+      home: '/'
+    },
     strategies: {
       local: {
         endpoints: {

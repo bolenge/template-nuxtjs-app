@@ -25,8 +25,8 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <nuxt-link class="nav-link" to="/configs/users">Config. utilisateurs</nuxt-link></li>
                 <li class="nav-item"> <nuxt-link class="nav-link" to="/configs/courriers">Config. courriers</nuxt-link></li>
-                <li class="nav-item"> <nuxt-link class="nav-link" to="/configs/finance">Config. finances</nuxt-link></li>
-                <li class="nav-item"> <nuxt-link class="nav-link" to="/configs/direction">Config. direction</nuxt-link></li>
+                <li class="nav-item"> <nuxt-link class="nav-link" to="/configs/finances">Config. finances</nuxt-link></li>
+                <li class="nav-item"> <nuxt-link class="nav-link" to="/configs/directions">Config. direction</nuxt-link></li>
               </ul>
             </div>
           </li>
