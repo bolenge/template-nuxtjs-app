@@ -1,6 +1,13 @@
+const API_BASE_URL = 'http://localhost:8000'
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
+  env: {
+    API_BASE_URL: API_BASE_URL,
+    DEFAULT_USER_AVATAR: `${API_BASE_URL}/storage/user_pictures/profile.png`,
+    BASE_PATH_USER_PICTURES: `${API_BASE_URL}/storage/user_pictures`
+  },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -26,6 +33,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/global-mixin.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -37,7 +45,38 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/toast',
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
+  toast: {
+    duration: 8000,
+    position: 'top-center',
+    register: [ // Register custom toasts
+      {
+        name: 'my-error',
+        message: 'Oops...Something went wrong',
+        options: {
+          type: 'error'
+        }
+      }
+    ]
+  },
+  axios: {
+    baseURL: `${API_BASE_URL}/api`
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/auth/login', method: 'post', propertyName: 'results.token' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/auth/user', method: 'get', propertyName: 'results' }
+        },
+        tokenType: 'Bearer'
+      }
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

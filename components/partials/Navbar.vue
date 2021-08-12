@@ -1,8 +1,8 @@
 <template>
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo" href="index.html"><img src="images/one-touch-logo.png" alt="logo"/></a>
-            <a class="navbar-brand brand-logo-mini" href="/"><img src="images/logo-one-touch-mobile.png" alt="logo"/></a>
+            <nuxt-link class="navbar-brand brand-logo" to="/admin"><img src="/images/one-touch-logo.png" alt="logo"/></nuxt-link>
+            <nuxt-link class="navbar-brand brand-logo-mini" to="/"><img src="/images/logo-one-touch-mobile.png" alt="logo"/></nuxt-link>
             <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
                 <span class="typcn typcn-th-menu"></span>
             </button>
@@ -59,16 +59,22 @@
                 </li>
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
-                        <img src="images/faces/bolenge.jpeg" alt="image">
-                        <span class="nav-profile-name mb-0 font-weight-bold">Don de Dieu Bolenge</span><br>
-                        <p class="sidebar-designation" style="margin-bottom: -2px;margin-top: -9px;margin-left: 2.5rem;">Super admin</p>
+                        <img
+                            :src="userAvatar ? `${BASE_PATH_USER_PICTURES}/${userAvatar}` : DEFAULT_USER_AVATAR"
+                            alt="image"
+                        />
+                        <span class="nav-profile-name mb-0 font-weight-bold">{{ $auth.user.name }}</span><br>
+                        <p class="sidebar-designation" style="margin-bottom: -2px;margin-top: -9px;margin-left: 2.5rem;">{{ $auth.user.role.name }}</p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                         <a class="dropdown-item">
                             <i class="typcn typcn-user text-primary"></i>
                             Profile
                         </a>
-                        <a class="dropdown-item">
+                        <a
+                            @click.prevent="$auth.logout()"
+                            class="dropdown-item"
+                        >
                             <i class="typcn typcn-power text-primary"></i>
                             Déconnexion
                         </a>
@@ -83,7 +89,13 @@
 </template>
 
 <script>
+import Account from '~/mixins/Account'
+
 export default {
-  
+    computed: {
+        userAvatar() {
+            return this.$auth.user.avatar
+        }
+    }
 }
 </script>
