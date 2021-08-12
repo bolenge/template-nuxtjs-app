@@ -61,7 +61,7 @@
                     <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
                         <img
                             :src="userAvatar ? `${BASE_PATH_USER_PICTURES}/${userAvatar}` : DEFAULT_USER_AVATAR"
-                            alt="image"
+                            alt="Current user avatar"
                         />
                         <span class="nav-profile-name mb-0 font-weight-bold">{{ $auth.user.name }}</span><br>
                         <p class="sidebar-designation" style="margin-bottom: -2px;margin-top: -9px;margin-left: 2.5rem;">{{ $auth.user.role.name }}</p>
@@ -89,7 +89,6 @@
 </template>
 
 <script>
-import Account from '~/mixins/Account'
 
 export default {
     computed: {
