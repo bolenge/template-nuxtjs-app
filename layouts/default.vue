@@ -67,6 +67,8 @@
 import Navbar from '@/components/partials/Navbar'
 import Sidebar from '@/components/partials/Sidebar'
 import Footer from '@/components/partials/Footer'
+import Account from '~/mixins/Account'
+
 export default {
   components: {Navbar, Sidebar, Footer}
 }
