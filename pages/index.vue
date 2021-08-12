@@ -86,8 +86,10 @@
 import $ from 'jquery'
 import Chart from 'chart.js/auto'
 import format from 'date-format'
+import Account from '~/mixins/Account'
 
 export default {
+  mixins: [Account],
   computed: {
     currentDate() {
       return format('dd/MM/yyyy')

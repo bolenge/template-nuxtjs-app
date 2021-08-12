@@ -9,26 +9,34 @@
                 <img src="/images/one-touch-logo.png" alt="Logo" />
               </div>
 
-              <form class="pt-3">
+              <form class="pt-3" @submit.prevent="loginUser">
                 <div class="form-group">
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" />
+                  <input
+                    v-model="form.email"
+                    type="email"
+                    class="form-control"
+                    placeholder="Email"
+                  />
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" />
-                </div>
-
-                <div class="my-2 d-flex justify-content-between align-items-center">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input border-info">
-                      Garder ma session active.
-                      <em class="input-helper"></em>
-                    </label>
-                  </div>
+                  <input
+                    v-model="form.password"
+                    type="password"
+                    class="form-control"
+                    placeholder="Mot de passe"
+                  />
                 </div>
 
                 <div class="mt-3">
-                  <button class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn">CONNEXION</button>
+                  <button
+                    type="submit"
+                    class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn"
+                    :class="{disabled: loading, 'btn-in-loading': loading}"
+                    :disabled="loading"
+                    >
+                    <span v-if="loading">Chargement...</span>
+                    <span v-else>CONNEXION</span>
+                  </button>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
                   <nuxt-link to="/forgot-password">Mot de passe oublié ?</nuxt-link>
@@ -51,10 +59,47 @@
 
 <script>
 export default {
+  components: {},
+  props: {
+  },
   layout: 'login',
   head() {
     return {
       title: 'Connexion'
+    }
+  },
+  data (){
+    return {
+      form: {},
+      loading: false
+    }
+  },
+  mounted () {
+    console.log('Login page nounted')
+  },
+  methods: {
+    async loginUser () {
+      this.loading = true
+
+      try {
+        const response =  await this.$auth.loginWith('local', {
+          data: this.form
+        })
+
+        console.log(response)
+
+        if (response.state) {
+          this.$toast.success(response.message)
+          this.$route.push('/')
+        }else {
+          this.$toast.error(response.message)
+        }
+      } catch (error) {
+        const errorMessage = error.response.data.message
+        this.$toast.error(errorMessage)
+      }
+
+      this.loading = false
     }
   }
 }
@@ -74,5 +119,8 @@ export default {
 
   .form-check .form-check-label input[type="checkbox"] + .input-helper:before {
     border-color: #2b80ff !important;
+  }
+  .btn-in-loading {
+    cursor: not-allowed !important;
   }
 </style>
