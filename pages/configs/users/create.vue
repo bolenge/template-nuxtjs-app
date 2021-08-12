@@ -119,7 +119,11 @@
 
 <script>
 export default {
-  
+  head() {
+    return {
+      title: 'Creation d\'un nouvel utilisateur'
+    }
+  }
 }
 </script>
 

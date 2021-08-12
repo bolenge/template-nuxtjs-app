@@ -89,6 +89,11 @@
 <script>
 import Form from '@/components/crud/Form'
 export default {
+  head() {
+    return {
+      title: 'Liste des utilisateurs'
+    }
+  },
   methods: {
   }
 }
