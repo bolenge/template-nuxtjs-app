@@ -3,6 +3,11 @@ const API_BASE_URL = 'http://localhost:8000'
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
+  env: {
+    API_BASE_URL: API_BASE_URL,
+    DEFAULT_USER_AVATAR: `${API_BASE_URL}/storage/user_pictures/profile.png`,
+    BASE_PATH_USER_PICTURES: `${API_BASE_URL}/storage/user_pictures`
+  },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -28,6 +33,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/global-mixin.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
