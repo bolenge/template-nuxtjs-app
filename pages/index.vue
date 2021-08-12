@@ -89,6 +89,7 @@ import format from 'date-format'
 import Account from '~/mixins/Account'
 
 export default {
+  middleware: 'auth',
   mixins: [Account],
   computed: {
     currentDate() {
