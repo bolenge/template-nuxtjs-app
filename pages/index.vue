@@ -17,8 +17,12 @@
         <div class="card">
           <div class="card-body text-center p-5">
             <div class="mb-4">
-              <h5>Don de Dieu Bolenge</h5>
-              <img src="images/faces/bolenge.jpeg" alt="Photo de l'utilisateur connecte" class="user-home-avatar" />
+              <h5>{{ userConnected.name }}</h5>
+              <img
+                :src="currentUserAvatar ? `${BASE_PATH_USER_PICTURES}/${currentUserAvatar}` : DEFAULT_USER_AVATAR"
+                alt="Current user avatar"
+                class="user-home-avatar"
+              />
             </div>
 
             <div class="row">
@@ -29,17 +33,17 @@
 
               <div class="col-lg-6 my-3">
                 <h5>Heure Login</h5>
-                <span>Le 20:06 </span>
+                <span>{{ getUserMomentLogged }} </span>
               </div>
 
               <div class="col-lg-6 my-3">
-                <h5>Fonction</h5>
-                <span>Directeur de bureau </span>
+                <h5>Departement</h5>
+                <span>{{ currentAdmin.department.name }}</span>
               </div>
 
               <div class="col-lg-6 my-3">
                 <h5>Role</h5>
-                <span>Super admin</span>
+                <span>{{ userConnected.role.name }}</span>
               </div>
             </div>
 
