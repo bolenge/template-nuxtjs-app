@@ -67,9 +67,7 @@ export default {
   },
   auth: {
     redirect: {
-      login: '/login',
       logout: '/login',
-      callback: '/login',
       home: '/'
     },
     strategies: {
