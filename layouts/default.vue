@@ -70,7 +70,11 @@ import Footer from '@/components/partials/Footer'
 import Account from '~/mixins/Account'
 
 export default {
-  components: {Navbar, Sidebar, Footer}
+  mixins: [Account],
+  components: {Navbar, Sidebar, Footer},
+  mounted() {
+    console.log(this.userConnected)
+  }
 }
 </script>
 

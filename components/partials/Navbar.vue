@@ -59,7 +59,10 @@
                 </li>
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
-                        <img src="/images/faces/bolenge.jpeg" alt="image">
+                        <img
+                            :src="userAvatar ? `${BASE_PATH_USER_PICTURES}/${userAvatar}` : DEFAULT_USER_AVATAR"
+                            alt="image"
+                        />
                         <span class="nav-profile-name mb-0 font-weight-bold">{{ $auth.user.name }}</span><br>
                         <p class="sidebar-designation" style="margin-bottom: -2px;margin-top: -9px;margin-left: 2.5rem;">{{ $auth.user.role.name }}</p>
                     </a>
@@ -68,7 +71,10 @@
                             <i class="typcn typcn-user text-primary"></i>
                             Profile
                         </a>
-                        <a class="dropdown-item">
+                        <a
+                            @click.prevent="$auth.logout()"
+                            class="dropdown-item"
+                        >
                             <i class="typcn typcn-power text-primary"></i>
                             Déconnexion
                         </a>
@@ -86,5 +92,10 @@
 import Account from '~/mixins/Account'
 
 export default {
+    computed: {
+        userAvatar() {
+            return this.$auth.user.avatar
+        }
+    }
 }
 </script>
