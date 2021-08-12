@@ -48,9 +48,9 @@
             </div>
 
             <div class="form-group">
-              <label for="profile-user" class="btn btn-info d-flex text-center">
-                <span class="mdi mdi-camera"></span>
-                <span class="ml-2">Changer photo de profile</span>
+              <label for="profile-user" class="btn btn-info d-flex text-center btn-sm">
+                <span class="mdi mdi-camera col-1 text-right"></span>
+                <span class="col-11">Changer photo de profile</span>
               </label>
               <input type="file" name="img" class="file-upload-default" id="profile-user" />
             </div>
