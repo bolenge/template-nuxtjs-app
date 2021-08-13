@@ -1,4 +1,5 @@
 const API_BASE_URL = 'http://localhost:8000'
+// todo const API_BASE_URL = 'https://api-one-touch-dev.growthsofts.com'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -18,7 +19,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Neo Touch est un Progiciel de gestion des données et des procédures  accessibles sur Smart Phone, Tablette et Ordinateur en temps réel.Il vous permet de collecter, de canaliser, d’analyser, de retracer et gérer toutes vos activités en temps réel avec une option (Intelligent Datat Access) par utilisateurs.' },
+      { hid: 'description', name: 'description', content: 'Neo Touch est un Progiciel de gestion des données et des procédures  accessibles sur Smart Phone, Tablette et Ordinateur en temps réel.Il vous permet de collecter, de canaliser, d’analyser, de retracer et gérer toutes vos activités en temps réel avec une option (Intelligent Data Access) par utilisateurs.' },
       { hid: 'author', name: 'author', content: 'Mtech Interactives, Don de Dieu Bolenge, Emmanuel Matondo' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
@@ -47,7 +48,7 @@ export default {
   modules: [
     '@nuxtjs/toast',
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
+    '@nuxtjs/auth-next',
   ],
   toast: {
     duration: 8000,
@@ -67,18 +68,36 @@ export default {
   },
   auth: {
     redirect: {
-      logout: '/login',
-      home: '/'
+      login: "/login",
+      logout: "/login",
+      callback: "/login",
+      home: "/",
     },
     strategies: {
       local: {
-        endpoints: {
-          login: { url: '/auth/login', method: 'post', propertyName: 'results.token' },
-          logout: { url: '/auth/logout', method: 'post' },
-          user: { url: '/auth/user', method: 'get', propertyName: 'results' }
+        token: {
+          property: "results.token",
+          required: true,
+          type: "Bearer",
         },
-        tokenType: 'Bearer'
-      }
+        user: {
+          property: false,
+          autoFetch: true,
+        },
+        endpoints: {
+          login: {
+            url: "/auth/login",
+            method: "post",
+            propertyName: "results.token",
+          },
+          logout: { url: "/auth/logout", method: "post" },
+          user: {
+            url: "/auth/user",
+            method: "get",
+            propertyName: false,
+          },
+        },
+      },
     }
   },
 
