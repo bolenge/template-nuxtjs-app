@@ -1,5 +1,8 @@
 <template>
   <div class="content-wrapper">
+    <div class="container-fluid">
+      <h2 class="title mb-4"><span class="typcn typcn-mail"></span> Configuration courriers</h2>
+    </div>
     <div class="row">
       <div class="col-md-4 grid-margin stretch-card">
         <div class="card">
