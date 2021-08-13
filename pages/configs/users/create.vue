@@ -1,5 +1,9 @@
 <template>
   <div class="content-wrapper">
+    <div class="container-fluid">
+      <h2 class="title mb-4"><span class="typcn typcn-user-outline"></span> Configuration utilisateurs</h2>
+    </div>
+
     <div class="row">
       <div class="offset-lg-2 col-lg-8 mb-3">
         <div class="d-block">
