@@ -1,5 +1,4 @@
 const API_BASE_URL = 'http://localhost:8000'
-// todo const API_BASE_URL = 'https://api-one-touch-dev.growthsofts.com'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -48,7 +47,7 @@ export default {
   modules: [
     '@nuxtjs/toast',
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next',
+    '@nuxtjs/auth',
   ],
   toast: {
     duration: 8000,
@@ -68,36 +67,18 @@ export default {
   },
   auth: {
     redirect: {
-      login: "/login",
-      logout: "/login",
-      callback: "/login",
-      home: "/",
+      logout: '/login',
+      home: '/'
     },
     strategies: {
       local: {
-        token: {
-          property: "results.token",
-          required: true,
-          type: "Bearer",
-        },
-        user: {
-          property: false,
-          autoFetch: true,
-        },
         endpoints: {
-          login: {
-            url: "/auth/login",
-            method: "post",
-            propertyName: "results.token",
-          },
-          logout: { url: "/auth/logout", method: "post" },
-          user: {
-            url: "/auth/user",
-            method: "get",
-            propertyName: false,
-          },
+          login: { url: '/auth/login', method: 'post', propertyName: 'results.token' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/auth/user', method: 'get', propertyName: 'results' }
         },
-      },
+        tokenType: 'Bearer'
+      }
     }
   },
 

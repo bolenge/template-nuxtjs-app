@@ -88,11 +88,13 @@ export default {
           data: this.form
         })
 
-        if (response.state) {
+        console.log(response);
+
+        if (response.data.state) {
           this.$toast.success(response.message)
           this.$route.push('/')
         }else {
-          this.$toast.error(response.message)
+          this.$toast.error(response.data.message)
         }
       } catch (error) {
         const errorMessage = error.response.data.message
