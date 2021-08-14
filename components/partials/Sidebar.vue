@@ -76,7 +76,7 @@
             <div class="collapse" id="finances">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <nuxt-link class="nav-link" to="/finances/collection">Encaissement</nuxt-link></li>
-                <li class="nav-item"> <nuxt-link class="nav-link" to="/finances/disbursement">Synthèse transactions</nuxt-link></li>
+                <li class="nav-item"> <nuxt-link class="nav-link" to="/finances/transactions">Synthèse transactions</nuxt-link></li>
                 <li class="nav-item"> <nuxt-link class="nav-link" to="/finances/synthesis">Rapport financier</nuxt-link></li>
               </ul>
             </div>

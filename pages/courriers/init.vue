@@ -14,7 +14,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label for="type">Type de courrier <span class="text-danger">*</span></label>
-                    <select class="form-control" id="type" required>
+                    <select class="form-control" id="type" required style="height: 39px;">
                       <option value="M">Entrant</option>
                       <option value="F">Sortant</option>
                     </select>
@@ -44,7 +44,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label for="receiver">Destinataire <span class="text-danger">*</span></label>
-                    <select class="form-control" id="receiver" required>
+                    <select class="form-control" id="receiver" required style="height: 39px;">
                       <option value="M">Homme</option>
                       <option value="F">Femme</option>
                     </select>
