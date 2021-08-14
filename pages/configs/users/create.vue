@@ -5,12 +5,12 @@
     </div>
 
     <div class="row">
-      <div class="offset-lg-2 col-lg-8 mb-3">
+      <div class="col-lg-8 mb-3">
         <div class="d-block">
           <nuxt-link class="btn btn-info btn-sm float-left" to="/configs/users">&#8592; Retour</nuxt-link>
         </div>
       </div>
-      <div class="col-lg-8 offset-lg-2 grid-margin stretch-card">
+      <div class="col-lg-8 grid-margin stretch-card">
         <div class="card">
           <div class="card-header">
             <h4 class="card-title text-normal text-center">Creation d'un nouvel utilisateur</h4>
