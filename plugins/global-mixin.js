@@ -78,6 +78,12 @@ if (!Vue.__global__) {
       },
       formatDate(format, date) {
         return dataFormat(format, new Date(date))
+      },
+      numberIsPair(nb) {
+        return (nb % 2) === 0
+      },
+      random(min, max) {
+        return ~~(Math.random() * (max - min + 1) + min);
       }
     }
   }) // Set up your mixin then
