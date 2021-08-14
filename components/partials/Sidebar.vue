@@ -43,7 +43,7 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <nuxt-link class="nav-link" to="/courriers/init">Initiation</nuxt-link></li>
                 <li class="nav-item"> <nuxt-link class="nav-link" to="/courriers/archives">Archives</nuxt-link></li>
-                <li class="nav-item"> <nuxt-link class="nav-link" to="/courriers/inbox">Boite de reception</nuxt-link></li>
+                <li class="nav-item"> <nuxt-link class="nav-link" to="/courriers/inbox">Boite de reception <span class="badge badge-primary p-1">4</span></nuxt-link></li>
               </ul>
             </div>
           </li>
