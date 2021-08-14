@@ -34,8 +34,9 @@
                   <tr>
                     <th>#</th>
                     <th>Date</th>
-                    <th>Type courrier</th>
+                    <th>Type</th>
                     <th>Code</th>
+                    <th>Initiateur</th>
                     <th>Expediteur</th>
                     <th>Destinataire</th>
                     <th>Piece</th>
@@ -44,17 +45,30 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="i in 10" :key="i">
+                  <tr
+                    v-for="i in 10"
+                    :data="randValue = random(i,10)"
+                    :key="i"
+                    :class="{'bg-light': !numberIsPair(randValue), 'font-weight-bold': !numberIsPair(randValue)}"
+                  >
                     <td>{{ i }}</td>
                     <td>{{ formatDate('dd/MM/yyyy', new Date) }}</td>
-                    <td>Courrier entrant</td>
+                    <td>Entrant</td>
                     <td>C-ENTRY-079-ONE</td>
+                    <td>Emmanuel</td>
                     <td>Bob</td>
                     <td>Don</td>
                     <td>
                       <label class="badge badge-info"><span class="typcn typcn-attachment"></span></label>
                     </td>
-                    <td><label class="badge badge-warning text-white">Non transmis</label></td>
+                    <td>
+                      <label
+                        class="badge"
+                        :class="{'badge-light': numberIsPair(randValue), 'badge-primary': !numberIsPair(randValue)}"
+                      >
+                          {{ !numberIsPair(randValue) ? 'Urgent' : 'Normal' }}
+                        </label>
+                    </td>
                     <td>
                       <button class="btn btn-sm btn-info">
                         <span class="typcn typcn-pencil"></span>
@@ -62,7 +76,7 @@
                       <button class="btn btn-sm btn-danger">
                         <span class="typcn typcn-trash"></span>
                       </button>
-                      <button class="btn btn-sm btn-success">
+                      <button v-if="numberIsPair(randValue)" class="btn btn-sm btn-success">
                         <span class="typcn typcn-arrow-forward-outline"></span>
                       </button>
                     </td>
@@ -81,7 +95,12 @@
 export default {
   head() {
     return {
-      title: 'Configuration courriers'
+      title: 'Liste d\'archives courriers'
+    }
+  },
+  data() {
+    return {
+      randValue: 1
     }
   }
 }
