@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8000'
+const API_BASE_URL = 'https://api-one-touch-dev.growthsofts.com'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode

@@ -99,6 +99,7 @@
 
 <script>
 export default {
+  middleware: 'auth',
   head() {
     return {
       title: 'Initiation d\'une requete de fonds'
