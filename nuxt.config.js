@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://dev-app.singa-rdc.com'
+const API_BASE_URL = 'http://localhost:8000'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
