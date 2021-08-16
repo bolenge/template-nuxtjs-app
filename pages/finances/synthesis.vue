@@ -46,7 +46,6 @@
                 <tbody>
                   <tr
                     v-for="i in 2"
-                    :data="randValue = random(i,10)"
                     :key="i"
                   >
                     <td>{{ i }}</td>
@@ -87,7 +86,12 @@ export default {
   },
   data() {
     return {
-      randValue: 1
+      j: 1
+    }
+  },
+  computed: {
+    randValue() {
+      return this.random(Math.random(),10)
     }
   }
 }

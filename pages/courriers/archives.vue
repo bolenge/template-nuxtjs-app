@@ -47,7 +47,6 @@
                 <tbody>
                   <tr
                     v-for="i in 10"
-                    :data="randValue = random(i,10)"
                     :key="i"
                     :class="{'bg-light': !numberIsPair(randValue), 'font-weight-bold': !numberIsPair(randValue)}"
                   >
@@ -64,9 +63,9 @@
                     <td>
                       <label
                         class="badge"
-                        :class="{'badge-light': numberIsPair(randValue), 'badge-primary': !numberIsPair(randValue)}"
+                        :class="{'badge-light': numberIsPair(random(i,10)), 'badge-primary': !numberIsPair(random(i,10))}"
                       >
-                          {{ !numberIsPair(randValue) ? 'Urgent' : 'Normal' }}
+                          {{ !numberIsPair(random(i,10)) ? 'Urgent' : 'Normal' }}
                         </label>
                     </td>
                     <td>

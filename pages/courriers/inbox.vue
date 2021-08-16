@@ -44,9 +44,8 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="i in 5"
+                    v-for="i in 3"
                     :key="i"
-                    :class="{'bg-light': numberIsPair(i), 'font-weight-bold': numberIsPair(i)}"
                   >
                     <td>{{ i }}</td>
                     <td>{{ formatDate('dd/MM/yyyy', new Date) }}</td>
