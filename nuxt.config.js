@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://api-neo-touch-dev.growthsofts.com'
+const API_BASE_URL = 'https://dev-app.singa-rdc.com'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
