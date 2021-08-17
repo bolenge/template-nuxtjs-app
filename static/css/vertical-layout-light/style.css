@@ -23410,6 +23410,7 @@ body.avgrund-active {
 .sidebar .nav.sub-menu .nav-item .nav-link.active {
   color: #fff;
   background: transparent;
+  font-weight: bold !important;
 }
 
 .sidebar .nav.sub-menu .nav-item:hover {
