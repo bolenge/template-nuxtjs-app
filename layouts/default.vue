@@ -6,7 +6,10 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- Sidebar -->
-      <Sidebar :page-active="pageActive" />
+      <Sidebar
+        :page-active="pageActive"
+        :nav-link-active="navLinkActive"
+      />
 
       <!-- partial -->
       <div class="main-panel">
@@ -35,6 +38,9 @@ export default {
   computed: {
     pageActive() {
       return this.$store.state.page_active
+    },
+    navLinkActive() {
+      return this.$store.state.nav_link_active
     }
   },
   mounted() {
@@ -42,8 +48,11 @@ export default {
   },
   methods: {
     collapseItemSidebar() {
+      const $parent = this
+
       $('[data-toggle="collapse"]').click(function(e) {
         const $this = this
+        const controls = $(this).attr('aria-controls')
 
         $('[data-toggle="collapse"]').each(function() {
           if (this != $this) {
@@ -60,6 +69,8 @@ export default {
             }
           }
         })
+
+        $parent.$store.commit('CHANGE_PAGE_ACTIVE', controls)
       })
     }
   }
