@@ -122,11 +122,25 @@
 </template>
 
 <script>
+import Global from '~/mixins/Global'
+
 export default {
+  middleware: 'auth',
   head() {
     return {
       title: 'Creation d\'un nouvel utilisateur'
     }
+  },
+  mixins: [Global],
+  computed: {
+    currentPage() {
+      return 'configs'
+    },
+    currentNavLink() {
+      return 'users-configs'
+    }
+  },
+  methods: {
   }
 }
 </script>

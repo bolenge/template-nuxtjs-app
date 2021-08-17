@@ -80,11 +80,24 @@
     <script src="/js/file-upload.js"></script>
   </div>
 </template>
+<script>
+import Global from '~/mixins/Global'
+
 export default {
+  middleware: 'auth',
   head() {
     return {
       title: 'Initiation d\'un courrier'
     }
+  },
+  mixins: [Global],
+  computed: {
+    currentPage() {
+      return 'courriers'
+    },
+    currentNavLink() {
+      return 'init-courriers'
+    },
   }
 }
 </script>

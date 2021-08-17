@@ -76,11 +76,23 @@
 </template>
 
 <script>
+import Global from '~/mixins/Global'
+
 export default {
+  middleware: 'auth',
   head() {
     return {
-      title: 'Boite de reception des courriers'
+      title: 'Boite de reception de courriers'
     }
+  },
+  mixins: [Global],
+  computed: {
+    currentPage() {
+      return 'courriers'
+    },
+    currentNavLink() {
+      return 'inbox-courriers'
+    },
   }
 }
 </script>

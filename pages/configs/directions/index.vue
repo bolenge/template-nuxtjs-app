@@ -127,12 +127,26 @@
 </template>
 
 <script>
+import Global from '~/mixins/Global'
+
 export default {
+  middleware: 'auth',
   head() {
     return {
       title: 'Configuration directions'
     }
   },
+  mixins: [Global],
+  computed: {
+    currentPage() {
+      return 'configs'
+    },
+    currentNavLink() {
+      return 'directions-configs'
+    }
+  },
+  methods: {
+  }
 }
 </script>
 

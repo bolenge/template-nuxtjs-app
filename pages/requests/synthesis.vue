@@ -85,6 +85,7 @@
 </template>
 
 <script>
+import Global from '~/mixins/Global'
 export default {
   middleware: 'auth',
   head() {
@@ -92,15 +93,24 @@ export default {
       title: 'Synthese des requetes de fonds'
     }
   },
+  mixins: [Global],
   data() {
     return {
       j: 1
     }
   },
   computed: {
+    currentPage() {
+      return 'requests'
+    },
+    currentNavLink() {
+      return 'synthesis-requests'
+    },
     randValue() {
       return this.random(Math.random(),10)
     }
+  },
+  methods: {
   }
 }
 </script>

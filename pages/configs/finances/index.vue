@@ -216,11 +216,25 @@
 </template>
 
 <script>
+
+import Global from '~/mixins/Global'
 export default {
+  middleware: 'auth',
   head() {
     return {
       title: 'Configuration finances'
     }
+  },
+  mixins: [Global],
+  computed: {
+    currentPage() {
+      return 'configs'
+    },
+    currentNavLink() {
+      return 'finances-configs'
+    }
+  },
+  methods: {
   }
 }
 </script>

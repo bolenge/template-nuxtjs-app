@@ -101,18 +101,30 @@
   </div>
 </template>
 <script>
+import Global from '~/mixins/Global'
+
 export default {
+  middleware: 'auth',
   head() {
     return {
-      title: 'Initiation d\'un courrier'
+      title: 'Encaissement de fonds'
     }
   },
+  mixins: [Global],
   data() {
     return {
       form: {
         type_account: 1
       }
     }
+  },
+  computed: {
+    currentPage() {
+      return 'finances'
+    },
+    currentNavLink() {
+      return 'collection-finances'
+    },
   }
 }
 </script>

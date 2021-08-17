@@ -72,12 +72,16 @@
 </template>
 
 <script>
+import Global from '~/mixins/Global'
+
 export default {
+  middleware: 'auth',
   head() {
     return {
       title: 'Synthese des requetes de fonds'
     }
   },
+  mixins: [Global],
   data() {
     return {
       j: 1
@@ -86,7 +90,13 @@ export default {
   computed: {
     randValue() {
       return this.random(Math.random(),10)
-    }
+    },
+    currentPage() {
+      return 'finances'
+    },
+    currentNavLink() {
+      return 'synthesis-finances'
+    },
   }
 }
 </script>

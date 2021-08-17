@@ -91,13 +91,17 @@ import $ from 'jquery'
 import Chart from 'chart.js/auto'
 import format from 'date-format'
 import Account from '~/mixins/Account'
+import Global from '~/mixins/Global'
 
 export default {
   middleware: 'auth',
-  mixins: [Account],
+  mixins: [Account,Global],
   computed: {
     currentDate() {
       return format('dd/MM/yyyy')
+    },
+    currentPage() {
+      return 'home'
     }
   },
   mounted () {

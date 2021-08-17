@@ -65,10 +65,22 @@
 
 <script>
 export default {
+  middleware: 'auth',
   head() {
     return {
       title: 'Configuration courriers'
     }
+  },
+  mixins: [Global],
+  computed: {
+    currentPage() {
+      return 'configs'
+    },
+    currentNavLink() {
+      return 'courriers-configs'
+    }
+  },
+  methods: {
   }
 }
 </script>

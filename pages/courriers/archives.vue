@@ -91,16 +91,28 @@
 </template>
 
 <script>
+import Global from '~/mixins/Global'
+
 export default {
+  middleware: 'auth',
   head() {
     return {
-      title: 'Liste d\'archives courriers'
+      title: 'Archives de courriers'
     }
   },
-  data() {
+  mixins: [Global],
+  data () {
     return {
       randValue: 1
     }
+  },
+  computed: {
+    currentPage() {
+      return 'courriers'
+    },
+    currentNavLink() {
+      return 'archives-courriers'
+    },
   }
 }
 </script>

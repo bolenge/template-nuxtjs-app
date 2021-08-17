@@ -98,12 +98,23 @@
 </template>
 
 <script>
+import Global from '~/mixins/Global'
+
 export default {
   middleware: 'auth',
   head() {
     return {
       title: 'Initiation d\'une requete de fonds'
     }
+  },
+  mixins: [Global],
+  computed: {
+    currentPage() {
+      return 'requests'
+    },
+    currentNavLink() {
+      return 'init-requests'
+    },
   }
 }
 </script>
