@@ -45,12 +45,13 @@ export default {
   },
   mounted() {
     this.collapseItemSidebar()
+    this.autoActiveCollapseItem()
   },
   methods: {
     collapseItemSidebar() {
       const $parent = this
 
-      $('[data-toggle="collapse"]').click(function(e) {
+      $('[data-toggle="collapse"]').on('click', function(e) {
         const $this = this
         const controls = $(this).attr('aria-controls')
 
@@ -72,6 +73,21 @@ export default {
 
         $parent.$store.commit('CHANGE_PAGE_ACTIVE', controls)
       })
+    },
+    autoActiveCollapseItem() {
+      if ($(`[aria-controls="${this.pageActive}"]`)) {
+        const $this = $(`[aria-controls="${this.pageActive}"]`).trigger('click')
+        const containerCollapse = $($this).next()
+
+        if (!$(containerCollapse).hasClass('show')) {
+          console.log(containerCollapse);
+          $($this).attr('aria-expanded', true)
+          
+          setTimeout(() => {
+            $(containerCollapse).addClass('collapse show')
+          }, 500);
+        }
+      }
     }
   }
 }
