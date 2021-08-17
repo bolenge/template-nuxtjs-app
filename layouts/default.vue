@@ -6,7 +6,7 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- Sidebar -->
-      <Sidebar />
+      <Sidebar :page-active="pageActive" />
 
       <!-- partial -->
       <div class="main-panel">
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import Navbar from '@/components/partials/Navbar'
 import Sidebar from '@/components/partials/Sidebar'
 import Footer from '@/components/partials/Footer'
@@ -31,8 +32,36 @@ import Account from '~/mixins/Account'
 export default {
   mixins: [Account],
   components: {Navbar, Sidebar, Footer},
+  computed: {
+    pageActive() {
+      return this.$store.state.page_active
+    }
+  },
   mounted() {
-    console.log(this.userConnected)
+    this.collapseItemSidebar()
+  },
+  methods: {
+    collapseItemSidebar() {
+      $('[data-toggle="collapse"]').click(function(e) {
+        const $this = this
+
+        $('[data-toggle="collapse"]').each(function() {
+          if (this != $this) {
+            const containerCollapse = $(this).next()
+
+            if ($(containerCollapse).hasClass('show')) {
+              $(this).attr('aria-expanded', false)
+              $(containerCollapse).removeClass('collapse show')
+              $(containerCollapse).addClass('collapsing')
+
+              setTimeout(() => {
+                $(containerCollapse).removeClass('collapse')
+              }, 500);
+            }
+          }
+        })
+      })
+    }
   }
 }
 </script>
