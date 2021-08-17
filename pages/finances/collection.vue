@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-credit-card"></span> Encaissement de fonds</h2>
+      <h2 class="title mb-4"><span class="typcn typcn-credit-card"></span> Encaissement de Fonds</h2>
     </div>
 
     <div class="row">
@@ -40,27 +40,10 @@
                 </div>
                 <!-- End Field amount -->
 
-                <!-- Field rubrique -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="rubrique">Rubrique <span class="text-danger">*</span></label>
-                    <select
-                      class="form-control"
-                      id="rubrique"
-                      equired
-                      style="height: 39px;"
-                    >
-                      <option value="1">Voyage</option>
-                      <option value="2">Vacances</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- End Field rubrique -->
-
                 <!-- Field type_account -->
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label for="type_account">Type Compte a approvionner <span class="text-danger">*</span></label>
+                    <label for="type_account">Type compte à approvionner <span class="text-danger">*</span></label>
                     <select
                       v-model="form.type_account"
                       class="form-control"
@@ -68,8 +51,8 @@
                       equired
                       style="height: 39px;"
                     >
-                      <option value="1">Compte bancaire</option>
-                      <option value="2">Petites caisses</option>
+                      <option value="1">Compte Bancaire</option>
+                      <option value="2">Petites Caisses</option>
                     </select>
                   </div>
                 </div>
@@ -78,7 +61,7 @@
                 <!-- Field receiver -->
                 <div v-if="form.type_account == '1'" class="col-lg-6">
                   <div class="form-group">
-                    <label for="receiver">Compte approvionne <span class="text-danger">*</span></label>
+                    <label for="receiver">Compte approvionné <span class="text-danger">*</span></label>
                     <select class="form-control" id="receiver" required style="height: 39px;">
                       <option value="M">Rawbank - 8765-8387-9903-9876</option>
                       <option value="M">Rawbank - 8765-8387-9903-9876</option>
@@ -101,18 +84,30 @@
   </div>
 </template>
 <script>
+import Global from '~/mixins/Global'
+
 export default {
+  middleware: 'auth',
   head() {
     return {
-      title: 'Initiation d\'un courrier'
+      title: 'Encaissement de fonds'
     }
   },
+  mixins: [Global],
   data() {
     return {
       form: {
         type_account: 1
       }
     }
+  },
+  computed: {
+    currentPage() {
+      return 'finances'
+    },
+    currentNavLink() {
+      return 'collection-finances'
+    },
   }
 }
 </script>

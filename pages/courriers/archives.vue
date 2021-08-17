@@ -1,22 +1,39 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-mail"></span> Archives courriers</h2>
+      <h2 class="title mb-4"><span class="typcn typcn-mail"></span> Archives Courriers</h2>
     </div>
     <div class="row">
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
             <div class="d-flex">
-              <h4 class="text-normal col">Filtrer par : </h4>
-              <div class="form-group">
-                <select name="" id="" class="form-control py-2" style="height: 37px;">
+              <div class="col-lg-5">
+                <nuxt-link to="/courriers/init" class="btn btn-info btn-sm">
+                  <span class="typcn typcn-plus"></span> Initiation
+                </nuxt-link>
+
+                <button class="btn btn-success btn-sm mx-lg-3">
+                  <span class="typcn typcn-refresh"></span> Actualiser
+                </button>
+
+                <button class="btn btn-light btn-sm">
+                  <span class="typcn typcn-chevron-left"></span>
+                </button>
+                <span>1/10</span>
+                <button class="btn btn-light btn-sm">
+                  <span class="typcn typcn-chevron-right"></span>
+                </button>
+              </div>
+              <div class="form-group col-lg-3 d-flex">
+                <label for="type" class="mr-3 mt-2">Filtrer par </label>
+                <select name="type" id="" class="form-control py-2 col-lg-8" style="height: 37px;">
                   <option value="">Type de courrier</option>
                   <option value="">Courrier entrant</option>
                   <option value="">Courrier sortant</option>
                 </select>
               </div>
-              <div class="form-group col">
+              <div class="form-group col-lg-4">
                 <div class="input-group">
                   <input type="text" class="form-control form-control-sm py-2" placeholder="Tapez quelque chose..." aria-label="Search">
                   <div class="input-group-append">
@@ -26,8 +43,6 @@
               </div>
             </div>
             
-            
-
             <div class="table-responsive">
               <table class="table table-hover" aria-describedby="">
                 <thead>
@@ -47,7 +62,6 @@
                 <tbody>
                   <tr
                     v-for="i in 10"
-                    :data="randValue = random(i,10)"
                     :key="i"
                     :class="{'bg-light': !numberIsPair(randValue), 'font-weight-bold': !numberIsPair(randValue)}"
                   >
@@ -64,9 +78,9 @@
                     <td>
                       <label
                         class="badge"
-                        :class="{'badge-light': numberIsPair(randValue), 'badge-primary': !numberIsPair(randValue)}"
+                        :class="{'badge-light': numberIsPair(random(i,10)), 'badge-primary': !numberIsPair(random(i,10))}"
                       >
-                          {{ !numberIsPair(randValue) ? 'Urgent' : 'Normal' }}
+                          {{ !numberIsPair(random(i,10)) ? 'Urgent' : 'Normal' }}
                         </label>
                     </td>
                     <td>
@@ -92,16 +106,28 @@
 </template>
 
 <script>
+import Global from '~/mixins/Global'
+
 export default {
+  middleware: 'auth',
   head() {
     return {
-      title: 'Liste d\'archives courriers'
+      title: 'Archives de courriers'
     }
   },
-  data() {
+  mixins: [Global],
+  data () {
     return {
       randValue: 1
     }
+  },
+  computed: {
+    currentPage() {
+      return 'courriers'
+    },
+    currentNavLink() {
+      return 'archives-courriers'
+    },
   }
 }
 </script>

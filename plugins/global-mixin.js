@@ -11,6 +11,7 @@ if (!Vue.__global__) {
         API_BASE_URL: null,
         DEFAULT_USER_AVATAR: null,
         BASE_PATH_USER_PICTURES: null,
+        APP_NAME: null
       }
     },
     computed: {
@@ -27,6 +28,7 @@ if (!Vue.__global__) {
         this.API_BASE_URL = this.$nuxt.context.env.API_BASE_URL
         this.DEFAULT_USER_AVATAR = this.$nuxt.context.env.DEFAULT_USER_AVATAR
         this.BASE_PATH_USER_PICTURES = this.$nuxt.context.env.BASE_PATH_USER_PICTURES
+        this.APP_NAME = this.$nuxt.context.env.APP_NAME
       }
     },
     methods: {

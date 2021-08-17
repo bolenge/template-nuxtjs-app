@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-user-outline"></span> Configuration utilisateurs</h2>
+      <h2 class="title mb-4"><span class="typcn typcn-user-outline"></span> Configuration Utilisateurs</h2>
     </div>
 
     <div class="row">
@@ -103,12 +103,6 @@
                 </div>
                 <!-- End Field fonction -->
               </div>
-              <div class="form-check form-check-flat form-check-primary">
-                <label class="form-check-label">
-                  <input type="checkbox" class="form-check-input">
-                  Remember me
-                </label>
-              </div>
               
               <div class="text-center">
                 <button type="submit" class="btn btn-info"><span class="typcn typcn-input-checked"></span> Enregistrer</button>
@@ -122,11 +116,25 @@
 </template>
 
 <script>
+import Global from '~/mixins/Global'
+
 export default {
+  middleware: 'auth',
   head() {
     return {
       title: 'Creation d\'un nouvel utilisateur'
     }
+  },
+  mixins: [Global],
+  computed: {
+    currentPage() {
+      return 'configs'
+    },
+    currentNavLink() {
+      return 'users-configs'
+    }
+  },
+  methods: {
   }
 }
 </script>

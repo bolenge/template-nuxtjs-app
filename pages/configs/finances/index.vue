@@ -1,30 +1,32 @@
 <template>
   <div class="content-wrapper">
-    <div class="container-fluid">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="config-banks-tab" data-toggle="tab" href="#config-banks" role="tab" aria-controls="config-banks" aria-selected="true"><span class="typcn typcn-credit-card"></span> Comptes Bancaires</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="config-caisses-tab" data-toggle="tab" href="#config-caisses" role="tab" aria-controls="config-caisses" aria-selected="false"><sapn class="typcn typcn-document-text"></sapn> Comptes Petites Caisses</a>
-        </li>
-        <!-- Tab config rubriques -->
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" id="config-tags-tab" data-toggle="tab" href="#config-tags" role="tab" aria-controls="config-tags" aria-selected="false"><sapn class="typcn typcn-tags"></sapn> Rubriques</a>
-        </li>
-        <!-- End Tab config rubriques -->
-      </ul>
+    <div class="container-fluid text-center mb-4">
+      <div class="col-8 offset-lg-2">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="config-banks-tab" data-toggle="tab" href="#config-banks" role="tab" aria-controls="config-banks" aria-selected="true"><span class="typcn typcn-credit-card"></span> Comptes Bancaires</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="config-caisses-tab" data-toggle="tab" href="#config-caisses" role="tab" aria-controls="config-caisses" aria-selected="false"><sapn class="typcn typcn-document-text"></sapn> Comptes Petites Caisses</a>
+          </li>
+          <!-- Tab config rubriques -->
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="config-tags-tab" data-toggle="tab" href="#config-tags" role="tab" aria-controls="config-tags" aria-selected="false"><sapn class="typcn typcn-tags"></sapn> Rubriques</a>
+          </li>
+          <!-- End Tab config rubriques -->
+        </ul>
+      </div>
     </div>
 
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="config-banks" role="tabpanel" aria-labelledby="config-banks-tab">
-        <h2 class="title mb-4"><span class="typcn typcn-credit-card"></span> Configuration comptes bancaires</h2>
+        <h2 class="title mb-4"><span class="typcn typcn-credit-card"></span> Configuration Comptes Bancaires</h2>
 
         <div class="row">
           <div class="col-md-4 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title text-normal">Creation compte</h4>
+                <h4 class="card-title text-normal">Creation Compte</h4>
 
                 <form class="forms-sample">
                   <div class="form-group">
@@ -216,11 +218,25 @@
 </template>
 
 <script>
+
+import Global from '~/mixins/Global'
 export default {
+  middleware: 'auth',
   head() {
     return {
       title: 'Configuration finances'
     }
+  },
+  mixins: [Global],
+  computed: {
+    currentPage() {
+      return 'configs'
+    },
+    currentNavLink() {
+      return 'finances-configs'
+    }
+  },
+  methods: {
   }
 }
 </script>
@@ -228,5 +244,12 @@ export default {
 <style>
   .text-normal {
     text-transform: none !important;
+  }
+  .nav-tabs .nav-item .nav-link {
+    border-top: 2.5px solid #0063f7 !important;
+  }
+  .nav-tabs .nav-item .nav-link.active {
+    background-color: #0063f7 !important;
+    color: #fff !important;
   }
 </style>
