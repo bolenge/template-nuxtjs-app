@@ -29,6 +29,19 @@
             </a>
             <div class="collapse" id="configs">
               <ul class="nav flex-column sub-menu">
+                <!-- Nav item config. structurelle -->
+                <li class="nav-item">
+                  <nuxt-link
+                    to="/configs/structurals"
+                    class="nav-link"
+                    :class="setNavLinkActive('structurals-configs')"
+                  >
+                    Config. Structurelle
+                  </nuxt-link>
+                </li>
+                <!-- End nav item config. structurelle -->
+
+                <!-- Nav item config. utilisateurs -->
                 <li class="nav-item">
                   <nuxt-link
                     to="/configs/users"
@@ -38,6 +51,9 @@
                     Config. Utilisateurs
                   </nuxt-link>
                 </li>
+                <!-- End nav item config. utilisateurs -->
+
+                <!-- Nav item config. courriers -->
                 <li class="nav-item">
                   <nuxt-link
                     to="/configs/courriers"
@@ -47,6 +63,9 @@
                     Config. Courriers
                   </nuxt-link>
                 </li>
+                <!-- End nav item config. courriers -->
+
+                <!-- Nav item config. finances -->
                 <li class="nav-item">
                   <nuxt-link
                     to="/configs/finances"
@@ -56,15 +75,7 @@
                     Config. Finances
                   </nuxt-link>
                 </li>
-                <li class="nav-item">
-                  <nuxt-link
-                    to="/configs/directions"
-                    class="nav-link"
-                    :class="setNavLinkActive('directions-configs')"
-                  >
-                    Config. Direction
-                  </nuxt-link>
-                </li>
+                <!-- End nav item config. finances -->
               </ul>
             </div>
           </li>
@@ -82,6 +93,7 @@
             </a>
             <div class="collapse" id="courriers">
               <ul class="nav flex-column sub-menu">
+                <!-- Initiation courriers -->
                 <li class="nav-item">
                   <nuxt-link
                     to="/courriers/init"
@@ -91,15 +103,9 @@
                     Initiation
                   </nuxt-link>
                 </li>
-                <li class="nav-item">
-                  <nuxt-link
-                    to="/courriers/archives"
-                    class="nav-link"
-                    :class="setNavLinkActive('archives-courriers')"
-                  >
-                    Archives
-                  </nuxt-link>
-                </li>
+                <!-- End Initiation courriers -->
+
+                <!-- Boite de reception courriers -->
                 <li class="nav-item">
                   <nuxt-link
                     to="/courriers/inbox"
@@ -110,6 +116,31 @@
                     <span class="badge badge-primary p-1">4</span>
                   </nuxt-link>
                 </li>
+                <!-- End Boite de reception courriers -->
+
+                <!-- Archives courriers -->
+                <li class="nav-item">
+                  <nuxt-link
+                    to="/courriers/archives"
+                    class="nav-link"
+                    :class="setNavLinkActive('archives-courriers')"
+                  >
+                    Archives
+                  </nuxt-link>
+                </li>
+                <!-- End Archives courriers -->
+
+                <!-- Synthèse Transmission courriers -->
+                <li class="nav-item">
+                  <nuxt-link
+                    to="/courriers/synthesis-transmission"
+                    class="nav-link"
+                    :class="setNavLinkActive('synthesis-transmission-courriers')"
+                  >
+                    Synthèse Transmission
+                  </nuxt-link>
+                </li>
+                <!-- End Synthèse Transmission courriers -->
               </ul>
             </div>
           </li>
