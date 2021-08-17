@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-film"></span> Initiation de requete de fonds</h2>
+      <h2 class="title mb-4"><span class="typcn typcn-film"></span> Initiation de requêtes de fonds</h2>
     </div>
 
     <div class="row">
@@ -10,6 +10,36 @@
           <div class="card-body">
             <form class="forms-sample">
               <div class="row">
+              <!-- Field initiator -->
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="initiator">Initié par <span class="text-danger">*</span></label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm disabled"
+                      id="initiator"
+                      disabled
+                      :value="userConnected.name"
+                    />
+                  </div>
+                </div>
+                <!-- End Field initiator -->
+
+                 <!-- Field date_request -->
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="date_request">Date de la demande <span class="text-danger">*</span></label>
+                    <input
+                      type="text"
+                      :value="currentDate"
+                      class="form-control form-control-sm disabled"
+                      id="date_request"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <!-- End Field date_request -->
+
                 <!-- Field object -->
                 <div class="col-lg-6">
                   <div class="form-group">
@@ -40,17 +70,20 @@
                 </div>
                 <!-- End Field currency -->
 
-                <!-- Field rubrique -->
+                <!-- Field file soubassement -->
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label for="rubrique">Rubrique <span class="text-danger">*</span></label>
-                    <select class="form-control" id="rubrique" required style="height: 39px;">
-                      <option value="M">Voyage</option>
-                      <option value="F">Conge</option>
-                    </select>
-                  </div>
+                      <label>Uploader soubassements Administratifs</label>
+                      <input type="file" name="img[]" class="file-upload-default">
+                      <div class="input-group col-xs-12">
+                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload fichier">
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-light" type="button">Choisir le fichier</button>
+                        </span>
+                      </div>
+                    </div>
                 </div>
-                <!-- End Field rubrique -->
+                <!-- End Field file soubassement -->
 
                 <!-- Field use_date -->
                 <div class="col-lg-6">
@@ -69,21 +102,6 @@
                   </div>
                 </div>
                 <!-- End Field data_delivry_support -->
-
-                <!-- Field file soubassement -->
-                <div class="col-lg-12">
-                  <div class="form-group">
-                      <label>Uploader soubassements Administratifs</label>
-                      <input type="file" name="img[]" class="file-upload-default">
-                      <div class="input-group col-xs-12">
-                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload fichier">
-                        <span class="input-group-append">
-                          <button class="file-upload-browse btn btn-light" type="button">Choisir le fichier</button>
-                        </span>
-                      </div>
-                    </div>
-                </div>
-                <!-- End Field file soubassement -->
               </div>
               
               <div class="text-center">
@@ -98,11 +116,30 @@
 </template>
 
 <script>
+import Global from '~/mixins/Global'
+import Account from '~/mixins/Account'
+
 export default {
   middleware: 'auth',
   head() {
     return {
       title: 'Initiation d\'une requete de fonds'
+    }
+  },
+  mixins: [Account,Global],
+  data () {
+    return {
+    }
+  },
+  computed: {
+    currentPage() {
+      return 'requests'
+    },
+    currentNavLink() {
+      return 'init-requests'
+    },
+    currentDate() {
+      return this.formatDate('dd/MM/yyyy', new Date)
     }
   }
 }

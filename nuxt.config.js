@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://api-one-touch-dev.growthsofts.com'
+const API_BASE_URL = 'http://localhost:8000'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -6,12 +6,13 @@ export default {
   env: {
     API_BASE_URL: API_BASE_URL,
     DEFAULT_USER_AVATAR: `${API_BASE_URL}/storage/user_pictures/profile.png`,
-    BASE_PATH_USER_PICTURES: `${API_BASE_URL}/storage/user_pictures`
+    BASE_PATH_USER_PICTURES: `${API_BASE_URL}/storage/user_pictures`,
+    APP_NAME: 'Neo Touch'
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'One Touch',
+    title: 'Neo Touch',
     htmlAttrs: {
       lang: 'fr'
     },
@@ -23,8 +24,86 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
-    ]
+      {
+        rel: "stylesheet",
+        href: "/vendors/typicons.font/font/typicons.css",
+      },
+      {
+        rel: "stylesheet",
+        href: "/vendors/css/vendor.bundle.base.css",
+      },
+      {
+        rel: "stylesheet",
+        href: "/vendors/select2/select2.min.css",
+      },
+      {
+        rel: "stylesheet",
+        href: "/vendors/select2-bootstrap-theme/select2-bootstrap.min.css",
+      },
+      {
+        rel: "stylesheet",
+        href: "/vendors/mdi/css/materialdesignicons.min.css",
+      },
+      {
+        rel: "stylesheet",
+        href: "/css/vertical-layout-light/style.css",
+      },
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.png'
+      },
+    ],
+    script: [
+      {
+        src: "/js/jquery.js",
+        defer: true,
+      },
+      {
+        src: "/vendors/js/vendor.bundle.base.js",
+        defer: true,
+      },
+      {
+        src:"/js/off-canvas.js",
+        defer: true,
+      },
+      {
+        src:"/js/hoverable-collapse.js",
+        defer: true
+      },
+      {
+        src:"/js/template.js",
+        defer: true
+      },
+      {
+        src:"/js/settings.js",
+        defer: true
+      },
+      {
+        src:"/js/todolist.js",
+        defer: true
+      },
+      {
+        src:"/vendors/typeahead.js/typeahead.bundle.min.js",
+        defer: true
+      },
+      {
+        src:"/vendors/select2/select2.min.js",
+        defer: true
+      },
+      {
+        src:"/js/file-upload.js",
+        defer: true
+      },
+      {
+        src:"/js/typeahead.js",
+        defer: true
+      },
+      {
+        src:"/js/select2.js",
+        defer: true
+      }
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

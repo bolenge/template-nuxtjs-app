@@ -4,7 +4,7 @@
       <div class="col-lg-8 grid-margin grid-margin-lg-0 stretch-card">
         <div class="card">
           <div class="card-body text-center p-5">
-            <h1 class="my-4 mb-5">Bienvenu(e) sur One Touch Application</h1>
+            <h1 class="my-4 mb-5">Bienvenu(e) sur {{ APP_NAME }} Application</h1>
 
             <div class="p-5">
               <img src="images/one-touch-logo.png" alt="Logo de One touch" />
@@ -91,13 +91,17 @@ import $ from 'jquery'
 import Chart from 'chart.js/auto'
 import format from 'date-format'
 import Account from '~/mixins/Account'
+import Global from '~/mixins/Global'
 
 export default {
   middleware: 'auth',
-  mixins: [Account],
+  mixins: [Account,Global],
   computed: {
     currentDate() {
       return format('dd/MM/yyyy')
+    },
+    currentPage() {
+      return 'home'
     }
   },
   mounted () {

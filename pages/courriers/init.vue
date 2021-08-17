@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-mail"></span> Initiation d'un courrier</h2>
+      <h2 class="title mb-4"><span class="typcn typcn-mail"></span> Initiation Courrier</h2>
     </div>
 
     <div class="row">
@@ -80,11 +80,24 @@
     <script src="/js/file-upload.js"></script>
   </div>
 </template>
+<script>
+import Global from '~/mixins/Global'
+
 export default {
+  middleware: 'auth',
   head() {
     return {
       title: 'Initiation d\'un courrier'
     }
+  },
+  mixins: [Global],
+  computed: {
+    currentPage() {
+      return 'courriers'
+    },
+    currentNavLink() {
+      return 'init-courriers'
+    },
   }
 }
 </script>

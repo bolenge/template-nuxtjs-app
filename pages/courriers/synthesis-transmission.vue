@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-mail"></span> Boite de reception courriers</h2>
+      <h2 class="title mb-4"><span class="typcn typcn-mail"></span> Synthèse Transmission Courriers</h2>
     </div>
     <div class="row">
       <div class="col-lg-12 grid-margin stretch-card">
@@ -42,34 +42,46 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="table-responsive">
               <table class="table table-hover" aria-describedby="">
                 <thead>
                   <tr>
                     <th>#</th>
                     <th>Date</th>
-                    <th>Type courrier</th>
+                    <th>Type</th>
                     <th>Code</th>
+                    <th>Initiateur</th>
                     <th>Expediteur</th>
                     <th>Destinataire</th>
                     <th>Piece</th>
+                    <th>Status</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
-                    v-for="i in 3"
+                    v-for="i in 10"
                     :key="i"
+                    :class="{'bg-light': !numberIsPair(randValue), 'font-weight-bold': !numberIsPair(randValue)}"
                   >
                     <td>{{ i }}</td>
                     <td>{{ formatDate('dd/MM/yyyy', new Date) }}</td>
-                    <td>Courrier entrant</td>
+                    <td>Entrant</td>
                     <td>C-ENTRY-079-ONE</td>
+                    <td>Emmanuel</td>
                     <td>Bob</td>
                     <td>Don</td>
                     <td>
                       <label class="badge badge-info"><span class="typcn typcn-attachment"></span></label>
+                    </td>
+                    <td>
+                      <label
+                        class="badge"
+                        :class="{'badge-light': numberIsPair(random(i,10)), 'badge-primary': !numberIsPair(random(i,10))}"
+                      >
+                          {{ !numberIsPair(random(i,10)) ? 'Urgent' : 'Normal' }}
+                        </label>
                     </td>
                     <td>
                       <button class="btn btn-sm btn-info">
@@ -77,6 +89,9 @@
                       </button>
                       <button class="btn btn-sm btn-danger">
                         <span class="typcn typcn-trash"></span>
+                      </button>
+                      <button v-if="numberIsPair(randValue)" class="btn btn-sm btn-success">
+                        <span class="typcn typcn-arrow-forward-outline"></span>
                       </button>
                     </td>
                   </tr>
@@ -97,16 +112,21 @@ export default {
   middleware: 'auth',
   head() {
     return {
-      title: 'Boite de reception de courriers'
+      title: 'Synthèse transmission de courriers'
     }
   },
   mixins: [Global],
+  data () {
+    return {
+      randValue: 1
+    }
+  },
   computed: {
     currentPage() {
       return 'courriers'
     },
     currentNavLink() {
-      return 'inbox-courriers'
+      return 'synthesis-transmission-courriers'
     },
   }
 }
