@@ -81,7 +81,25 @@
               </ul>
             </div>
           </li>
-          <!-- End item ressources financiers -->
+          <!-- End item ressources financieres -->
+
+          <!-- Item Modifier mot de passe -->
+          <li class="nav-item">
+            <nuxt-link class="nav-link" to="/account/change-password">
+              <em class="typcn typcn-key menu-icon"></em>
+              <span class="menu-title">Modifier mot de passe</span>
+            </nuxt-link>
+          </li>
+          <!-- End Item Modifier mot de passe -->
+
+          <!-- Item Deconnexion -->
+          <li class="nav-item">
+            <a class="nav-link" @click.prevent="$auth.logout()">
+              <em class="typcn typcn-power menu-icon"></em>
+              <span class="menu-title">Deconnexion</span>
+            </a>
+          </li>
+          <!-- End Item Deconnexion -->
         </ul>
     </nav>
 </template>
