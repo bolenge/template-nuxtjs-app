@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-film"></span> Initiation de requete de fonds</h2>
+      <h2 class="title mb-4"><span class="typcn typcn-film"></span> Initiation de requêtes de fonds</h2>
     </div>
 
     <div class="row">

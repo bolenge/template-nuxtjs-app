@@ -22,7 +22,7 @@
                 </button>
 
                 <button class="btn btn-info btn-sm ml-3">
-                  <span class="typcn typcn-database"></span> Extraction donnees
+                  <span class="typcn typcn-database"></span> Extraction données
                 </button>
               </div>
               <div class="form-group col">

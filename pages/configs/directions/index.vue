@@ -3,17 +3,17 @@
     <div class="container-fluid">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="config-departments-tab" data-toggle="tab" href="#config-departments" role="tab" aria-controls="config-departments" aria-selected="true"><span class="typcn typcn-home-outline"></span> Configuration departements</a>
+          <a class="nav-link active" id="config-departments-tab" data-toggle="tab" href="#config-departments" role="tab" aria-controls="config-departments" aria-selected="true"><span class="typcn typcn-home-outline"></span> Configuration Departements</a>
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link" id="config-fonction-tab" data-toggle="tab" href="#config-fonction" role="tab" aria-controls="config-fonction" aria-selected="false"><sapn class="typcn typcn-puzzle-outline"></sapn> Configuration fonctions</a>
+          <a class="nav-link" id="config-fonction-tab" data-toggle="tab" href="#config-fonction" role="tab" aria-controls="config-fonction" aria-selected="false"><sapn class="typcn typcn-puzzle-outline"></sapn> Configuration Fonctions</a>
         </li>
       </ul>
     </div>
 
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="config-departments" role="tabpanel" aria-labelledby="config-departments-tab">
-        <h2 class="title mb-4"><span class="typcn typcn-home-outline"></span> Configuration departements</h2>
+        <h2 class="title mb-4"><span class="typcn typcn-home-outline"></span> Configuration Departements</h2>
 
         <div class="row">
           <div class="col-md-4 grid-margin stretch-card">
@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="tab-pane fade" id="config-fonction" role="tabpanel" aria-labelledby="config-fonction-tab">
-        <h1><span class="typcn typcn-puzzle-outline"></span> Configuration fonctions</h1>
+        <h1><span class="typcn typcn-puzzle-outline"></span> Configuration Fonctions</h1>
 
         <div class="row">
           <div class="col-md-4 grid-margin stretch-card">

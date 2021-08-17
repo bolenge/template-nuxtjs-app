@@ -18,13 +18,13 @@
 
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="config-banks" role="tabpanel" aria-labelledby="config-banks-tab">
-        <h2 class="title mb-4"><span class="typcn typcn-credit-card"></span> Configuration comptes bancaires</h2>
+        <h2 class="title mb-4"><span class="typcn typcn-credit-card"></span> Configuration Comptes Bancaires</h2>
 
         <div class="row">
           <div class="col-md-4 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title text-normal">Creation compte</h4>
+                <h4 class="card-title text-normal">Creation Compte</h4>
 
                 <form class="forms-sample">
                   <div class="form-group">

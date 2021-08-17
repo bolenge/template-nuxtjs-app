@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-film"></span> Synthese CRF</h2>
+      <h2 class="title mb-4"><span class="typcn typcn-film"></span> Synthèse CRF</h2>
     </div>
     <div class="row">
       <div class="col-lg-12 grid-margin stretch-card">

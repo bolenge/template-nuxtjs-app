@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-credit-card"></span> Rapport financier</h2>
+      <h2 class="title mb-4"><span class="typcn typcn-credit-card"></span> Rapport Financier</h2>
     </div>
     <div class="row">
       <div class="col-lg-12 grid-margin stretch-card">
@@ -14,7 +14,7 @@
                 </button>
 
                 <button class="btn btn-info btn-sm ml-3">
-                  <span class="typcn typcn-database"></span> Extraction donnees
+                  <span class="typcn typcn-database"></span> Extraction données
                 </button>
               </div>
               <div class="form-group col">

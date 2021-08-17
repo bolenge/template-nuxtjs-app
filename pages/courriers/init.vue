@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-mail"></span> Initiation d'un courrier</h2>
+      <h2 class="title mb-4"><span class="typcn typcn-mail"></span> Initiation Courrier</h2>
     </div>
 
     <div class="row">
