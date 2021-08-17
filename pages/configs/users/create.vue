@@ -103,12 +103,6 @@
                 </div>
                 <!-- End Field fonction -->
               </div>
-              <div class="form-check form-check-flat form-check-primary">
-                <label class="form-check-label">
-                  <input type="checkbox" class="form-check-input">
-                  Remember me
-                </label>
-              </div>
               
               <div class="text-center">
                 <button type="submit" class="btn btn-info"><span class="typcn typcn-input-checked"></span> Enregistrer</button>

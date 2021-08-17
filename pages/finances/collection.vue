@@ -40,23 +40,6 @@
                 </div>
                 <!-- End Field amount -->
 
-                <!-- Field rubrique -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="rubrique">Rubrique <span class="text-danger">*</span></label>
-                    <select
-                      class="form-control"
-                      id="rubrique"
-                      equired
-                      style="height: 39px;"
-                    >
-                      <option value="1">Voyage</option>
-                      <option value="2">Vacances</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- End Field rubrique -->
-
                 <!-- Field type_account -->
                 <div class="col-lg-6">
                   <div class="form-group">

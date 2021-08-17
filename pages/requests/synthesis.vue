@@ -8,9 +8,13 @@
         <div class="card">
           <div class="card-body">
             <div class="d-flex">
-              <div class="col">
-                <button class="btn btn-light btn-sm mr-3">
+              <div class="col-lg-8">
+                <button class="btn btn-success btn-sm">
                   <span class="typcn typcn-refresh"></span> Actualiser
+                </button>
+
+                <button class="btn btn-info btn-sm mx-lg-3">
+                  <span class="typcn typcn-database"></span> Extraction données
                 </button>
 
                 <button class="btn btn-light btn-sm">
@@ -21,17 +25,16 @@
                   <span class="typcn typcn-chevron-right"></span>
                 </button>
               </div>
-              <div class="form-group col">
+              <div class="form-group col-4">
                 <div class="input-group">
-                  <input type="text" class="form-control form-control-sm py-2" placeholder="Recherche..." aria-label="Search">
+                  <label for="search" class="mr-3 mt-2">Filtre : </label>
+                  <input type="search" id="search" class="form-control form-control-sm py-2" placeholder="Recherche..." aria-label="Search">
                   <div class="input-group-append">
                     <button class="btn btn-sm btn-light" type="button"><span class="typcn typcn-zoom"></span></button>
                   </div>
                 </div>
               </div>
             </div>
-            
-            
 
             <div class="table-responsive">
               <table class="table table-hover" aria-describedby="">
@@ -44,6 +47,8 @@
                     <th>Monant</th>
                     <th>Devise</th>
                     <th>Rubrique</th>
+                    <th>Nature Op.</th>
+                    <th>Comptes</th>
                     <th>Status</th>
                     <th>Actions</th>
                   </tr>
@@ -60,6 +65,8 @@
                     <td>250</td>
                     <td>USD</td>
                     <td>Voyage</td>
+                    <td>---</td>
+                    <td>---</td>
                     <td>
                       <label
                         class="badge"

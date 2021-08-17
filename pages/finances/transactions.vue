@@ -9,8 +9,12 @@
           <div class="card-body">
             <div class="d-flex">
               <div class="col">
-                <button class="btn btn-success btn-sm mr-3">
+                <button class="btn btn-success btn-sm">
                   <span class="typcn typcn-refresh"></span> Actualiser
+                </button>
+
+                <button class="btn btn-info btn-sm mx-lg-3">
+                  <span class="typcn typcn-database"></span> Extraction données
                 </button>
 
                 <button class="btn btn-light btn-sm">
@@ -20,14 +24,11 @@
                 <button class="btn btn-light btn-sm">
                   <span class="typcn typcn-chevron-right"></span>
                 </button>
-
-                <button class="btn btn-info btn-sm ml-3">
-                  <span class="typcn typcn-database"></span> Extraction données
-                </button>
               </div>
               <div class="form-group col">
                 <div class="input-group">
-                  <input type="text" class="form-control form-control-sm py-2" placeholder="Recherche..." aria-label="Search">
+                  <label for="search" class="mr-3 mt-2">Filtre : </label>
+                  <input type="text" id="search" class="form-control form-control-sm py-2" placeholder="Recherche..." aria-label="Search">
                   <div class="input-group-append">
                     <button class="btn btn-sm btn-light" type="button"><span class="typcn typcn-zoom"></span></button>
                   </div>
@@ -45,6 +46,8 @@
                     <th>Date</th>
                     <th>Type operation</th>
                     <th>Rubrique</th>
+                    <th>Nature Op.</th>
+                    <th>Comptes</th>
                     <th>Bénéficiaire</th>
                     <th>Montant</th>
                     <th>Devise</th>
@@ -61,6 +64,8 @@
                     <td>{{ formatDate('dd/MM/yyyy', new Date) }}</td>
                     <td>Decaissement</td>
                     <td>Voyage</td>
+                    <td>---</td>
+                    <td>---</td>
                     <td>Emmanuel</td>
                     <td>6 000</td>
                     <td>USD</td>

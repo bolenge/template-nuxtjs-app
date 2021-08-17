@@ -19,7 +19,8 @@
               </div>
               <div class="form-group col">
                 <div class="input-group">
-                  <input type="text" class="form-control form-control-sm py-2" placeholder="Recherche..." aria-label="Search">
+                  <label for="search" class="mr-3 mt-2">Filtre : </label>
+                  <input type="text" id="search" class="form-control form-control-sm py-2" placeholder="Recherche..." aria-label="Search">
                   <div class="input-group-append">
                     <button class="btn btn-sm btn-light" type="button"><span class="typcn typcn-zoom"></span></button>
                   </div>
