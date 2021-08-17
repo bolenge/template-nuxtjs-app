@@ -6,12 +6,13 @@ export default {
   env: {
     API_BASE_URL: API_BASE_URL,
     DEFAULT_USER_AVATAR: `${API_BASE_URL}/storage/user_pictures/profile.png`,
-    BASE_PATH_USER_PICTURES: `${API_BASE_URL}/storage/user_pictures`
+    BASE_PATH_USER_PICTURES: `${API_BASE_URL}/storage/user_pictures`,
+    APP_NAME: 'Neo Touch'
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'One Touch',
+    title: 'Neo Touch',
     htmlAttrs: {
       lang: 'fr'
     },
