@@ -45,7 +45,7 @@
                     <th>Devise</th>
                     <th>Rubrique</th>
                     <th>Status</th>
-                    <th class="text-center">Actions</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -70,12 +70,6 @@
                     </td>
                     <td>
                       <button class="btn btn-sm btn-info">
-                        <span class="typcn typcn-pencil"></span>
-                      </button>
-                      <button class="btn btn-sm btn-danger">
-                        <span class="typcn typcn-trash"></span>
-                      </button>
-                      <button class="btn btn-sm btn-success">
                         <span class="typcn typcn-eye-outline"></span>
                       </button>
                     </td>
