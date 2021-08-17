@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import Global from '~/mixins/Global'
 export default {
   middleware: 'auth',
   head() {
