@@ -7,7 +7,7 @@
             <a class="nav-link active" id="config-departments-tab" data-toggle="tab" href="#config-departments" role="tab" aria-controls="config-departments" aria-selected="true"><span class="typcn typcn-home-outline"></span> Configuration Departements</a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link" id="config-fonction-tab" data-toggle="tab" href="#config-fonction" role="tab" aria-controls="config-fonction" aria-selected="false"><sapn class="typcn typcn-puzzle-outline"></sapn> Configuration Fonctions</a>
+            <a class="nav-link" id="config-fonction-tab" data-toggle="tab" href="#config-fonction" role="tab" aria-controls="config-fonction" aria-selected="false"><span class="typcn typcn-puzzle-outline"></span> Configuration Fonctions</a>
           </li>
         </ul>
       </div>
@@ -19,53 +19,21 @@
 
         <div class="row">
           <div class="col-md-4 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title text-normal">Création de departement</h4>
-
-                <form class="forms-sample">
-                  <div class="form-group">
-                    <label for="name">Intitulé <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" id="name" required />
-                  </div>
-                  <button type="submit" class="btn btn-info mr-2">Enregistrer</button>
-                </form>
-              </div>
-            </div>
+            <!-- Form create department -->
+            <Form
+              title="Création de departement"
+              :fields="fields"
+              :entity="entity"
+            />
+            <!-- End Form create department -->
           </div>
 
           <div class="col-lg-8 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title text-normal">Liste de departements</h4>
-
-                <div class="table-responsive">
-                  <table class="table table-hover" aria-describedby="">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Libellé</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="i in 2" :key="i">
-                        <td>{{ i }}</td>
-                        <td>Finance</td>
-                        <td>
-                          <button class="btn btn-sm btn-info">
-                            <span class="typcn typcn-pencil"></span>
-                          </button>
-                          <button class="btn btn-sm btn-danger">
-                            <span class="typcn typcn-trash"></span>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
+            <SimpleTable
+              title="Liste de departements"
+              :headers="headers"
+              model="department"
+            />
           </div>
         </div>
       </div>
@@ -74,53 +42,19 @@
 
         <div class="row">
           <div class="col-md-4 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title text-normal">Création de fonction</h4>
-
-                <form class="forms-sample">
-                  <div class="form-group">
-                    <label for="name">Intitulé <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" id="name" required />
-                  </div>
-                  <button type="submit" class="btn btn-info mr-2">Enregistrer</button>
-                </form>
-              </div>
-            </div>
+            <Form
+              title="Création de fonction"
+              :fields="fields"
+              :entity="entity"
+            />
           </div>
           
           <div class="col-lg-8 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title text-normal">Liste de fonctions</h4>
-
-                <div class="table-responsive">
-                  <table class="table table-hover" aria-describedby="">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Libellé</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="i in 2" :key="i">
-                        <td>{{ i }}</td>
-                        <td>Directrice de bureau</td>
-                        <td>
-                          <button class="btn btn-sm btn-info">
-                            <span class="typcn typcn-pencil"></span>
-                          </button>
-                          <button class="btn btn-sm btn-danger">
-                            <span class="typcn typcn-trash"></span>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
+            <SimpleTable
+              title="Liste de fonctions"
+              :headers="headers"
+              model="fonction"
+            />
           </div>
         </div>
       </div>
@@ -129,7 +63,10 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import Global from '~/mixins/Global'
+import Form from '@/components/crud/Form'
+import SimpleTable from '@/components/crud/SimpleTable'
 
 export default {
   middleware: 'auth',
@@ -138,6 +75,9 @@ export default {
       title: 'Configuration structurelle'
     }
   },
+  components: {
+    Form, SimpleTable
+  },
   mixins: [Global],
   computed: {
     currentPage() {
@@ -145,9 +85,55 @@ export default {
     },
     currentNavLink() {
       return 'structurals-configs'
+    },
+    ...mapState({
+      departments(state) {
+        return state.department.departments
+      } 
+    })
+  },
+  data() {
+    return {
+      fields: [
+        {
+          name: 'name',
+          type: 'text',
+          required: true,
+          label: 'Intitulé'
+        }
+      ],
+      entity: {
+        name: ''
+      },
+      fonctions: [
+        {
+          name: 'Finance'
+        },
+        {
+          name: 'Departement'
+        }
+      ],
+      headers: [
+        {
+          text: 'Intitulé',
+          value: 'name',
+          type: 'string'
+        },
+        {
+          text: 'Actions',
+          value: '',
+          type: 'actions'
+        }
+      ]
     }
   },
   methods: {
+    ...mapActions({
+      loadDepartments: 'department/load'
+    })
+  },
+  mounted() {
+    this.loadDepartments()
   }
 }
 </script>
