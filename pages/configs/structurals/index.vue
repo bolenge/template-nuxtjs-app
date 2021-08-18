@@ -85,12 +85,7 @@ export default {
     },
     currentNavLink() {
       return 'structurals-configs'
-    },
-    ...mapState({
-      departments(state) {
-        return state.department.departments
-      } 
-    })
+    }
   },
   data() {
     return {
@@ -128,12 +123,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      loadDepartments: 'department/load'
-    })
-  },
-  mounted() {
-    this.loadDepartments()
   }
 }
 </script>
