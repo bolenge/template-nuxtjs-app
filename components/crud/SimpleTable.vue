@@ -95,6 +95,9 @@ export default {
         return state[this.model][`${this.model}s`]
       }
     })
+  },
+  mounted() {
+    this.initItems()
   }
 }
 </script>
