@@ -95,9 +95,7 @@ export default {
           label: 'Intitulé'
         }
       ],
-      entity: {
-        name: ''
-      },
+      entity: {},
       headers: [
         {
           text: 'Intitulé',
@@ -119,7 +117,7 @@ export default {
   },
   methods: {
     onSubmit(entity) {
-      // Todo
+      this.entity = {}
     },
     async onLaunchEdit(id) {
       this.$emit('launchEdited', id)
