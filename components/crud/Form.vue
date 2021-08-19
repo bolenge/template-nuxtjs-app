@@ -10,7 +10,7 @@
         {{ description }}
       </p>
 
-      <form class="forms-sample">
+      <form class="forms-sample" @submit.prevent="onSubmit" autocomplete="off">
         <div
           v-for="(field, i) in fields"
           :key="i"
@@ -55,7 +55,8 @@
           type="submit"
           class="btn btn-info"
         >
-          Enregistrer
+          <span v-if="loading">Chargement...</span>
+          <span v-else>Enregistrer</span>
         </button>
         <!-- End button save -->
 
@@ -97,6 +98,10 @@ export default {
       default() {
         return {}
       } 
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -107,6 +112,10 @@ export default {
   methods: {
     initForm() {
       this.form = {...this.entity}
+    },
+    onSubmit() {
+      this.$emit('submitted', this.form)
+      this.form = {}
     }
   },
   beforeMount(){
