@@ -191,6 +191,11 @@ export default {
       showPassword: false
     }
   },
+  watch: {
+    entity() {
+      this.initForm()
+    }
+  },
   methods: {
     initForm() {
       this.form = {...this.entity}
