@@ -70,10 +70,19 @@ export const actions = {
       }
     )
   },
-  delete ({ dispatch }, { newEntity, api, model }) {
-    this.$axios.delete(`${api}/${newEntity.id}`)
-      .then((_) => {
-        dispatch(`${model}/load`, {}, { root: true })
+  delete({ dispatch }, { entity, api, model }) {
+    this.$axios.delete(`${api}/${entity.id}`)
+      .then(({ data }) => {
+        if (data.state) {
+          dispatch(`${model}/load`, {}, { root: true })
+
+          this.$swal({
+            title: "Suppression",
+            text: 'Operation effectuée avec succès',
+            icon: "success",
+            confirmButtonText: 'Ok'
+          })
+        }
       })
   }
 }
