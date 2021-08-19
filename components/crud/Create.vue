@@ -80,7 +80,24 @@ export default {
         });
 
       } catch (error) {
-        this.$toast.error('Une erreur est survenue, réessayez svp !')
+        if (error.response && (error.response.status === 422 || error.response.status === 401)) {
+          if (error.response.data) {
+            const data = error.response.data
+            
+            this.$swal({
+              title: "Erreur",
+              text: data.message,
+              icon: "warning",
+              buttons: true,
+              confirmButtonText: 'Ok'
+            })
+          }else {
+            this.$toast.error('Une erreur est survenue, réessayez svp !')
+          }
+        }else {
+          this.$toast.error('Une erreur est survenue, réessayez svp !')
+        }
+        
       } finally {
         this.loading = false
       }
