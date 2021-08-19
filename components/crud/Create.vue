@@ -7,6 +7,7 @@
     :loading="loading"
     :model="model"
     :showButtonCancel="showButtonCancel"
+    :formRow="formRow"
     @submitted="onSubmit"
   />
 </template>
@@ -48,6 +49,10 @@ export default {
     api: {
       type: String,
       required: true
+    },
+    formRow: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -63,8 +68,17 @@ export default {
       this.loading = true
       try {
         await this.store({ entity, api: this.api, model: this.model })
-        this.$toast.success('Enregistrement effectuée avec succès')
-        this.$emit('submitted')
+
+        this.$swal({
+          title: "",
+          text: "Enregistrement effectué avec succès.",
+          icon: "success",
+          buttons: true,
+          confirmButtonText: 'Ok'
+        }).then(({isConfirmed}) => {
+          this.$emit('submitted')
+        });
+
       } catch (error) {
         this.$toast.error('Une erreur est survenue, réessayez svp !')
       } finally {
