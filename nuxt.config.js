@@ -127,7 +127,14 @@ export default {
     '@nuxtjs/toast',
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    'vue-sweetalert2/nuxt'
   ],
+  sweetalert: {
+    confirmButtonColor: '#41b882',
+    cancelButtonColor: '#ff7674',
+    cancelButtonText: 'Non',
+    confirmButtonText: 'Oui',
+  },
   toast: {
     duration: 8000,
     position: 'top-center',

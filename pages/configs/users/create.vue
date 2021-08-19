@@ -11,112 +11,26 @@
         </div>
       </div>
       <div class="col-lg-8 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title text-normal text-center">Creation d'un nouvel utilisateur</h4>
-          </div>
-
-          <div class="card-body">
-            <form class="forms-sample">
-              <div class="row">
-                <!-- Field lastname -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="lastname">Nom <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" id="lastname" required/>
-                  </div>
-                </div>
-                <!-- End Field lastname -->
-
-                <!-- Field firstname -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="firstname">Prenom <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" id="firstname" required/>
-                  </div>
-                </div>
-                <!-- End Field firstname -->
-
-                <!-- Field email -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="email">Email <span class="text-danger">*</span></label>
-                    <input type="email" class="form-control form-control-sm" id="email" required/>
-                  </div>
-                </div>
-                <!-- End Field email -->
-
-                <!-- Field phone -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="phone">Telephone <span class="text-danger">*</span></label>
-                    <input type="tel" class="form-control form-control-sm" id="phone" required/>
-                  </div>
-                </div>
-                <!-- End Field phone -->
-
-                <!-- Field gender -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="gender">Sexe <span class="text-danger">*</span></label>
-                    <select class="form-control" id="gender" required>
-                      <option value="M">Homme</option>
-                      <option value="F">Femme</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- End Field gender -->
-
-                <!-- Field role -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="role">Role <span class="text-danger">*</span></label>
-                    <select class="form-control" id="role" required>
-                      <option value="M">Homme</option>
-                      <option value="F">Femme</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- End Field role -->
-
-                <!-- Field department -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="department">Departement <span class="text-danger">*</span></label>
-                    <select class="form-control" id="department" required>
-                      <option value="M">Homme</option>
-                      <option value="F">Femme</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- End Field department -->
-
-                <!-- Field fonction -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="fonction">Fonction <span class="text-danger">*</span></label>
-                    <select class="form-control" id="fonction" required>
-                      <option value="M">Homme</option>
-                      <option value="F">Femme</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- End Field fonction -->
-              </div>
-              
-              <div class="text-center">
-                <button type="submit" class="btn btn-info"><span class="typcn typcn-input-checked"></span> Enregistrer</button>
-              </div>
-            </form>
-          </div>
-        </div>
+        <!-- Form create users -->
+        <Create
+          api="admins"
+          model="admin"
+          title="Création d'un nouvel utilisateur"
+          :fields="fields"
+          :entity="entity"
+          :formRow="true"
+          @submitted="onSubmit"
+        />
+        <!-- End Form create users -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import Global from '~/mixins/Global'
+import Create from '~/components/crud/Create'
 
 export default {
   middleware: 'auth',
@@ -126,7 +40,95 @@ export default {
     }
   },
   mixins: [Global],
+  components: {
+    Create
+  },
+  data() {
+    return {
+      fields: [
+        {
+          name: 'lastname',
+          type: 'text',
+          required: true,
+          label: 'Nom'
+        },
+        {
+          name: 'firstname',
+          type: 'text',
+          required: true,
+          label: 'Prénom'
+        },
+        {
+          name: 'email',
+          type: 'email',
+          required: false,
+          label: 'Email'
+        },
+        {
+          name: 'phone',
+          type: 'tel',
+          required: true,
+          label: 'Téléphone'
+        },
+        {
+          name: 'gender',
+          type: 'select',
+          required: true,
+          label: 'Sexe',
+          items: [
+            {id: 'M', name: 'Homme'},
+            {id: 'F', name: 'Femme'},
+          ]
+        },
+        {
+          name: 'role_id',
+          type: 'select',
+          required: true,
+          label: 'Rôle',
+          items: this.roles
+        },
+        {
+          name: 'fonction_id',
+          type: 'select',
+          required: true,
+          label: 'Fonction',
+          items: this.fonctions
+        },
+        {
+          name: 'department_id',
+          type: 'select',
+          required: true,
+          label: 'Departement',
+          items: this.departments
+        },
+        {
+          name: 'avatar',
+          type: 'file-image',
+          required: false,
+          label: 'Avatar',
+        },
+        {
+          name: 'password',
+          type: 'password',
+          required: true,
+          label: 'Mot de passe'
+        },
+      ],
+      entity: {}
+    }
+  },
   computed: {
+    ...mapState({
+      roles(state) {
+        return state.role.roles
+      },
+      fonctions(state) {
+        return state.fonction.fonctions
+      },
+      departments(state) {
+        return state.department.departments
+      },
+    }),
     currentPage() {
       return 'configs'
     },
@@ -134,7 +136,38 @@ export default {
       return 'users-configs'
     }
   },
+  watch: {
+    roles() {
+      this.$set(this.fields[5], 'items', this.roles)
+    },
+    fonctions() {
+      this.$set(this.fields[6], 'items', this.fonctions)
+    },
+    departments() {
+      this.$set(this.fields[7], 'items', this.departments)
+    }
+  },
   methods: {
+    ...mapActions({
+      loadRoles: 'role/load',
+      loadFonctions: 'fonction/load',
+      loadDepartments: 'department/load',
+    }),
+    onSubmit(entity) {
+      this.entity = {}
+      this.$router.replace('/configs/users')
+    },
+    async onLaunchEdit(id) {
+      this.$emit('launchEdited', id)
+    },
+    onEdited() {
+      this.$emit('edited', true)
+    }
+  },
+  mounted() {
+    this.loadRoles()
+    this.loadFonctions()
+    this.loadDepartments()
   }
 }
 </script>
