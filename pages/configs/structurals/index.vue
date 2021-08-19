@@ -14,59 +14,25 @@
     </div>
 
     <div class="tab-content" id="myTabContent">
+      <!-- Tab pane config department -->
       <div class="tab-pane fade show active" id="config-departments" role="tabpanel" aria-labelledby="config-departments-tab">
-        <h2 class="title mb-4"><span class="typcn typcn-home-outline"></span> Configuration Departements</h2>
-
-        <div class="row">
-          <div class="col-md-4 grid-margin stretch-card">
-            <!-- Form create department -->
-            <Form
-              title="Création de departement"
-              :fields="fields"
-              :entity="entity"
-            />
-            <!-- End Form create department -->
-          </div>
-
-          <div class="col-lg-8 grid-margin stretch-card">
-            <SimpleTable
-              title="Liste de departements"
-              :headers="headers"
-              model="department"
-            />
-          </div>
-        </div>
+        <ConfigDepartment />
       </div>
+      <!-- End tab pane config department -->
+
+      <!-- Tab pane config fonction -->
       <div class="tab-pane fade" id="config-fonction" role="tabpanel" aria-labelledby="config-fonction-tab">
-        <h1><span class="typcn typcn-puzzle-outline"></span> Configuration Fonctions</h1>
-
-        <div class="row">
-          <div class="col-md-4 grid-margin stretch-card">
-            <Form
-              title="Création de fonction"
-              :fields="fields"
-              :entity="entity"
-            />
-          </div>
-          
-          <div class="col-lg-8 grid-margin stretch-card">
-            <SimpleTable
-              title="Liste de fonctions"
-              :headers="headers"
-              model="fonction"
-            />
-          </div>
-        </div>
+        <ConfigFonction />
       </div>
+      <!-- End tab pane config fonction -->
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
 import Global from '~/mixins/Global'
-import Form from '@/components/crud/Form'
-import SimpleTable from '@/components/crud/SimpleTable'
+import ConfigDepartment from '@/components/configs/structurals/ConfigDepartment'
+import ConfigFonction from '@/components/configs/structurals/ConfigFonction'
 
 export default {
   middleware: 'auth',
@@ -76,7 +42,7 @@ export default {
     }
   },
   components: {
-    Form, SimpleTable
+    ConfigFonction, ConfigDepartment
   },
   mixins: [Global],
   computed: {
@@ -89,37 +55,6 @@ export default {
   },
   data() {
     return {
-      fields: [
-        {
-          name: 'name',
-          type: 'text',
-          required: true,
-          label: 'Intitulé'
-        }
-      ],
-      entity: {
-        name: ''
-      },
-      fonctions: [
-        {
-          name: 'Finance'
-        },
-        {
-          name: 'Departement'
-        }
-      ],
-      headers: [
-        {
-          text: 'Intitulé',
-          value: 'name',
-          type: 'string'
-        },
-        {
-          text: 'Actions',
-          value: '',
-          type: 'actions'
-        }
-      ]
     }
   },
   methods: {
