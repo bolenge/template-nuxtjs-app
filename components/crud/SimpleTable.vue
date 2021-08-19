@@ -18,8 +18,20 @@
             </tr>
           </thead>
           <tbody>
+            <!-- Loading -->
+            <tr v-if="loading">
+              <td
+                :colspan="headers.length + 1"
+                class="text-center lead"
+              >
+                Chargement...
+              </td>
+            </tr>
+            <!-- End loading -->
+
+            <!-- No items -->
             <tr
-              v-if="!items.length"
+              v-else-if="!items.length"
             >
               <td
                 :colspan="headers.length + 1"
@@ -28,6 +40,8 @@
                 Aucun enregistrement...
               </td>
             </tr>
+            <!-- End no items -->
+
             <tr
               v-for="(item, i) in items"
               :key="i"
@@ -39,7 +53,7 @@
               >
                 <!-- Actions fields -->
                 <span v-if="head.type == 'actions'">
-                  <button class="btn btn-sm btn-info">
+                  <button class="btn btn-sm btn-info" @click="onLaunchEdit(item.id)">
                     <span class="typcn typcn-pencil"></span>
                   </button>
                   <button class="btn btn-sm btn-danger">
@@ -87,10 +101,16 @@ export default {
     }),
     initItems() {
       this.load()
+    },
+    onLaunchEdit(id) {
+      this.$emit('launchEdited', id)
     }
   },
   computed: {
     ...mapState({
+      loading(state) {
+        return state[this.model]['loading']
+      },
       items(state) {
         return state[this.model][`${this.model}s`]
       }
