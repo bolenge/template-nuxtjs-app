@@ -56,7 +56,7 @@
                   <button class="btn btn-sm btn-info" @click="onLaunchEdit(item.id)">
                     <span class="typcn typcn-pencil"></span>
                   </button>
-                  <button class="btn btn-sm btn-danger">
+                  <button class="btn btn-sm btn-danger" @click="onDelete(item.id)">
                     <span class="typcn typcn-trash"></span>
                   </button>
                 </span>
@@ -97,13 +97,35 @@ export default {
     ...mapActions({
       load(dispatch) {
         return dispatch(this.model + '/load')
-      }
+      },
+      delete: 'crud/delete'
     }),
     initItems() {
       this.load()
     },
     onLaunchEdit(id) {
       this.$emit('launchEdited', id)
+    },
+    onDelete(id) {
+      this.$swal({
+        title: "Suppression",
+        text: "Voulez-vous vraiment supprimé cet enregistrement ?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        showCancelButton: true
+      }).then(({isConfirmed}) => {
+        if (isConfirmed) {
+          this.deleteRecord({id})
+        }
+      });
+    },
+    async deleteRecord(entity) {
+      try {
+        await this.delete({ entity, api: this.model+'s', model: this.model })
+      } catch (error) {
+        this.$toast.error('Une erreur est survenue, réessayez svp !')
+      }
     }
   },
   computed: {
