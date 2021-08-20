@@ -14,6 +14,7 @@
           :entity="entity"
           :model="model"
           :api="`${model}s`"
+          :actionLoad="customLoadAction"
           @submitted="onSubmit"
         />
         <!-- End Form create department -->
@@ -26,6 +27,7 @@
           :entity="entityEdited"
           :model="model"
           :api="`${model}s`"
+          :actionLoad="customLoadAction"
           @submitted="onEdited"
         />
         <!-- End Form edit department -->
@@ -37,6 +39,7 @@
           :title="tableTitle"
           :headers="headers"
           :model="model"
+          :customLoadAction="customLoadAction"
           @launchEdited="onLaunchEdit"
         />
         <!-- End Table list department -->
@@ -99,6 +102,10 @@ export default {
     iconTitle: {
       type: String,
       default: 'typcn-home-outline'
+    },
+    customLoadAction: {
+      type: String,
+      default: ''
     }
   },
   components: {
