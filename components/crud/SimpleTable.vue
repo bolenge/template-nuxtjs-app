@@ -64,7 +64,7 @@
 
                 <!-- Simple fields -->
                 <span v-else>
-                  {{ item[head.value] }}
+                  {{ getObject(item, head.value) }}
                 </span>
                 <!-- End Simple fields -->
               </td>
@@ -91,12 +91,17 @@ export default {
     model: {
       type: String,
       required: true
+    },
+    customLoadAction: {
+      type: String,
+      default: ''
     }
   },
   methods: {
     ...mapActions({
       load(dispatch) {
-        return dispatch(this.model + '/load')
+        const action = this.customLoadAction || 'load'
+        return dispatch(this.model+'/'+action)
       },
       delete: 'crud/delete'
     }),
@@ -126,7 +131,24 @@ export default {
       } catch (error) {
         this.$toast.error('Une erreur est survenue, réessayez svp !')
       }
-    }
+    },
+    getObject(obj, path) {
+      let items = path.split('.')
+      let objRes = obj,
+          i = items.length
+
+      while (i > 0) {
+        if (objRes === null) {
+          break
+        }
+        
+        objRes = objRes[items.shift()]
+
+        i = items.length
+      }
+
+      return objRes || '---' 
+    },
   },
   computed: {
     ...mapState({
