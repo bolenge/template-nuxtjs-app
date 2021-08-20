@@ -186,7 +186,7 @@ export default {
       default() {
         return {}
       }
-    },
+    }
   },
   methods: {
     ...mapActions({
