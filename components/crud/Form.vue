@@ -35,6 +35,7 @@
               class="form-group"
             >
               <label
+                v-if="field.type !== 'hidden'"
                 :for="field.name"
               >
                 {{ field.label }} <span v-if="field.required" class="text-danger">*</span>
@@ -54,7 +55,7 @@
                   :key="it"
                   :value="item.id"
                 >
-                  {{ item.name }}
+                  {{ item[field.itemText || 'name'] }}
                 </option>
               </select>
               <!-- End select field -->
@@ -210,6 +211,10 @@ export default {
           if (typeof this.form[field.name] === 'string') {
             this.form[`${field.name}_url`] = this.form[field.name]
           }
+        }
+
+        if (field.type === 'hidden') {
+          this.form[field.name] = field.value
         }
       })
     },
