@@ -9,6 +9,7 @@
           :headers="headers"
           model="admin"
           :buttonCreate="buttonCreate"
+          @launchEdited="onLaunchEdited"
         />
       </div>
     </div>
@@ -36,52 +37,62 @@ export default {
           text: 'Avatar',
           value: 'avatar',
           type: 'image',
-          baseUrl: 'storage/user_pictures'
+          baseUrl: 'storage/user_pictures',
+          filterable: false
         },
         {
           text: 'Nom',
           value: 'lastname',
-          type: 'string'
+          type: 'string',
+          filterable: true
         },
         {
           text: 'Prénom',
           value: 'firstname',
-          type: 'string'
+          type: 'string',
+          filterable: true
         },
         {
           text: 'Sexe',
           value: 'gender',
-          type: 'string'
+          type: 'string',
+          filterable: true
         },
         {
           text: 'Email',
           value: 'email',
-          type: 'string'
+          type: 'string',
+          filterable: true
         },
         {
           text: 'Role',
           value: 'user.role.name',
-          type: 'object'
+          type: 'object',
+          filterable: true
         },
         {
           text: 'Téléphone',
           value: 'phone',
-          type: 'string'
+          type: 'string',
+          filterable: true
         },
         {
           text: 'Fonction',
           value: 'fonction.name',
-          type: 'object'
+          type: 'object',
+          filterable: true
         },
         {
           text: 'Departement',
           value: 'department.name',
-          type: 'object'
+          type: 'object',
+          filterable: true
         },
         {
           text: 'Actions',
           value: '',
-          type: 'actions'
+          type: 'actions',
+          filterable: false
         }
       ]
     }
@@ -101,6 +112,9 @@ export default {
     }
   },
   methods: {
+    onLaunchEdited(id) {
+      this.$router.replace('/configs/users/'+id)
+    }
   }
 }
 </script>

@@ -7,6 +7,7 @@
     :loading="loading"
     :model="model"
     :showButtonCancel="showButtonCancel"
+    :formRow="formRow"
     @submitted="onSubmit"
   />
 </template>
@@ -48,6 +49,10 @@ export default {
     api: {
       type: String,
       required: true
+    },
+    formRow: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

@@ -79,7 +79,7 @@
                   id="mediaDate"
                 />
                 <img
-                  v-if="previewImage"
+                  v-if="previewImage=form[field.name]"
                   :src="`${BASE_PATH_USER_PICTURES}/${previewImage}`"
                   alt="Image"
                   class="col-3 w-100"
@@ -87,7 +87,7 @@
               </div>
               <!-- End Input file image field -->
 
-              <!-- Input field -->
+              <!-- Input password field -->
               <div
                 v-else-if="field.type === 'password'"
                 class="input-group"
@@ -107,7 +107,7 @@
                   </button>
                 </div>
               </div>
-              <!-- End input field -->
+              <!-- End input password field -->
 
               <!-- Input field -->
               <input
@@ -115,7 +115,7 @@
                 v-model="form[field.name]"
                 :type="field.type"
                 class="form-control form-control-sm"
-                :id="field.type"
+                :id="field.name"
                 :required="field.required"
               />
               <!-- End input field -->
@@ -129,6 +129,8 @@
           <button
             type="submit"
             class="btn btn-info"
+            :class="{'disabled btn-in-loading': loading}"
+            :disabled="loading"
           >
             <span v-if="loading">Chargement...</span>
             <span v-else><span class="typcn typcn-input-checked"></span> Enregistrer</span>
@@ -251,5 +253,8 @@ export default {
 <style>
   .text-normal {
     text-transform: none !important;
+  }
+  .btn-in-loading {
+    cursor: not-allowed !important;
   }
 </style>

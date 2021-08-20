@@ -154,6 +154,7 @@ export default {
   auth: {
     redirect: {
       logout: '/login',
+      login: '/login',
       home: '/'
     },
     strategies: {
