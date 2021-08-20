@@ -53,6 +53,10 @@ export default {
     formRow: {
       type: Boolean,
       default: false
+    },
+    actionLoad: {
+      type: String,
+      default: 'load'
     }
   },
   data() {
@@ -67,7 +71,7 @@ export default {
     async onSubmit (entity) {
       this.loading = true
       try {
-        await this.store({ entity, api: this.api, model: this.model })
+        await this.store({ entity, api: this.api, model: this.model, actionLoad: this.actionLoad })
 
         this.$swal({
           title: "",
