@@ -129,6 +129,8 @@
           <button
             type="submit"
             class="btn btn-info"
+            :class="{'disabled btn-in-loading': loading}"
+            :disabled="loading"
           >
             <span v-if="loading">Chargement...</span>
             <span v-else><span class="typcn typcn-input-checked"></span> Enregistrer</span>
@@ -251,5 +253,8 @@ export default {
 <style>
   .text-normal {
     text-transform: none !important;
+  }
+  .btn-in-loading {
+    cursor: not-allowed !important;
   }
 </style>
