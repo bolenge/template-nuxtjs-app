@@ -53,6 +53,10 @@ export default {
     formRow: {
       type: Boolean,
       default: false
+    },
+    actionLoad: {
+      type: String,
+      default: 'load'
     }
   },
   data() {
@@ -68,7 +72,7 @@ export default {
       console.log(entity)
       this.loading = true
       try {
-        await this.update({ entity, api: this.api, model: this.model })
+        await this.update({ entity, api: this.api, model: this.model, actionLoad: this.actionLoad })
         this.$toast.success('Modification effectuée avec succès')
         this.$emit('submitted')
       } catch (error) {
