@@ -1,24 +1,28 @@
 <template>
-  <ConfigStructural
+  <ConfigPanel
     title="Configuration Departements"
     createFormTitle="Création de departement"
     editFormTitle="Edition du departement"
     model="department"
     tableTitle="Liste de departements"
     :edited="edited"
+    :entity="entity"
     :entityEdited="entityEdited"
+    :headers="headers"
+    :fields="fields"
     @launchEdited="onLaunchEdit"
     @edited="onEdited"
+    @entityReseted="onEntityReseted"
   />
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import ConfigStructural from './ConfigStructural'
+import ConfigPanel from '../ConfigPanel'
 
 export default {
   components: {
-    ConfigStructural
+    ConfigPanel
   },
   data() {
     return {
@@ -30,9 +34,7 @@ export default {
           label: 'Intitulé'
         }
       ],
-      entity: {
-        name: ''
-      },
+      entity: {},
       headers: [
         {
           text: 'Intitulé',
@@ -60,6 +62,9 @@ export default {
     onEdited() {
       this.entityEdited = null
       this.edited = false
+    },
+    onEntityReseted() {
+      this.entity = {}
     }
   }
 }
