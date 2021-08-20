@@ -26,8 +26,10 @@ export const mutations = {
 }
 
 export const actions = {
-  store ({ dispatch }, { entity, api, model }) {
+  store ({ dispatch }, { entity, api, model, actionLoad }) {
     const formData = serialize(entity)
+
+    actionLoad = actionLoad || 'load'
 
     return new Promise(
       (resolve, reject) => {
@@ -38,7 +40,7 @@ export const actions = {
         })
           .then((_) => {
             resolve()
-            dispatch(`${model}/load`, true, { root: true })
+            dispatch(`${model}/${actionLoad}`, true, { root: true })
           })
           .catch((error) => {
             reject(error)
@@ -47,7 +49,7 @@ export const actions = {
     )
   },
 
-  update ({ dispatch }, { entity, api, model }) {
+  update ({ dispatch }, { entity, api, model, actionLoad }) {
     
     const formData = serialize(entity)
     formData.append('_method', 'PUT')
@@ -61,7 +63,7 @@ export const actions = {
         })
           .then((_) => {
             resolve()
-            dispatch(`${model}/load`, true, { root: true })
+            dispatch(`${model}/${actionLoad}`, true, { root: true })
           })
           .catch((error) => {
             console.log('Store crud error', error);
