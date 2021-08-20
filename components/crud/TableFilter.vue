@@ -46,7 +46,14 @@
         <div class="form-group col-4">
           <div class="input-group">
             <label for="search" class="mr-3 mt-2">Filtre : </label>
-            <input type="search" id="search" class="form-control form-control-sm py-2" placeholder="Recherche..." aria-label="Search">
+            <input
+              v-model="search"
+              type="search"
+              id="search"
+              class="form-control form-control-sm py-2"
+              placeholder="Recherche..."
+              aria-label="Search"
+            />
             <div class="input-group-append">
               <button class="btn btn-sm btn-light" type="button"><span class="typcn typcn-zoom"></span></button>
             </div>
@@ -202,7 +209,8 @@ export default {
     return {
       offset: 0,
       limit: 10,
-      initLimit: 10
+      initLimit: 10,
+      search: null
     }
   },
   methods: {
@@ -278,10 +286,10 @@ export default {
       return Object.values(this.buttonCreate).length !== 0
     },
     countItems() {
-      return this.items.length
+      return this.itemsFiltered.length
     },
     itemsPaginated() {
-      return this.items.slice(this.offset, this.limit)
+      return this.itemsFiltered.slice(this.offset, this.limit)
     },
     countItemsPaginated() {
       return this.itemsPaginated.length + this.offset
@@ -291,10 +299,39 @@ export default {
     },
     disableNextButton() {
       return this.countItemsPaginated == this.countItems
-    }
+    },
+    fieldsFilterable () {
+      const fields = []
+
+      this.headers.map((head) => {
+        if (head.filterable) {
+          fields.push(head.value)
+        }
+      })
+
+      return fields
+    },
+    itemsFiltered () {
+      if (this.search) {
+        const regex = new RegExp(this.search, 'ig')
+
+        return this.items.filter((item) => {
+          for (const filter of this.fieldsFilterable) {
+            const value = this.getObject(item, filter)
+
+            if (regex.test(value)) {
+              return item
+            }
+          }
+        })
+      }
+
+      return this.items
+    },
   },
   mounted() {
     this.initItems()
+    console.log(this.itemsFiltered);
   }
 }
 </script>
