@@ -25,11 +25,21 @@
             <span class="typcn typcn-database"></span> Extraction données
           </button>
 
-          <button class="btn btn-light btn-sm">
+          <button
+            class="btn btn-light btn-sm"
+            :class="{'btn-in-loading disabled': disablePreviousButton}"
+            :disabled="disablePreviousButton"
+            @click="previousPaginate"
+          >
             <span class="typcn typcn-chevron-left"></span>
           </button>
-          <span>1/10</span>
-          <button class="btn btn-light btn-sm">
+          <span>{{ offset + 1 }}-{{ countItemsPaginated }} sur {{ countItems }}</span>
+          <button
+            class="btn btn-light btn-sm"
+            :class="{'btn-in-loading disabled': disableNextButton}"
+            :disabled="disableNextButton"
+            @click="nextPaginate"
+          >
             <span class="typcn typcn-chevron-right"></span>
           </button>
         </div>
@@ -72,7 +82,7 @@
 
             <!-- No items -->
             <tr
-              v-else-if="!items.length"
+              v-else-if="!countItems"
             >
               <td
                 :colspan="headers.length + 1"
@@ -84,10 +94,10 @@
             <!-- End no items -->
 
             <tr
-              v-for="(item, i) in items"
+              v-for="(item, i) in itemsPaginated"
               :key="i"
             >
-              <td>{{ i + 1 }}</td>
+              <td>{{ offset + 1 + i}}</td>
               <td
                 v-for="(head, j) in headers"
                 :key="j"
@@ -188,6 +198,13 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      offset: 0,
+      limit: 10,
+      initLimit: 10
+    }
+  },
   methods: {
     ...mapActions({
       load(dispatch) {
@@ -238,6 +255,14 @@ export default {
       }
 
       return objRes || '---' 
+    },
+    nextPaginate() {
+      this.offset = this.offset + this.limit
+      this.limit = this.limit * 2
+    },
+    previousPaginate() {
+      this.offset = this.offset - this.initLimit
+      this.limit = this.limit / 2
     }
   },
   computed: {
@@ -251,6 +276,21 @@ export default {
     }),
     showButtonCreate() {
       return Object.values(this.buttonCreate).length !== 0
+    },
+    countItems() {
+      return this.items.length
+    },
+    itemsPaginated() {
+      return this.items.slice(this.offset, this.limit)
+    },
+    countItemsPaginated() {
+      return this.itemsPaginated.length + this.offset
+    },
+    disablePreviousButton() {
+      return this.offset <= 0
+    },
+    disableNextButton() {
+      return this.countItemsPaginated == this.countItems
     }
   },
   mounted() {
@@ -262,5 +302,8 @@ export default {
 <style>
   .text-normal {
     text-transform: none !important;
+  }
+  .btn-in-loading {
+    cursor: not-allowed !important;
   }
 </style>
