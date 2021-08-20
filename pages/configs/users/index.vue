@@ -9,6 +9,7 @@
           :headers="headers"
           model="admin"
           :buttonCreate="buttonCreate"
+          @launchEdited="onLaunchEdited"
         />
       </div>
     </div>
@@ -101,6 +102,9 @@ export default {
     }
   },
   methods: {
+    onLaunchEdited(id) {
+      this.$router.replace('/configs/users/'+id)
+    }
   }
 }
 </script>
