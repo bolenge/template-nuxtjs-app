@@ -19,75 +19,17 @@
     </div>
 
     <div class="tab-content" id="myTabContent">
+      <!-- Tab pane config comptes bancaires -->
       <div class="tab-pane fade show active" id="config-banks" role="tabpanel" aria-labelledby="config-banks-tab">
         <ConfigAccountBank />
       </div>
+      <!--  End tab pane config comptes bancaires -->
 
-      <!-- Tab config caisses -->
+      <!-- Tab config comptes caisses -->
       <div class="tab-pane fade" id="config-caisses" role="tabpanel" aria-labelledby="config-caisses-tab">
-        <h1 class="title mb-4"><span class="typcn typcn-document-text"></span> Configuration Caisses</h1>
-
-        <div class="row">
-          <div class="col-md-4 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title text-normal">Création compte caisse</h4>
-
-                <form class="forms-sample">
-                  <div class="form-group">
-                    <label for="bank">Intitulé compte <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" id="bank" required />
-                  </div>
-
-                  <div class="form-group">
-                    <label for="account_number">Nº Compte <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" id="account_number" required />
-                  </div>
-
-                  <button type="submit" class="btn btn-info mr-2">Enregistrer</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-8 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title text-normal">Liste de comptes</h4>
-
-                <div class="table-responsive">
-                  <table class="table table-hover" aria-describedby="">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Intitulé Compte</th>
-                        <th>Nª Compte</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="i in 2" :key="i">
-                        <td>{{ i }}</td>
-                        <td>Frais besoins</td>
-                        <td>C-0015</td>
-                        <td>
-                          <button class="btn btn-sm btn-info">
-                            <span class="typcn typcn-pencil"></span>
-                          </button>
-                          <button class="btn btn-sm btn-danger">
-                            <span class="typcn typcn-trash"></span>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ConfigAccountCash />
       </div>
-      <!-- End Tab config caisses -->
+      <!-- End Tab config comptes caisses -->
 
       <!-- Tab config Rubriquess -->
       <div class="tab-pane fade" id="config-tags" role="tabpanel" aria-labelledby="config-tags-tab">
@@ -155,6 +97,7 @@
 
 import Global from '~/mixins/Global'
 import ConfigAccountBank from '~/components/configs/finances/ConfigAccountBank'
+import ConfigAccountCash from '~/components/configs/finances/ConfigAccountCash'
 export default {
   middleware: 'auth',
   head() {
@@ -164,7 +107,8 @@ export default {
   },
   mixins: [Global],
   components: {
-    ConfigAccountBank
+    ConfigAccountBank,
+    ConfigAccountCash
   },
   computed: {
     currentPage() {
