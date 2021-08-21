@@ -1,11 +1,19 @@
 export const state = () => ({
   accounts: [],
+  accounts_banks: [],
+  accounts_cashs: [],
   loading: false
 })
 
 export const mutations = {
   SET_ACCOUNTS(State, payload) {
     State.accounts = payload
+  },
+  SET_ACCOUNTS_BANKS(State, payload) {
+    State.accounts_banks = payload
+  },
+  SET_ACCOUNTS_CASHS(State, payload) {
+    State.accounts_cashs = payload
   },
   SET_LOADING(State, payload) {
     State.loading = payload
@@ -37,7 +45,7 @@ export const actions = {
     commit('SET_LOADING', true)
 
     this.$axios.get('accounts/types/banks').then(({ data }) => {
-      commit('SET_ACCOUNTS', data.results)
+      commit('SET_ACCOUNTS_BANKS', data.results)
     }).finally((_) => {
       commit('SET_LOADING', false)
     })
@@ -46,7 +54,7 @@ export const actions = {
     commit('SET_LOADING', true)
 
     this.$axios.get('accounts/types/cashs').then(({ data }) => {
-      commit('SET_ACCOUNTS', data.results)
+      commit('SET_ACCOUNTS_CASHS', data.results)
     }).finally((_) => {
       commit('SET_LOADING', false)
     })
