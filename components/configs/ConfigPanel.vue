@@ -40,6 +40,7 @@
           :headers="headers"
           :model="model"
           :customLoadAction="customLoadAction"
+          :customModelStateItems="customModelStateItems"
           @launchEdited="onLaunchEdit"
         />
         <!-- End Table list department -->
@@ -104,6 +105,10 @@ export default {
       default: 'typcn-home-outline'
     },
     customLoadAction: {
+      type: String,
+      default: ''
+    },
+    customModelStateItems: {
       type: String,
       default: ''
     }
