@@ -95,6 +95,10 @@ export default {
     customLoadAction: {
       type: String,
       default: ''
+    },
+    customModelStateItems: {
+      type: String,
+      default: ''
     }
   },
   methods: {
@@ -156,7 +160,8 @@ export default {
         return state[this.model]['loading']
       },
       items(state) {
-        return state[this.model][`${this.model}s`]
+        const fieldState = this.customModelStateItems || `${this.model}s`
+        return state[this.model][fieldState]
       }
     })
   },
