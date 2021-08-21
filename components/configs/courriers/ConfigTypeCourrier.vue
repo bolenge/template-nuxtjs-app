@@ -1,12 +1,13 @@
 <template>
   <ConfigPanel
-    title="Configuration Fonction"
-    createFormTitle="Création de fonction"
-    editFormTitle="Edition du fonction"
-    model="fonction"
-    tableTitle="Liste de fonctions"
+    title="Configuration Courriers"
+    createFormTitle="Création de type courrier"
+    editFormTitle="Edition du type courrier"
+    model="type_courrier"
+    tableTitle="Liste de type courriers"
+    iconTitlte="typcn-mail"
     :edited="edited"
-    :entityEdited="entityEdited"
+    :entityEdited="entityEdited"  
     :entity="entity"
     :headers="headers"
     :fields="fields"
@@ -31,14 +32,25 @@ export default {
           name: 'name',
           type: 'text',
           required: true,
-          label: 'Intitulé'
+          label: 'Libellé'
+        },
+        {
+          name: 'code',
+          type: 'text',
+          required: true,
+          label: 'Code'
         }
       ],
       entity: {},
       headers: [
         {
-          text: 'Intitulé',
+          text: 'Libellé',
           value: 'name',
+          type: 'string'
+        },
+        {
+          text: 'Code',
+          value: 'code',
           type: 'string'
         },
         {
@@ -53,10 +65,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      showFonction: 'fonction/show'
+      showTypeCourrier: 'type_courrier/show'
     }),
     async onLaunchEdit(id) {
-      this.entityEdited = await this.showFonction({id})
+      this.entityEdited = await this.showTypeCourrier({id})
       this.edited = true
     },
     onEdited() {

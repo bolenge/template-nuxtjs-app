@@ -7,7 +7,9 @@ export default {
     API_BASE_URL: API_BASE_URL,
     DEFAULT_USER_AVATAR: `${API_BASE_URL}/storage/user_pictures/profile.png`,
     BASE_PATH_USER_PICTURES: `${API_BASE_URL}/storage/user_pictures`,
-    APP_NAME: 'Neo Touch'
+    APP_NAME: 'Neo Touch',
+    TYPE_ACCOUNT_BANK: 1,
+    TYPE_ACCOUNT_CASH: 2,
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head

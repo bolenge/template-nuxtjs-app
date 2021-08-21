@@ -11,7 +11,9 @@ if (!Vue.__global__) {
         API_BASE_URL: null,
         DEFAULT_USER_AVATAR: null,
         BASE_PATH_USER_PICTURES: null,
-        APP_NAME: null
+        APP_NAME: null,
+        TYPE_ACCOUNT_BANK: null,
+        TYPE_ACCOUNT_CASH: null
       }
     },
     computed: {
@@ -29,6 +31,8 @@ if (!Vue.__global__) {
         this.DEFAULT_USER_AVATAR = this.$nuxt.context.env.DEFAULT_USER_AVATAR
         this.BASE_PATH_USER_PICTURES = this.$nuxt.context.env.BASE_PATH_USER_PICTURES
         this.APP_NAME = this.$nuxt.context.env.APP_NAME
+        this.TYPE_ACCOUNT_BANK = this.$nuxt.context.env.TYPE_ACCOUNT_BANK
+        this.TYPE_ACCOUNT_CASH = this.$nuxt.context.env.TYPE_ACCOUNT_CASH
       }
     },
     methods: {

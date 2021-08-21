@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2 class="title mb-4"><span class="typcn typcn-home-outline"></span> {{ title }}</h2>
+    <h2 class="title mb-4">
+      <span class="typcn" :class="iconTitle"></span> {{ title }}
+    </h2>
 
     <div class="row">
       <div class="col-md-4">
@@ -12,6 +14,7 @@
           :entity="entity"
           :model="model"
           :api="`${model}s`"
+          :actionLoad="customLoadAction"
           @submitted="onSubmit"
         />
         <!-- End Form create department -->
@@ -24,6 +27,7 @@
           :entity="entityEdited"
           :model="model"
           :api="`${model}s`"
+          :actionLoad="customLoadAction"
           @submitted="onEdited"
         />
         <!-- End Form edit department -->
@@ -35,6 +39,8 @@
           :title="tableTitle"
           :headers="headers"
           :model="model"
+          :customLoadAction="customLoadAction"
+          :customModelStateItems="customModelStateItems"
           @launchEdited="onLaunchEdit"
         />
         <!-- End Table list department -->
@@ -44,7 +50,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import Create from '@/components/crud/Create'
 import Edit from '@/components/crud/Edit'
 import SimpleTable from '@/components/crud/SimpleTable'
@@ -80,6 +85,32 @@ export default {
       default() {
         return {}
       }
+    },
+    fields: {
+      type: Array,
+      required: true
+    },
+    entity: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
+    headers: {
+      type: Array,
+      required: true
+    },
+    iconTitle: {
+      type: String,
+      default: 'typcn-home-outline'
+    },
+    customLoadAction: {
+      type: String,
+      default: ''
+    },
+    customModelStateItems: {
+      type: String,
+      default: ''
     }
   },
   components: {
@@ -87,27 +118,6 @@ export default {
   },
   data() {
     return {
-      fields: [
-        {
-          name: 'name',
-          type: 'text',
-          required: true,
-          label: 'Intitulé'
-        }
-      ],
-      entity: {},
-      headers: [
-        {
-          text: 'Intitulé',
-          value: 'name',
-          type: 'string'
-        },
-        {
-          text: 'Actions',
-          value: '',
-          type: 'actions'
-        }
-      ]
     }
   },
   computed: {
@@ -117,7 +127,7 @@ export default {
   },
   methods: {
     onSubmit(entity) {
-      this.entity = {}
+      this.$emit('entityReseted', entity)
     },
     async onLaunchEdit(id) {
       this.$emit('launchEdited', id)
