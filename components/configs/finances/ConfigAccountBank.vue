@@ -12,6 +12,7 @@
     :headers="headers"
     :fields="fields"
     customLoadAction="loadAccountBanks"
+    customModelStateItems="accounts_banks"
     @launchEdited="onLaunchEdit"
     @edited="onEdited"
     @entityReseted="onEntityReseted"
