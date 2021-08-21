@@ -53,6 +53,7 @@ export const actions = {
     
     const formData = serialize(entity)
     formData.append('_method', 'PUT')
+    actionLoad = actionLoad || 'load'
 
     return new Promise(
       (resolve, reject) => {
