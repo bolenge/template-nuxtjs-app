@@ -13,6 +13,7 @@
           :customButtons="customButtons"
           @launchEdited="onLaunchEdited"
           @transmitted="onTransmitted"
+          @showed="onShowed"
         />
       </div>
     </div>
@@ -143,6 +144,9 @@ export default {
     },
     async transmitteCourrier(courrier) {
       await this.transmits({id: courrier.id})
+    },
+    onShowed(id) {
+      this.$router.replace('/courriers/'+id)
     }
   }
 }
