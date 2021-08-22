@@ -172,6 +172,22 @@
                   >
                     <span class="typcn typcn-eye-outline"></span>
                   </button>
+
+                  <span>
+                    <button
+                      v-for="(button,iB) in customButtons"
+                      :key="iB"
+                      class="btn btn-sm"
+                      :class="button.type"
+                      type="button"
+                      @click="lauchCustomButtonEvent(button.event, item)"
+                    >
+                      <span
+                        class="typcn"
+                        :class="button.icon"
+                      ></span>
+                    </button>
+                  </span>
                 </span>
                 <!-- End Actions fields -->
 
@@ -231,7 +247,18 @@ export default {
       default() {
         return {}
       }
-    }
+    },
+    actionLoad: {
+      type: String,
+      default: 'load'
+    },
+    customButtons: {
+      type: Array,
+      required: false,
+      default() {
+        return []
+      }
+    },
   },
   data() {
     return {
@@ -244,7 +271,7 @@ export default {
   methods: {
     ...mapActions({
       load(dispatch) {
-        return dispatch(this.model + '/load')
+        return dispatch(this.model + '/' + this.actionLoad)
       },
       delete: 'crud/delete'
     }),
@@ -299,6 +326,9 @@ export default {
     previousPaginate() {
       this.offset = this.offset - this.initLimit
       this.limit = this.limit / 2
+    },
+    lauchCustomButtonEvent(event, item) {;
+      this.$emit(event, item)
     }
   },
   computed: {
