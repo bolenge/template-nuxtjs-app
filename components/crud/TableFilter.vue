@@ -170,6 +170,7 @@
                   <button
                     v-if="buttons.show"
                     class="btn btn-sm btn-success"
+                    @click="onShow(item.id)"
                   >
                     <span class="typcn typcn-eye-outline"></span>
                   </button>
@@ -301,6 +302,9 @@ export default {
           this.deleteRecord({id})
         }
       });
+    },
+    onShow(id) {
+      this.$emit('showed', id)
     },
     async deleteRecord(entity) {
       try {
