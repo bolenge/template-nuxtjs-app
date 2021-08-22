@@ -33,7 +33,7 @@
           >
             <span class="typcn typcn-chevron-left"></span>
           </button>
-          <span>{{ offset + 1 }}-{{ countItemsPaginated }} sur {{ countItems }}</span>
+          <span>{{ countItems ? offset + 1 : 0 }}-{{ countItemsPaginated }} sur {{ countItems }}</span>
           <button
             class="btn btn-light btn-sm"
             :class="{'btn-in-loading disabled': disableNextButton}"
@@ -103,6 +103,7 @@
             <tr
               v-for="(item, i) in itemsPaginated"
               :key="i"
+              :class="trClass(item)"
             >
               <td>{{ offset + 1 + i}}</td>
               <td
@@ -259,6 +260,12 @@ export default {
         return []
       }
     },
+    trClassByCondition: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
   },
   data() {
     return {
@@ -329,6 +336,11 @@ export default {
     },
     lauchCustomButtonEvent(event, item) {;
       this.$emit(event, item)
+    },
+    trClass(item) {
+      const className = this.trClassByCondition.class
+      const condition = item[this.trClassByCondition.fieldCondition] == this.trClassByCondition.value
+      return condition ? className : ''
     }
   },
   computed: {
