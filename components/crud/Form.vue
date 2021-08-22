@@ -82,12 +82,14 @@
               <!-- Input file field -->
               <div
                 v-else-if="field.type === 'file'"
+                class="d-flex"
               >
                 <input
                   type="file"
                   name="media[]"
                   id="media"
                   class="form-control form-control-sm"
+                  :class="{'col-10': showDownloadFile}"
                   data-type-media="file"
                   @change="uploadFile"
                 />
@@ -97,6 +99,18 @@
                   :name="field.name"
                   id="mediaDate"
                 />
+                <span
+                  v-if="showDownloadFile=form[field.name]"
+                  class="col-1"
+                >
+                  <a
+                    :href="`${BASE_PATH_USER_PICTURES}/${showDownloadFile}`"
+                    class="btn btn-sm btn-light text-info"
+                    target="_blank"
+                  >
+                    <span class="typcn typcn-download-outline"></span>
+                  </a>
+                </span>
               </div>
               <!-- End Input file field -->
 
@@ -234,7 +248,8 @@ export default {
       previewImage: null,
       showPassword: false,
       syncField: null,
-      defaultSyncValue: null
+      defaultSyncValue: null,
+      showDownloadFile: null
     }
   },
   watch: {
