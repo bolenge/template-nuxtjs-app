@@ -69,7 +69,6 @@ export default {
       update: 'crud/update'
     }),
     async onSubmit (entity) {
-      console.log(entity)
       this.loading = true
       try {
         await this.update({ entity, api: this.api, model: this.model, actionLoad: this.actionLoad })
