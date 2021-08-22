@@ -1,0 +1,111 @@
+<template>
+  <Form
+    :title="title"
+    :description="description"
+    :fields="fields"
+    :entity="entity"
+    :loading="loading"
+    :model="model"
+    :showButtonCancel="showButtonCancel"
+    :formRow="formRow"
+    @submitted="onSubmit"
+  />
+</template>
+
+<script>
+import { mapState, mapActions } from 'vuex'
+import Form from '~/components/crud/Form'
+export default {
+  components: {
+    Form
+  },
+  props: {
+    title: {
+      type: String,
+      default: 'Nouvel enregsitrement'
+    },
+    description: {
+      type: String,
+      default: ''
+    },
+    fields: {
+      type: Array,
+      required: true
+    },
+    showButtonCancel: {
+      type: Boolean,
+      default: false
+    },
+    entity: {
+      type: Object,
+      default() {
+        return {}
+      } 
+    },
+    model: {
+      type: String,
+      required: true
+    },
+    api: {
+      type: String,
+      required: true
+    },
+    formRow: {
+      type: Boolean,
+      default: false
+    },
+    actionLoad: {
+      type: String,
+      default: 'load'
+    }
+  },
+  data() {
+    return {
+      loading: false
+    }
+  },
+  methods: {
+    ...mapActions({
+      store: 'crud/store'
+    }),
+    async onSubmit (entity) {
+      this.loading = true
+      try {
+        await this.store({ entity, api: this.api, model: this.model, actionLoad: this.actionLoad })
+
+        this.$swal({
+          title: "",
+          text: "Enregistrement effectué avec succès.",
+          icon: "success",
+          buttons: true,
+          confirmButtonText: 'Ok'
+        }).then(({isConfirmed}) => {
+          this.$emit('submitted')
+        });
+
+      } catch (error) {
+        if (error.response && (error.response.status === 422 || error.response.status === 401)) {
+          if (error.response.data) {
+            const data = error.response.data
+            
+            this.$swal({
+              title: "Erreur",
+              text: data.message,
+              icon: "warning",
+              buttons: true,
+              confirmButtonText: 'Ok'
+            })
+          }else {
+            this.$toast.error('Une erreur est survenue, réessayez svp !')
+          }
+        }else {
+          this.$toast.error('Une erreur est survenue, réessayez svp !')
+        }
+        
+      } finally {
+        this.loading = false
+      }
+    }
+  }
+}
+</script>

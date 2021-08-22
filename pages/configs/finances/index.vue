@@ -1,218 +1,71 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid text-center mb-4">
-      <div class="col-8 offset-lg-2">
+      <div class="col-12">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <!-- Tab config comptes banks -->
           <li class="nav-item" role="presentation">
             <a class="nav-link active" id="config-banks-tab" data-toggle="tab" href="#config-banks" role="tab" aria-controls="config-banks" aria-selected="true"><span class="typcn typcn-credit-card"></span> Comptes Bancaires</a>
           </li>
+          <!-- End Tab config comptes banks -->
+
+          <!-- Tab config comptes caisses -->
           <li class="nav-item" role="presentation">
-            <a class="nav-link" id="config-caisses-tab" data-toggle="tab" href="#config-caisses" role="tab" aria-controls="config-caisses" aria-selected="false"><sapn class="typcn typcn-document-text"></sapn> Comptes Petites Caisses</a>
+            <a class="nav-link" id="config-caisses-tab" data-toggle="tab" href="#config-caisses" role="tab" aria-controls="config-caisses" aria-selected="false"><span class="typcn typcn-document-text"></span> Comptes Caisses</a>
           </li>
-          <!-- Tab config rubriques -->
+          <!-- End Tab config comptes caisses -->
+
+          <!-- Tab config natures -->
           <li class="nav-item" role="presentation">
-            <a class="nav-link" id="config-tags-tab" data-toggle="tab" href="#config-tags" role="tab" aria-controls="config-tags" aria-selected="false"><sapn class="typcn typcn-tags"></sapn> Rubriques</a>
+            <a class="nav-link" id="config-tags-tab" data-toggle="tab" href="#config-natures" role="tab" aria-controls="config-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Nature Op. (Niveau 1)</a>
           </li>
-          <!-- End Tab config rubriques -->
+          <!-- End Tab config natures -->
+
+          <!-- Tab config sub-natures -->
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="config-tags-tab" data-toggle="tab" href="#config-sub-natures" role="tab" aria-controls="config-sub-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Nature Op. (Niveau 2)</a>
+          </li>
+          <!-- End Tab config sub-natures -->
+
+          <!-- Tab config comptes-natures -->
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="config-tags-tab" data-toggle="tab" href="#config-comptes-natures" role="tab" aria-controls="config-comptes-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Comptes des Op. (Niveau 3)</a>
+          </li>
+          <!-- End Tab config comptes-natures -->
         </ul>
       </div>
     </div>
 
     <div class="tab-content" id="myTabContent">
+      <!-- Tab pane config comptes bancaires -->
       <div class="tab-pane fade show active" id="config-banks" role="tabpanel" aria-labelledby="config-banks-tab">
-        <h2 class="title mb-4"><span class="typcn typcn-credit-card"></span> Configuration Comptes Bancaires</h2>
-
-        <div class="row">
-          <div class="col-md-4 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title text-normal">Creation Compte</h4>
-
-                <form class="forms-sample">
-                  <div class="form-group">
-                    <label for="bank">Nom de la banque <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" id="bank" required />
-                  </div>
-
-                  <div class="form-group">
-                    <label for="account_number">Nº Compte <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" id="account_number" required />
-                  </div>
-
-                  <div class="form-group">
-                    <label for="account_number">Nom proprietaire compte <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" id="account_number" required />
-                  </div>
-                  <button type="submit" class="btn btn-info mr-2">Enregistrer</button>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-8 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title text-normal">Liste de departements</h4>
-
-                <div class="table-responsive">
-                  <table class="table table-hover" aria-describedby="">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Banque</th>
-                        <th>Nº Compte</th>
-                        <th>Nom proprietaire compte</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="i in 2" :key="i">
-                        <td>{{ i }}</td>
-                        <td>Equity</td>
-                        <td>3847-8377-0393-3847</td>
-                        <td>Mabiala Matondo</td>
-                        <td>
-                          <button class="btn btn-sm btn-info">
-                            <span class="typcn typcn-pencil"></span>
-                          </button>
-                          <button class="btn btn-sm btn-danger">
-                            <span class="typcn typcn-trash"></span>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ConfigAccountBank />
       </div>
+      <!--  End tab pane config comptes bancaires -->
 
-      <!-- Tab config petites caisses -->
+      <!-- Tab config comptes caisses -->
       <div class="tab-pane fade" id="config-caisses" role="tabpanel" aria-labelledby="config-caisses-tab">
-        <h1 class="title mb-4"><sapn class="typcn typcn-document-text"></sapn> Configuration Petites Caisses</h1>
-
-        <div class="row">
-          <div class="col-md-4 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title text-normal">Création compte caisse</h4>
-
-                <form class="forms-sample">
-                  <div class="form-group">
-                    <label for="bank">Intitulé compte <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" id="bank" required />
-                  </div>
-
-                  <div class="form-group">
-                    <label for="account_number">Nº Compte <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" id="account_number" required />
-                  </div>
-
-                  <button type="submit" class="btn btn-info mr-2">Enregistrer</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-8 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title text-normal">Liste de comptes</h4>
-
-                <div class="table-responsive">
-                  <table class="table table-hover" aria-describedby="">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Intitulé Compte</th>
-                        <th>Nª Compte</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="i in 2" :key="i">
-                        <td>{{ i }}</td>
-                        <td>Frais besoins</td>
-                        <td>C-0015</td>
-                        <td>
-                          <button class="btn btn-sm btn-info">
-                            <span class="typcn typcn-pencil"></span>
-                          </button>
-                          <button class="btn btn-sm btn-danger">
-                            <span class="typcn typcn-trash"></span>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ConfigAccountCash />
       </div>
-      <!-- End Tab config petites caisses -->
+      <!-- End Tab config comptes caisses -->
 
-      <!-- Tab config Rubriquess -->
-      <div class="tab-pane fade" id="config-tags" role="tabpanel" aria-labelledby="config-tags-tab">
-        <h1 class="title mb-4">
-          <sapn class="typcn typcn-tags"></sapn> Configuration Rubriques
-        </h1>
-
-        <div class="row">
-          <div class="col-md-4 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title text-normal">Création rubrique</h4>
-
-                <form class="forms-sample">
-                  <div class="form-group">
-                    <label for="name">Intitulé rubrique<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control form-control-sm" id="name" required />
-                  </div>
-                  <button type="submit" class="btn btn-info mr-2">Enregistrer</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-8 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title text-normal">Liste de rubriques</h4>
-
-                <div class="table-responsive">
-                  <table class="table table-hover" aria-describedby="">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Intitulé</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="i in 2" :key="i">
-                        <td>{{ i }}</td>
-                        <td>Voyages</td>
-                        <td>
-                          <button class="btn btn-sm btn-info">
-                            <span class="typcn typcn-pencil"></span>
-                          </button>
-                          <button class="btn btn-sm btn-danger">
-                            <span class="typcn typcn-trash"></span>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- Tab config Nature d'Operations (Niveau 1) -->
+      <div class="tab-pane fade" id="config-natures" role="tabpanel" aria-labelledby="config-natures-tab">
+        <ConfigNature />
       </div>
+      <!-- Tab config Nature d'Operations (Niveau 1) -->
+
+      <!-- Tab config Sub Nature d'Operations (Niveau 2) -->
+      <div class="tab-pane fade" id="config-sub-natures" role="tabpanel" aria-labelledby="config-sub-natures-tab">
+        <ConfigSubNature />
+      </div>
+      <!-- Tab config Sub Nature d'Operations (Niveau 2) -->
+
+      <!-- Tab config Compte Nature d'Operations (Niveau 3) -->
+      <div class="tab-pane fade" id="config-comptes-natures" role="tabpanel" aria-labelledby="config-comptes-natures-tab">
+        <ConfigCompteNature />
+      </div>
+      <!-- Tab config Compte Nature d'Operations (Niveau 3) -->
     </div>
   </div>
 </template>
@@ -220,6 +73,11 @@
 <script>
 
 import Global from '~/mixins/Global'
+import ConfigAccountBank from '~/components/configs/finances/ConfigAccountBank'
+import ConfigAccountCash from '~/components/configs/finances/ConfigAccountCash'
+import ConfigNature from '~/components/configs/finances/ConfigNature'
+import ConfigSubNature from '~/components/configs/finances/ConfigSubNature'
+import ConfigCompteNature from '~/components/configs/finances/ConfigCompteNature'
 export default {
   middleware: 'auth',
   head() {
@@ -228,6 +86,13 @@ export default {
     }
   },
   mixins: [Global],
+  components: {
+    ConfigAccountBank,
+    ConfigAccountCash,
+    ConfigNature,
+    ConfigSubNature,
+    ConfigCompteNature,
+  },
   computed: {
     currentPage() {
       return 'configs'

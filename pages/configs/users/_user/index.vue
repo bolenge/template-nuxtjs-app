@@ -11,17 +11,17 @@
         </div>
       </div>
       <div class="col-lg-8 grid-margin stretch-card">
-        <!-- Form create users -->
-        <Create
+        <!-- Form edit users -->
+        <Edit
           api="admins"
           model="admin"
-          title="Création d'un nouvel utilisateur"
+          title="Edition compte utilisateur"
           :fields="fields"
-          :entity="entity"
+          :entity="entityEdited"
           :formRow="true"
           @submitted="onSubmit"
         />
-        <!-- End Form create users -->
+        <!-- End Form edit users -->
       </div>
     </div>
   </div>
@@ -30,18 +30,22 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import Global from '~/mixins/Global'
-import Create from '~/components/crud/Create'
+import Edit from '~/components/crud/Edit'
 
 export default {
   middleware: 'auth',
   head() {
     return {
-      title: 'Creation d\'un nouvel utilisateur'
+      title: 'Edition d\'un compte utilisateur'
     }
   },
   mixins: [Global],
   components: {
-    Create
+    Edit
+  },
+  asyncData ({ params }) {
+    const slug = +params.user
+    return { slug }
   },
   data() {
     return {
@@ -114,7 +118,7 @@ export default {
           label: 'Mot de passe'
         },
       ],
-      entity: {}
+      entityEdited: {}
     }
   },
   computed: {
@@ -152,17 +156,21 @@ export default {
       loadRoles: 'role/load',
       loadFonctions: 'fonction/load',
       loadDepartments: 'department/load',
+      showAdmin: 'admin/show'
     }),
     onSubmit(entity) {
-      this.entity = {}
+      this.entityEdited = {}
       this.$router.replace('/configs/users')
     },
     async onLaunchEdit(id) {
       this.$emit('launchEdited', id)
     },
-    onEdited() {
-      this.$emit('edited', true)
+    async setEntityEdited() {
+      this.entityEdited = await this.showAdmin({id: this.slug})
     }
+  },
+  beforeMount() {
+    this.setEntityEdited()
   },
   mounted() {
     this.loadRoles()

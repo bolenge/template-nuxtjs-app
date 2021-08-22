@@ -18,6 +18,8 @@
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "nuxt": "^2.15.7",
+    "object-to-formdata": "^4.1.0",
+    "vue-sweetalert2": "^5.0.2",
     "vuex": "^3.6.2"
   },
   "devDependencies": {},
