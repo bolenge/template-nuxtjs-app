@@ -331,7 +331,6 @@ export default {
   },
   mounted() {
     this.initItems()
-    console.log(this.itemsFiltered);
   }
 }
 </script>
