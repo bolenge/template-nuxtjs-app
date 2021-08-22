@@ -130,22 +130,44 @@
                 <label
                   v-else-if="head.type == 'badge'"
                   class="badge"
-                  :class="item.class"
+                  :class="head.types[item[head.value]]"
                 >
                   {{ item[head.value] }}
                 </label>
                 <!-- Badge fields -->
 
+                <!-- Badge fields -->
+                <a
+                  v-else-if="head.type == 'attachment'"
+                  class="badge badge-info"
+                  :href="`${API_BASE_URL}/${head.baseUrl}/${item[head.value]}`"
+                  download="download"
+                  target="_blank"
+                >
+                  <span class="typcn typcn-attachment"></span>
+                </a>
+                <!-- Badge fields -->
+
                 <!-- Actions fields -->
-                <span v-else-if="head.type == 'actions'">
-                  <button class="btn btn-sm btn-info" @click="onLaunchEdit(item.id)">
+                <span
+                  v-else-if="head.type == 'actions'"
+                >
+                  <button
+                    v-if="buttons.edit"
+                    class="btn btn-sm btn-info"
+                    @click="onLaunchEdit(item.id)"
+                  >
                     <span class="typcn typcn-pencil"></span>
                   </button>
-                  <button class="btn btn-sm btn-danger" @click="onDelete(item.id)">
+                  <button
+                    v-if="buttons.delete"
+                    class="btn btn-sm btn-danger"
+                    @click="onDelete(item.id)"
+                  >
                     <span class="typcn typcn-trash"></span>
                   </button>
                   <button
-                    v-if="showEyeButton"
+                    v-if="buttons.show"
                     class="btn btn-sm btn-success"
                   >
                     <span class="typcn typcn-eye-outline"></span>
@@ -190,9 +212,15 @@ export default {
       type: String,
       required: true
     },
-    showEyeButton: {
-      type: Boolean,
-      default: false
+    buttons: {
+      ttype: Object,
+      default() {
+        return {
+          edit: true,
+          show: false,
+          delete: true
+        }
+      }
     },
     extractData: {
       type: Boolean,
