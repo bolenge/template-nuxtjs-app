@@ -113,7 +113,12 @@
                     :class="setNavLinkActive('inbox-courriers')"
                   >
                     Boite de reception
-                    <span class="badge badge-primary p-1">4</span>
+                    <span
+                      v-if="countNewCourriers"
+                      class="badge badge-primary p-1"
+                    >
+                      {{ countNewCourriers }}
+                    </span>
                   </nuxt-link>
                 </li>
                 <!-- End Boite de reception courriers -->
@@ -248,7 +253,7 @@
 
           <!-- Item Deconnexion -->
           <li class="nav-item">
-            <a class="nav-link" @click.prevent="$auth.logout()">
+            <a class="nav-link cursor-click" @click.prevent="onLogout">
               <em class="typcn typcn-power menu-icon"></em>
               <span class="menu-title">Deconnexion</span>
             </a>
@@ -269,6 +274,12 @@ export default {
       type: String,
       default: ''
     },
+    countNewCourriers: {
+      type: Number,
+      default: 0
+    }
+  },
+  computed: {
   },
   methods: {
     setPageActive(page) {
@@ -277,6 +288,26 @@ export default {
     setNavLinkActive(navLink) {
       return this.navLinkActive == navLink ? 'active' : ''
     },
+    onLogout() {
+      this.$swal({
+        title: "Déconnxion",
+        text: "Voulez-vous vraiment vous déconnecter ?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        showCancelButton: true
+      }).then(({isConfirmed}) => {
+        if (isConfirmed) {
+          this.$auth.logout()
+        }
+      });
+    }
   }
 }
 </script>
+
+<style>
+  .cursor-click {
+    cursor: pointer !important;
+  }
+</style>
