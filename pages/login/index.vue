@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { mapState, mapActions }  from 'vuex'
 import Account from '~/mixins/Account'
 export default {
   mixins: [Account],
@@ -76,9 +77,6 @@ export default {
       loading: false
     }
   },
-  mounted () {
-    console.log('Login page nounted')
-  },
   methods: {
     async loginUser () {
       this.loading = true
@@ -88,9 +86,8 @@ export default {
           data: this.form
         })
 
-        console.log(response);
-
         if (response.data.state) {
+          await this.loadInboxCourriers()
           this.$toast.success(response.message)
           this.$route.push('/')
         }else {
@@ -102,7 +99,10 @@ export default {
       }
 
       this.loading = false
-    }
+    },
+    ...mapActions({
+      loadInboxCourriers: 'courrier/loadInboxCourriersAdmin'
+    })
   }
 }
 </script>

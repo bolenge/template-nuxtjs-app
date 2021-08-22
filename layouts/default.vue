@@ -9,6 +9,7 @@
       <Sidebar
         :page-active="pageActive"
         :nav-link-active="navLinkActive"
+        :countNewCourriers="countNewCourriers"
       />
 
       <!-- partial -->
@@ -26,6 +27,7 @@
 </template>
 
 <script>
+import { mapState, mapActions }  from 'vuex'
 import $ from 'jquery'
 import Navbar from '@/components/partials/Navbar'
 import Sidebar from '@/components/partials/Sidebar'
@@ -36,18 +38,32 @@ export default {
   mixins: [Account],
   components: {Navbar, Sidebar, Footer},
   computed: {
+    ...mapState({
+      inboxCourriers(state) {
+        return state.courrier.inbox_courriers
+      }
+    }),
     pageActive() {
       return this.$store.state.page_active
     },
     navLinkActive() {
       return this.$store.state.nav_link_active
+    },
+    countNewCourriers() {
+      return this
+        .inboxCourriers
+        .filter((courrier) => !courrier.recipient_consulted).length
     }
   },
   mounted() {
+    this.loadInboxCourriers()
     this.collapseItemSidebar()
     this.autoActiveCollapseItem()
   },
   methods: {
+    ...mapActions({
+      loadInboxCourriers: 'courrier/loadInboxCourriersAdmin'
+    }),
     collapseItemSidebar() {
       const $parent = this
 

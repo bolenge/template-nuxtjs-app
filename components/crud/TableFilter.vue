@@ -33,7 +33,7 @@
           >
             <span class="typcn typcn-chevron-left"></span>
           </button>
-          <span>{{ offset + 1 }}-{{ countItemsPaginated }} sur {{ countItems }}</span>
+          <span>{{ countItems ? offset + 1 : 0 }}-{{ countItemsPaginated }} sur {{ countItems }}</span>
           <button
             class="btn btn-light btn-sm"
             :class="{'btn-in-loading disabled': disableNextButton}"
@@ -103,6 +103,7 @@
             <tr
               v-for="(item, i) in itemsPaginated"
               :key="i"
+              :class="trClass(item)"
             >
               <td>{{ offset + 1 + i}}</td>
               <td
@@ -130,26 +131,65 @@
                 <label
                   v-else-if="head.type == 'badge'"
                   class="badge"
-                  :class="item.class"
+                  :class="head.types[item[head.value]]"
                 >
                   {{ item[head.value] }}
                 </label>
                 <!-- Badge fields -->
 
+                <!-- Badge fields -->
+                <a
+                  v-else-if="head.type == 'attachment'"
+                  class="badge badge-info"
+                  :href="`${API_BASE_URL}/${head.baseUrl}/${item[head.value]}`"
+                  download="download"
+                  target="_blank"
+                >
+                  <span class="typcn typcn-attachment"></span>
+                </a>
+                <!-- Badge fields -->
+
                 <!-- Actions fields -->
-                <span v-else-if="head.type == 'actions'">
-                  <button class="btn btn-sm btn-info" @click="onLaunchEdit(item.id)">
+                <span
+                  v-else-if="head.type == 'actions'"
+                >
+                  <button
+                    v-if="buttons.edit"
+                    class="btn btn-sm btn-info"
+                    @click="onLaunchEdit(item.id)"
+                  >
                     <span class="typcn typcn-pencil"></span>
                   </button>
-                  <button class="btn btn-sm btn-danger" @click="onDelete(item.id)">
+                  <button
+                    v-if="buttons.delete"
+                    class="btn btn-sm btn-danger"
+                    @click="onDelete(item.id)"
+                  >
                     <span class="typcn typcn-trash"></span>
                   </button>
                   <button
-                    v-if="showEyeButton"
+                    v-if="buttons.show"
                     class="btn btn-sm btn-success"
+                    @click="onShow(item.id)"
                   >
                     <span class="typcn typcn-eye-outline"></span>
                   </button>
+
+                  <span>
+                    <button
+                      v-for="(button,iB) in customButtons"
+                      :key="iB"
+                      class="btn btn-sm"
+                      :class="button.type"
+                      type="button"
+                      @click="lauchCustomButtonEvent(button.event, item)"
+                    >
+                      <span
+                        class="typcn"
+                        :class="button.icon"
+                      ></span>
+                    </button>
+                  </span>
                 </span>
                 <!-- End Actions fields -->
 
@@ -190,15 +230,38 @@ export default {
       type: String,
       required: true
     },
-    showEyeButton: {
-      type: Boolean,
-      default: false
+    buttons: {
+      ttype: Object,
+      default() {
+        return {
+          edit: true,
+          show: false,
+          delete: true
+        }
+      }
     },
     extractData: {
       type: Boolean,
       default: false
     },
     buttonCreate: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
+    actionLoad: {
+      type: String,
+      default: 'load'
+    },
+    customButtons: {
+      type: Array,
+      required: false,
+      default() {
+        return []
+      }
+    },
+    trClassByCondition: {
       type: Object,
       default() {
         return {}
@@ -216,7 +279,7 @@ export default {
   methods: {
     ...mapActions({
       load(dispatch) {
-        return dispatch(this.model + '/load')
+        return dispatch(this.model + '/' + this.actionLoad)
       },
       delete: 'crud/delete'
     }),
@@ -239,6 +302,9 @@ export default {
           this.deleteRecord({id})
         }
       });
+    },
+    onShow(id) {
+      this.$emit('showed', id)
     },
     async deleteRecord(entity) {
       try {
@@ -271,6 +337,14 @@ export default {
     previousPaginate() {
       this.offset = this.offset - this.initLimit
       this.limit = this.limit / 2
+    },
+    lauchCustomButtonEvent(event, item) {;
+      this.$emit(event, item)
+    },
+    trClass(item) {
+      const className = this.trClassByCondition.class
+      const condition = item[this.trClassByCondition.fieldCondition] == this.trClassByCondition.value
+      return condition ? className : ''
     }
   },
   computed: {
@@ -331,7 +405,6 @@ export default {
   },
   mounted() {
     this.initItems()
-    console.log(this.itemsFiltered);
   }
 }
 </script>
