@@ -40,10 +40,29 @@
               >
                 {{ field.label }} <span v-if="field.required" class="text-danger">*</span>
               </label>
+              <!-- Select field -->
+              <select
+                v-if="field.type === 'select' && field.syncField !== undefined"
+                v-model="form[field.name]"
+                class="form-control"
+                :id="field.name"
+                :required="field.required"
+                style="height: 39px;"
+                @change="onChangeSyncerField"
+              >
+                <option
+                  v-for="(item, it) in field.items"
+                  :key="it"
+                  :value="item.id"
+                >
+                  {{ item[field.itemText || 'name'] }}
+                </option>
+              </select>
+              <!-- End select field -->
 
               <!-- Select field -->
               <select
-                v-if="field.type === 'select'"
+                v-else-if="field.type === 'select'"
                 v-model="form[field.name]"
                 class="form-control"
                 :id="field.name"
@@ -60,6 +79,27 @@
               </select>
               <!-- End select field -->
 
+              <!-- Input file field -->
+              <div
+                v-else-if="field.type === 'file'"
+              >
+                <input
+                  type="file"
+                  name="media[]"
+                  id="media"
+                  class="form-control form-control-sm"
+                  data-type-media="file"
+                  @change="uploadFile"
+                />
+                <input
+                  v-model="form[field.name]"
+                  type="hidden"
+                  :name="field.name"
+                  id="mediaDate"
+                />
+              </div>
+              <!-- End Input file field -->
+
               <!-- Input file image field -->
               <div
                 v-else-if="field.type === 'file-image'"
@@ -71,6 +111,7 @@
                   id="media"
                   class="form-control form-control-sm"
                   :class="{'col-9': previewImage}"
+                  data-type-media="image"
                   @change="uploadFile"
                 />
                 <input
@@ -191,7 +232,9 @@ export default {
     return {
       form: {},
       previewImage: null,
-      showPassword: false
+      showPassword: false,
+      syncField: null,
+      defaultSyncValue: null
     }
   },
   watch: {
@@ -216,6 +259,16 @@ export default {
         if (field.type === 'hidden') {
           this.form[field.name] = field.value
         }
+
+        if (field.type === 'select') {
+          if (field.syncField !== undefined) {
+            this.syncField = field.syncField
+          }
+        }
+
+        if (field.isSync !== undefined) {
+          this.defaultSyncValue = field.value
+        }
       })
     },
     onSubmit() {
@@ -224,10 +277,11 @@ export default {
     uploadFile(e) {
       const formData = new FormData();
       const imagefile = e.target;
+      const typeMedia = imagefile.getAttribute('data-type-media')
 
       formData.append("media", imagefile.files[0]);
 
-      this.$axios.post('/uploads/image', formData, {
+      this.$axios.post('/uploads/'+typeMedia, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -247,6 +301,21 @@ export default {
     },
     toggleShowPassword() {
       this.showPassword = !this.showPassword
+    },
+    onChangeSyncerField(e) {
+      if (this.syncField) {
+        const value = e.target.value
+        const fieldName = e.target.id
+        const fieldFound = this.fields.find((field) => field.name === fieldName)
+
+        if (fieldFound) {
+          const itemFound = fieldFound.items.find((item) => item.id == value)
+
+          if (itemFound) {
+            this.form[this.syncField] = itemFound[fieldFound.syncFieldFromValue] + '/' + this.defaultSyncValue
+          }
+        }
+      }
     }
   },
   beforeMount(){
