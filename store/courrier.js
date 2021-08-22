@@ -1,5 +1,6 @@
 export const state = () => ({
   courriers: [],
+  inbox_courriers: [],
   loading: false
 })
 
@@ -7,13 +8,16 @@ export const mutations = {
   SET_COURRIERS(State, payload) {
     State.courriers = payload
   },
+  SET_INBOX_COURRIERS(State, payload) {
+    State.inbox_courriers = payload
+  },
   SET_LOADING(State, payload) {
     State.loading = payload
   }
 }
 
 export const actions = {
-  load({ commit }) {
+  load({ dispatch, commit }) {
     commit('SET_LOADING', true)
 
     this.$axios.get('courriers').then(({ data }) => {
@@ -22,6 +26,7 @@ export const actions = {
       commit('SET_LOADING', false)
     })
   },
+
   show (_, payload) {
     return new Promise((resolve, reject) => {
       this.$axios.get(`courriers/${payload.id}`)
@@ -33,6 +38,7 @@ export const actions = {
         })
     })
   },
+
   loadCourriersNoTransmitted({ commit }) {
     commit('SET_LOADING', true)
 
@@ -42,6 +48,7 @@ export const actions = {
       commit('SET_LOADING', false)
     })
   },
+
   transmits({ dispatch, commit }, payload) {
     commit('SET_LOADING', true)
     
@@ -74,6 +81,17 @@ export const actions = {
         }).finally((_) => {
           commit('SET_LOADING', false)
         })
+    })
+  },
+
+  loadInboxCourriersAdmin({ commit }) {
+    commit('SET_LOADING', true)
+
+    this.$axios.get('courriers/all/inbox').then(({ data }) => {
+      commit('SET_COURRIERS', data.results)
+      commit('SET_INBOX_COURRIERS', data.results)
+    }).finally((_) => {
+      commit('SET_LOADING', false)
     })
   },
 }
