@@ -1,18 +1,18 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-film"></span> Initiation de requêtes de fonds</h2>
+      <h2 class="title mb-4"><span class="typcn typcn-film"></span> Detail de la requête de fonds</h2>
     </div>
 
     <div class="row">
       <div class="col-lg-8 grid-margin stretch-card">
         <!-- Form create fund_requests -->
-        <Create
+        <Edit
           api="fund_requests"
           model="fund_request"
-          title="Enregistrement d'une nouvelle requete de fonds"
+          title="Detail de la requete de fonds"
           :fields="fields"
-          :entity="entity"
+          :entity="entityEdited"
           :formRow="true"
           @submitted="onSubmit"
         />
@@ -27,16 +27,23 @@
 import { mapState, mapActions } from 'vuex'
 import Global from '~/mixins/Global'
 import Account from '~/mixins/Account'
-import Create from '~/components/crud/Create'
+import Edit from '~/components/crud/Edit'
 
 export default {
+  props: {
+    slug: {
+      type: Number,
+      required: true
+    }
+  },
   mixins: [Global, Account],
   components: {
-    Create
+    Edit
   },
   data() {
     return {
-      entity: {}
+      entity: {},
+      entityEdited: null
     }
   },
   computed: {
@@ -152,11 +159,15 @@ export default {
   methods: {
     ...mapActions({
       loadCurrencies: 'currency/load',
-      loadUser: 'user/loadUser'
+      loadUser: 'user/loadUser',
+      showFundRequest: 'fund_request/show'
     }),
     onSubmit(entity) {
       this.entity = {}
       this.$router.replace('/requests/synthesis')
+    },
+    async setEntityEdited() {
+      this.entityEdited = await this.showFundRequest({id: this.slug})
     },
   },
   mounted() {
