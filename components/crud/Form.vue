@@ -15,7 +15,7 @@
           <div
             v-for="(field, i) in fields"
             :key="i"
-            :class="{'col-lg-6': formRow}"
+            :class="showColClass(field)"
           >
             <!-- Field checkbox -->
             <div
@@ -165,6 +165,19 @@
               </div>
               <!-- End input password field -->
 
+               <!-- Textarea field -->
+               <textarea
+                v-else-if="field.type === 'textarea'"
+                v-model="form[field.name]"
+                :name="field.name"
+                :id="field.name"
+                :required="field.required"
+                :disabled="field.disabled"
+                class="form-control form-control-sm"
+              >
+              </textarea>
+              <!-- End Textarea field -->
+
               <!-- Input field -->
               <input
                 v-else
@@ -173,6 +186,7 @@
                 class="form-control form-control-sm"
                 :id="field.name"
                 :required="field.required"
+                :disabled="field.disabled"
               />
               <!-- End input field -->
             </div>
@@ -252,6 +266,8 @@ export default {
       showDownloadFile: null
     }
   },
+  computed: {
+  },
   watch: {
     entity() {
       this.initForm()
@@ -262,6 +278,9 @@ export default {
       this.form = {...this.entity}
 
       this.fields.forEach((field) => {
+        if (field.value) {
+          this.form[field.name] = field.value
+        }
     
         // si le champs est un fichier et nous faisons un update on definie comme valeur par defaut un objet
         // en cas de modification pour prevenir de l'erreur d'un string affécté à un v-file-input
@@ -331,6 +350,17 @@ export default {
           }
         }
       }
+    },
+    showColClass(field) {
+      let className
+
+      if (this.formRow && !field.colClass) {
+        className = 'col-lg-6'
+      }else if (field.colClass) {
+        className = field.colClass
+      }
+
+      return className
     }
   },
   beforeMount(){
