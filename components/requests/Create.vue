@@ -36,83 +36,132 @@ export default {
   },
   data() {
     return {
-      fields: [
-        {
-          name: 'admin_fund_requestor_id',
-          type: 'select',
-          required: true,
-          label: 'Type de courrier',
-          items: this.typeCourriers,
-          syncField: 'code',
-          syncCapterValue: 'code',
-          syncFieldFromValue: 'code'
-        },
-        {
-          name: 'code',
-          type: 'text',
-          required: true,
-          label: 'Code courrier (Généré automatiquement)',
-          value: this.formatDate('hh/mm/ss/dd/MM/yy', new Date),
-          isSync: true
-        },
-        {
-          name: 'sender',
-          type: 'text',
-          required: true,
-          label: 'Expediteur '
-        },
-        {
-          name: 'admin_recipient_id',
-          type: 'select',
-          required: true,
-          label: 'Destinataire',
-          items: this.recipients,
-          itemText: 'firstname',
-        },
-        {
-          name: 'attachment',
-          type: 'file',
-          required: true,
-          label: 'Uploader le fichier scanner ici',
-        },
-      ],
       entity: {}
     }
   },
   computed: {
     ...mapState({
-      typeCourriers(state) {
-        return state.type_courrier.type_courriers
+      currencies(state) {
+        return state.currency.currencies
       },
-      recipients(state) {
-        return state.admin.admins
-      },
+      user(state) {
+        return state.user.user
+      }
     }),
     adminId() {
       return this.currentAdmin.id
+    },
+    currentUser() {
+      return this.userConnected
+    },
+    currentUserName() {
+      return this.currentUser.name
+    },
+    currentAdminId() {
+      return this.currentUser.admin.id
+    },
+    fields() {
+      return [
+        {
+          name: 'requestor',
+          type: 'text',
+          required: true,
+          label: 'Initié par',
+          value:  this.currentUserName,
+          disabled: true
+        },
+        {
+          name: 'date_issue',
+          type: 'text',
+          required: true,
+          label: 'Date de la demande',
+          value: this.formatDate('dd/MM/yyyy', new Date),
+          disabled: true
+        },
+        {
+          name: 'object',
+          type: 'text',
+          required: true,
+          label: 'Objet de la demande',
+        },
+        {
+          name: 'date_use',
+          type: 'date',
+          required: true,
+          label: 'Date d\'utilisation',
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          required: true,
+          label: 'Description de la demande',
+          colClass: 'col-lg-12'
+        },
+        {
+          name: 'amount',
+          type: 'number',
+          required: true,
+          label: 'Montant',
+        },
+        {
+          name: 'currency_id',
+          type: 'select',
+          required: true,
+          itemText: 'code',
+          items: this.currencies,
+          label: 'Devise'
+        },
+        {
+          name: 'rate',
+          type: 'number',
+          required: true,
+          label: 'Taux',
+        },
+        {
+          name: 'date_supporting_documents',
+          type: 'date',
+          required: true,
+          label: 'Date Remise Pièces Justificatives',
+        },
+        {
+          name: 'insert_administration_bases',
+          type: 'file',
+          required: true,
+          label: 'Uploader soubassements Administratifs',
+        },
+        {
+          name: 'admin_fund_requestor_id',
+          type: 'hidden',
+          required: false,
+          value: this.currentAdminId
+        },
+      ]
     }
   },
   watch: {
-    typeCourriers() {
-      this.$set(this.fields[0], 'items', this.typeCourriers)
+    currencies() {
+      this.$set(this.fields[6], 'items', this.currencies)
     },
-    recipients() {
-      this.$set(this.fields[3], 'items', this.recipients)
+    currentUserName() {
+      this.$set(this.fields[0], 'value', this.currentUserName)
     },
+    currentAdminId() {
+      this.$set(this.fields[9], 'value', this.currentAdminId)
+    }
   },
   methods: {
     ...mapActions({
-      loadTypeCourriers: 'type_courrier/load',
-      loadRecipients: 'admin/load',
+      loadCurrencies: 'currency/load',
+      loadUser: 'user/loadUser'
     }),
     onSubmit(entity) {
       this.entity = {}
-      this.$router.replace('/courriers/archives')
+      this.$router.replace('/requests/synthesis')
     },
   },
   mounted() {
-    this.loadTypeCourriers()
-    this.loadRecipients()
+    this.loadCurrencies()
+    this.loadUser()
   }
 }
 </script>
