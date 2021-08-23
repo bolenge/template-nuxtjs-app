@@ -40,7 +40,7 @@
               >
                 {{ field.label }} <span v-if="field.required" class="text-danger">*</span>
               </label>
-              <!-- Select field -->
+              <!-- Select sync field -->
               <select
                 v-if="field.type === 'select' && field.syncField !== undefined"
                 v-model="form[field.name]"
@@ -49,6 +49,26 @@
                 :required="field.required"
                 style="height: 39px;"
                 @change="onChangeSyncerField"
+              >
+                <option
+                  v-for="(item, it) in field.items"
+                  :key="it"
+                  :value="item.id"
+                >
+                  {{ item[field.itemText || 'name'] }}
+                </option>
+              </select>
+              <!-- End select field -->
+
+               <!-- Select field -->
+              <select
+                v-if="field.type === 'select' && field.childSync !== undefined"
+                v-model="form[field.name]"
+                class="form-control"
+                :id="field.name"
+                :required="field.required"
+                style="height: 39px;"
+                @change="onSyncParentChildren(field)"
               >
                 <option
                   v-for="(item, it) in field.items"
@@ -263,7 +283,8 @@ export default {
       showPassword: false,
       syncField: null,
       defaultSyncValue: null,
-      showDownloadFile: null
+      showDownloadFile: null,
+      childrenSync: {}
     }
   },
   computed: {
@@ -297,6 +318,10 @@ export default {
         if (field.type === 'select') {
           if (field.syncField !== undefined) {
             this.syncField = field.syncField
+          }
+
+          if (field.childSync) {
+            this.childrenSync[field.childItems] = null
           }
         }
 
@@ -352,6 +377,10 @@ export default {
       }
     },
     showColClass(field) {
+      if (field.type == 'hidden') {
+        return 'd-inline'
+      }
+
       let className
 
       if (this.formRow && !field.colClass) {
@@ -361,6 +390,21 @@ export default {
       }
 
       return className
+    },
+    onSyncParentChildren(field) {
+      const fieldValue = this.form[field.name]
+      const parent = field.items.find((f) => f.id == fieldValue)
+      let childItems
+
+      if (parent) {
+        childItems = parent[field.childItems]
+
+        this.fields.map((child) => {
+          if (child.name == field.childSync) {
+            child.items = childItems.length ? childItems : [child.objetEmpty]
+          }
+        })
+      }
     }
   },
   beforeMount(){
