@@ -42,7 +42,7 @@ export const actions = {
   loadCourriersNoTransmitted({ commit }) {
     commit('SET_LOADING', true)
 
-    this.$axios.get('courriers/all/transmitted').then(({ data }) => {
+    this.$axios.get('courriers/all/no-transmitted').then(({ data }) => {
       commit('SET_COURRIERS', data.results)
     }).finally((_) => {
       commit('SET_LOADING', false)
