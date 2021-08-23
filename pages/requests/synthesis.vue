@@ -10,7 +10,9 @@
           model="fund_request"
           :buttonCreate="buttonCreate"
           :buttons="buttonsAction"
+          :extractData="true"
           @launchEdited="onLaunchEdited"
+          @showed="onShowed"
         />
       </div>
     </div>
@@ -122,6 +124,9 @@ export default {
   methods: {
     onLaunchEdited(id) {
       // Do something
+    },
+    onShowed(id) {
+      this.$router.replace('/requests/'+id)
     }
   }
 }
