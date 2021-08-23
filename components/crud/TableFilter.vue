@@ -200,6 +200,12 @@
                 <!-- End Simple fields -->
 
                 <!-- Simple fields -->
+                <span v-else-if="head.type == 'amount-money'">
+                  {{ getItemMoney(item, head.value) }}
+                </span>
+                <!-- End Simple fields -->
+
+                <!-- Simple fields -->
                 <span v-else>
                   {{ item[head.value] || '---' }}
                 </span>
@@ -330,6 +336,9 @@ export default {
 
       return objRes || '---' 
     },
+    getItemMoney(obj, path) {
+      return obj[path].toLocaleString()
+    },
     nextPaginate() {
       this.offset = this.offset + this.limit
       this.limit = this.limit * 2
@@ -405,6 +414,8 @@ export default {
   },
   mounted() {
     this.initItems()
+
+    console.log('this.itemsPaginated', this.itemsPaginated);
   }
 }
 </script>
