@@ -14,6 +14,7 @@
           :fields="fields"
           :entity="entityEdited"
           :formRow="true"
+          :updateConfirmation="updateConfirmation"
           @submitted="onSubmit"
         />
         <!-- End Form create fund_requests -->
@@ -29,6 +30,8 @@ import Global from '~/mixins/Global'
 import Account from '~/mixins/Account'
 import Edit from '~/components/crud/Edit'
 
+const SUPER_ADMIN = 1
+
 export default {
   props: {
     slug: {
@@ -43,7 +46,10 @@ export default {
   data() {
     return {
       entity: {},
-      entityEdited: null
+      entityEdited: null,
+      updateConfirmation: {
+        message: 'Etes-vous sur de votre attribution de conformité ?'
+      }
     }
   },
   computed: {
@@ -53,7 +59,13 @@ export default {
       },
       user(state) {
         return state.user.user
-      }
+      },
+      typeAccounts(state) {
+        return state.type_account.type_accounts
+      },
+      natures(state) {
+        return state.nature.natures
+      },
     }),
     adminId() {
       return this.currentAdmin.id
@@ -66,6 +78,9 @@ export default {
     },
     currentAdminId() {
       return this.currentUser.admin.id
+    },
+    currentAdminConnected() {
+      return this.currentUser.admin
     },
     fields() {
       return [
@@ -94,13 +109,13 @@ export default {
         {
           name: 'date_use',
           type: 'date',
-          required: true,
+          required: false,
           label: 'Date d\'utilisation',
         },
         {
           name: 'description',
           type: 'textarea',
-          required: true,
+          required: false,
           label: 'Description de la demande',
           colClass: 'col-lg-12'
         },
@@ -121,19 +136,19 @@ export default {
         {
           name: 'rate',
           type: 'number',
-          required: true,
+          required: false,
           label: 'Taux',
         },
         {
           name: 'date_supporting_documents',
           type: 'date',
-          required: true,
+          required: false,
           label: 'Date Remise Pièces Justificatives',
         },
         {
           name: 'insert_administration_bases',
           type: 'file',
-          required: true,
+          required: false,
           label: 'Uploader soubassements Administratifs',
         },
         {
@@ -142,8 +157,76 @@ export default {
           required: false,
           value: this.currentAdminId
         },
+        {
+          name: 'type_account_id',
+          type: 'select',
+          required: false,
+          itemText: 'name',
+          items: this.typeAccounts,
+          label: 'Mode de paiement'
+        },
+        {
+          name: 'nature_id',
+          type: 'select',
+          required: false,
+          itemText: 'name',
+          items: this.natures,
+          label: 'Nature Op. Niv. 1',
+          childSync: 'sub_nature_id',
+          childItems: 'sub_natures',
+        },
+        {
+          name: 'sub_nature_id',
+          type: 'select',
+          required: false,
+          itemText: 'name',
+          items: [],
+          label: 'Nature Op. Niv. 2',
+          childSync: 'compte_nature_id',
+          childItems: 'compte_natures',
+          objetEmpty: {
+            id: '',
+            name: 'Aucune nature op. (Niv. 2)'
+          }
+        },
+        {
+          name: 'compte_nature_id',
+          type: 'select',
+          required: false,
+          itemText: 'name',
+          items: [],
+          label: 'Compte Op. (Niv. 3)',
+          objetEmpty: {
+            id: '',
+            name: 'Aucun compte op. (Niv. 3)'
+          }
+        },
+        {
+          name: 'conform',
+          type: 'select',
+          required: true,
+          value: this.currentAdminId,
+          label: 'Conformité',
+          items: [
+            {
+              id: 1,
+              name: 'Conforme'
+            },
+            {
+              id: 0,
+              name: 'Non conforme'
+            }
+          ]
+        },
+        {
+          name: 'observation',
+          type: 'textarea',
+          required: false,
+          label: 'Observation',
+          colClass: 'col-lg-12'
+        },
       ]
-    }
+    },
   },
   watch: {
     currencies() {
@@ -154,13 +237,18 @@ export default {
     },
     currentAdminId() {
       this.$set(this.fields[9], 'value', this.currentAdminId)
+    },
+    currentUser() {
+      console.log('this.currentUser', this.currentUser);
     }
   },
   methods: {
     ...mapActions({
       loadCurrencies: 'currency/load',
       loadUser: 'user/loadUser',
-      showFundRequest: 'fund_request/show'
+      showFundRequest: 'fund_request/show',
+      loadTypeAccounts: 'type_account/load',
+      loadNatures: 'nature/load',
     }),
     onSubmit(entity) {
       this.entity = {}
@@ -172,7 +260,10 @@ export default {
   },
   mounted() {
     this.loadCurrencies()
+    this.loadTypeAccounts()
+    this.loadNatures()
     this.loadUser()
+    this.setEntityEdited()
   }
 }
 </script>
