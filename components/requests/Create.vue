@@ -87,13 +87,13 @@ export default {
         {
           name: 'date_use',
           type: 'date',
-          required: true,
+          required: false,
           label: 'Date d\'utilisation',
         },
         {
           name: 'description',
           type: 'textarea',
-          required: true,
+          required: false,
           label: 'Description de la demande',
           colClass: 'col-lg-12'
         },
@@ -112,21 +112,15 @@ export default {
           label: 'Devise'
         },
         {
-          name: 'rate',
-          type: 'number',
-          required: true,
-          label: 'Taux',
-        },
-        {
           name: 'date_supporting_documents',
           type: 'date',
-          required: true,
+          required: false,
           label: 'Date Remise Pièces Justificatives',
         },
         {
           name: 'insert_administration_bases',
           type: 'file',
-          required: true,
+          required: false,
           label: 'Uploader soubassements Administratifs',
         },
         {
