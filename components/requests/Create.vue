@@ -150,7 +150,7 @@ export default {
     }),
     onSubmit(entity) {
       this.entity = {}
-      this.$router.replace('/requests/synthesis')
+      this.$router.replace('/requests/inbox')
     },
   },
   mounted() {
