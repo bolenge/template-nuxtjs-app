@@ -89,7 +89,7 @@ export default {
       return this.currentUser.admin
     },
     fields() {
-      return [
+      const fields = [
         {
           name: 'requestor',
           type: 'text',
@@ -231,6 +231,34 @@ export default {
           colClass: 'col-lg-12'
         },
       ]
+
+      if (this.currentAdminConnected) {
+        if (this.currentAdminConnected.fonction) {
+          if (this.currentAdminConnected.fonction.name === 'Directrice Bureau' || this.currentAdminConnected.fonction.name === 'Directeur Bureau') {
+            fields.push({
+              name: 'statuts_approve',
+              type: 'select',
+              required: true,
+              label: 'Approbation',
+              items: [
+                {
+                  id: 'Approuvé',
+                  name: 'Approuvé'
+                },
+                {
+                  id: 'Rejeté',
+                  name: 'Rejeté'
+                }
+              ]
+            })
+
+            this.updateConfirmation.title = 'Approbation'
+            this.updateConfirmation.message = 'Etes-vous sur de votre attribution d\'approbation ?'
+          }
+        }
+      }
+
+      return fields
     },
   },
   watch: {
