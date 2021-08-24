@@ -283,7 +283,7 @@ export default {
 
             if (this.hasApproveStatus === 'Approuvé') {
               fields.push({
-                name: 'statuts_approve',
+                name: 'account_id',
                 type: 'select',
                 required: true,
                 label: 'Compte à débuter',
@@ -330,7 +330,10 @@ export default {
     },
     accounts() {
       if (this.isOfficeDirectorOrCompliance) {
-        this.$set(this.fields[18], 'items', this.accounts)
+        const index = this.fields.findIndex((field) => field.name == 'account_id')
+        if (index > -1) {
+          this.$set(this.fields[18], 'items', this.accounts)
+        }
       }
     },
   },
