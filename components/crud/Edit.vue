@@ -76,6 +76,7 @@ export default {
     }),
     async onSubmit (entity) {
       this.loading = true
+
       try {
         if (this.updateConfirmation.message) {
           this.$swal({
@@ -90,17 +91,18 @@ export default {
               await this.update({ entity, api: this.api, model: this.model, actionLoad: this.actionLoad })
               this.$toast.success('Modification effectuée avec succès')
               this.$emit('submitted')
+              this.loading = false
             }
           });
         }else {
           await this.update({ entity, api: this.api, model: this.model, actionLoad: this.actionLoad })
           this.$toast.success('Modification effectuée avec succès')
           this.$emit('submitted')
+          this.loading = false
         }
       } catch (error) {
-        console.log(error);
         this.$toast.error('Une erreur est survenue, réessayez svp !')
-      } finally {
+
         this.loading = false
       }
     }
