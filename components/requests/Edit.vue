@@ -88,8 +88,20 @@ export default {
     currentAdminConnected() {
       return this.currentUser.admin
     },
+    isOfficeDirectorOrCompliance() {
+       if (this.currentAdminConnected) {
+        if (this.currentAdminConnected.fonction) {
+          const isOfficeDirector = this.currentAdminConnected.fonction.name === 'Directrice Bureau' || this.currentAdminConnected.fonction.name === 'Directeur Bureau'
+          if (isOfficeDirector || this.currentAdminConnected.fonction.name === 'Conformité') {
+            return true
+          }
+        }
+      }
+
+      return false
+    },
     fields() {
-      const fields = [
+      let fields = [
         {
           name: 'requestor',
           type: 'text',
@@ -126,26 +138,6 @@ export default {
           colClass: 'col-lg-12'
         },
         {
-          name: 'amount',
-          type: 'number',
-          required: true,
-          label: 'Montant',
-        },
-        {
-          name: 'currency_id',
-          type: 'select',
-          required: true,
-          itemText: 'code',
-          items: this.currencies,
-          label: 'Devise'
-        },
-        {
-          name: 'rate',
-          type: 'number',
-          required: false,
-          label: 'Taux',
-        },
-        {
           name: 'date_supporting_documents',
           type: 'date',
           required: false,
@@ -164,77 +156,104 @@ export default {
           value: this.currentAdminId
         },
         {
-          name: 'type_account_id',
-          type: 'select',
-          required: false,
-          itemText: 'name',
-          items: this.typeAccounts,
-          label: 'Mode de paiement'
+          name: 'amount',
+          type: 'number',
+          required: true,
+          label: 'Montant',
         },
         {
-          name: 'nature_id',
-          type: 'select',
-          required: false,
-          itemText: 'name',
-          items: this.natures,
-          label: 'Nature Op. Niv. 1',
-          childSync: 'sub_nature_id',
-          childItems: 'sub_natures',
-        },
-        {
-          name: 'sub_nature_id',
-          type: 'select',
-          required: false,
-          itemText: 'name',
-          items: this.subNatures,
-          label: 'Nature Op. Niv. 2',
-          childSync: 'compte_nature_id',
-          childItems: 'compte_natures',
-          objetEmpty: {
-            id: '',
-            name: 'Aucune nature op. (Niv. 2)'
-          }
-        },
-        {
-          name: 'compte_nature_id',
-          type: 'select',
-          required: false,
-          itemText: 'name',
-          items: this.compteNatures,
-          label: 'Compte Op. (Niv. 3)',
-          objetEmpty: {
-            id: '',
-            name: 'Aucun compte op. (Niv. 3)'
-          }
-        },
-        {
-          name: 'statuts_conform',
+          name: 'currency_id',
           type: 'select',
           required: true,
-          label: 'Conformité',
-          items: [
-            {
-              id: 'Conforme',
-              name: 'Conforme'
-            },
-            {
-              id: 'Non conforme',
-              name: 'Non conforme'
-            }
-          ]
-        },
-        {
-          name: 'observation',
-          type: 'textarea',
-          required: false,
-          label: 'Observation',
-          colClass: 'col-lg-12'
+          itemText: 'code',
+          items: this.currencies,
+          label: 'Devise'
         },
       ]
 
       if (this.currentAdminConnected) {
         if (this.currentAdminConnected.fonction) {
-          if (this.currentAdminConnected.fonction.name === 'Directrice Bureau' || this.currentAdminConnected.fonction.name === 'Directeur Bureau') {
+          const isOfficeDirector = this.currentAdminConnected.fonction.name === 'Directrice Bureau' || this.currentAdminConnected.fonction.name === 'Directeur Bureau'
+
+          if (isOfficeDirector || this.currentAdminConnected.fonction.name === 'Conformité') {
+            fields = fields.concat([
+              {
+                name: 'rate',
+                type: 'number',
+                required: false,
+                label: 'Taux',
+              },
+              {
+                name: 'type_account_id',
+                type: 'select',
+                required: false,
+                itemText: 'name',
+                items: this.typeAccounts,
+                label: 'Mode de paiement'
+              },
+              {
+                name: 'nature_id',
+                type: 'select',
+                required: false,
+                itemText: 'name',
+                items: this.natures,
+                label: 'Nature Op. Niv. 1',
+                childSync: 'sub_nature_id',
+                childItems: 'sub_natures',
+              },
+              {
+                name: 'sub_nature_id',
+                type: 'select',
+                required: false,
+                itemText: 'name',
+                items: this.subNatures,
+                label: 'Nature Op. Niv. 2',
+                childSync: 'compte_nature_id',
+                childItems: 'compte_natures',
+                objetEmpty: {
+                  id: '',
+                  name: 'Aucune nature op. (Niv. 2)'
+                }
+              },
+              {
+                name: 'compte_nature_id',
+                type: 'select',
+                required: false,
+                itemText: 'name',
+                items: this.compteNatures,
+                label: 'Compte Op. (Niv. 3)',
+                objetEmpty: {
+                  id: '',
+                  name: 'Aucun compte op. (Niv. 3)'
+                }
+              },
+              {
+                name: 'statuts_conform',
+                type: 'select',
+                required: true,
+                label: 'Conformité',
+                items: [
+                  {
+                    id: 'Conforme',
+                    name: 'Conforme'
+                  },
+                  {
+                    id: 'Non conforme',
+                    name: 'Non conforme'
+                  }
+                ]
+              },
+              {
+                name: 'observation',
+                type: 'textarea',
+                required: false,
+                label: 'Observation',
+                colClass: 'col-lg-12'
+              },
+            ])
+          }
+
+          if (isOfficeDirector) {
             fields.push({
               name: 'statuts_approve',
               type: 'select',
@@ -263,25 +282,31 @@ export default {
   },
   watch: {
     currencies() {
-      this.$set(this.fields[6], 'items', this.currencies)
+      this.$set(this.fields[9], 'items', this.currencies)
     },
     currentUserName() {
       this.$set(this.fields[0], 'value', this.currentUserName)
     },
     currentAdminId() {
-      this.$set(this.fields[9], 'value', this.currentAdminId)
+      this.$set(this.fields[7], 'value', this.currentAdminId)
     },
     currentUser() {
       console.log('this.currentUser', this.currentUser);
     },
     natures() {
-      this.$set(this.fields[12], 'items', this.natures)
+      if (this.isOfficeDirectorOrCompliance) {
+        this.$set(this.fields[12], 'items', this.natures)
+      }
     },
     subNatures() {
-      this.$set(this.fields[13], 'items', this.subNatures)
+      if (this.isOfficeDirectorOrCompliance) {
+        this.$set(this.fields[13], 'items', this.subNatures)
+      }
     },
     compteNatures() {
-      this.$set(this.fields[14], 'items', this.compteNatures)
+      if (this.isOfficeDirectorOrCompliance) {
+        this.$set(this.fields[14], 'items', this.compteNatures)
+      }
     },
   },
   methods: {
