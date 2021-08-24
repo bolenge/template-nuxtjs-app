@@ -31,7 +31,7 @@ export default {
     }
   },
   mixins: [Global],
-   components: {
+  components: {
     TableFilter
   },
   data() {
