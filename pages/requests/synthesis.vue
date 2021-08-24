@@ -24,7 +24,7 @@ import Global from '~/mixins/Global'
 import TableFilter from '@/components/crud/TableFilter'
 
 export default {
-  middleware: 'auth',
+  middleware: ['auth', 'office-director-compliance'],
   head() {
     return {
       title: 'Synthese des requetes de fonds'
