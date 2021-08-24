@@ -91,9 +91,12 @@ export default {
               await this.update({ entity, api: this.api, model: this.model, actionLoad: this.actionLoad })
               this.$toast.success('Modification effectuée avec succès')
               this.$emit('submitted')
-              this.loading = false
             }
+
+            this.loading = false
           });
+
+          this.loading = false
         }else {
           await this.update({ entity, api: this.api, model: this.model, actionLoad: this.actionLoad })
           this.$toast.success('Modification effectuée avec succès')
