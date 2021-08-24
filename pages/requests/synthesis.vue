@@ -10,7 +10,9 @@
           model="fund_request"
           :buttonCreate="buttonCreate"
           :buttons="buttonsAction"
+          :extractData="true"
           @launchEdited="onLaunchEdited"
+          @showed="onShowed"
         />
       </div>
     </div>
@@ -22,14 +24,14 @@ import Global from '~/mixins/Global'
 import TableFilter from '@/components/crud/TableFilter'
 
 export default {
-  middleware: 'auth',
+  middleware: ['auth', 'office-director-compliance'],
   head() {
     return {
       title: 'Synthese des requetes de fonds'
     }
   },
   mixins: [Global],
-   components: {
+  components: {
     TableFilter
   },
   data() {
@@ -122,6 +124,9 @@ export default {
   methods: {
     onLaunchEdited(id) {
       // Do something
+    },
+    onShowed(id) {
+      this.$router.replace('/requests/'+id)
     }
   }
 }

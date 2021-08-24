@@ -337,7 +337,8 @@ export default {
       return objRes || '---' 
     },
     getItemMoney(obj, path) {
-      return obj[path].toLocaleString()
+      const value = obj[path]
+      return value ? value.toLocaleString() : '---'
     },
     nextPaginate() {
       this.offset = this.offset + this.limit

@@ -14,6 +14,7 @@
           :fields="fields"
           :entity="entityEdited"
           :formRow="true"
+          :updateConfirmation="updateConfirmation"
           @submitted="onSubmit"
         />
         <!-- End Form create fund_requests -->
@@ -29,6 +30,8 @@ import Global from '~/mixins/Global'
 import Account from '~/mixins/Account'
 import Edit from '~/components/crud/Edit'
 
+const SUPER_ADMIN = 1
+
 export default {
   props: {
     slug: {
@@ -43,7 +46,10 @@ export default {
   data() {
     return {
       entity: {},
-      entityEdited: null
+      entityEdited: null,
+      updateConfirmation: {
+        message: 'Etes-vous sur de votre attribution de conformité ?'
+      }
     }
   },
   computed: {
@@ -53,7 +59,22 @@ export default {
       },
       user(state) {
         return state.user.user
-      }
+      },
+      accounts(state) {
+        return state.account.accounts
+      },
+      typeAccounts(state) {
+        return state.type_account.type_accounts
+      },
+      subNatures(state) {
+        return state.sub_nature.sub_natures
+      },
+      natures(state) {
+        return state.nature.natures
+      },
+      compteNatures(state) {
+        return state.compte_nature.compte_natures
+      },
     }),
     adminId() {
       return this.currentAdmin.id
@@ -67,8 +88,26 @@ export default {
     currentAdminId() {
       return this.currentUser.admin.id
     },
+    currentAdminConnected() {
+      return this.currentUser.admin
+    },
+    hasApproveStatus() {
+      return this.entityEdited ? this.entityEdited.statuts_approve : null
+    },
+    isOfficeDirectorOrCompliance() {
+       if (this.currentAdminConnected) {
+        if (this.currentAdminConnected.fonction) {
+          const isOfficeDirector = this.currentAdminConnected.fonction.name === 'Directrice Bureau' || this.currentAdminConnected.fonction.name === 'Directeur Bureau'
+          if (isOfficeDirector || this.currentAdminConnected.fonction.name === 'Conformité') {
+            return true
+          }
+        }
+      }
+
+      return false
+    },
     fields() {
-      return [
+      let fields = [
         {
           name: 'requestor',
           type: 'text',
@@ -94,15 +133,33 @@ export default {
         {
           name: 'date_use',
           type: 'date',
-          required: true,
+          required: false,
           label: 'Date d\'utilisation',
         },
         {
           name: 'description',
           type: 'textarea',
-          required: true,
+          required: false,
           label: 'Description de la demande',
           colClass: 'col-lg-12'
+        },
+        {
+          name: 'date_supporting_documents',
+          type: 'date',
+          required: false,
+          label: 'Date Remise Pièces Justificatives',
+        },
+        {
+          name: 'insert_administration_bases',
+          type: 'file',
+          required: false,
+          label: 'Uploader soubassements Administratifs',
+        },
+        {
+          name: 'admin_fund_requestor_id',
+          type: 'hidden',
+          required: false,
+          value: this.currentAdminId
         },
         {
           name: 'amount',
@@ -118,49 +175,178 @@ export default {
           items: this.currencies,
           label: 'Devise'
         },
-        {
-          name: 'rate',
-          type: 'number',
-          required: true,
-          label: 'Taux',
-        },
-        {
-          name: 'date_supporting_documents',
-          type: 'date',
-          required: true,
-          label: 'Date Remise Pièces Justificatives',
-        },
-        {
-          name: 'insert_administration_bases',
-          type: 'file',
-          required: true,
-          label: 'Uploader soubassements Administratifs',
-        },
-        {
-          name: 'admin_fund_requestor_id',
-          type: 'hidden',
-          required: false,
-          value: this.currentAdminId
-        },
       ]
-    }
+
+      if (this.currentAdminConnected) {
+        if (this.currentAdminConnected.fonction) {
+          const isOfficeDirector = this.currentAdminConnected.fonction.name === 'Directrice Bureau' || this.currentAdminConnected.fonction.name === 'Directeur Bureau'
+          const isCompliance = this.currentAdminConnected.fonction.name === 'Conformité'
+
+          if (isOfficeDirector || isCompliance) {
+            fields = fields.concat([
+              {
+                name: 'rate',
+                type: 'number',
+                required: false,
+                label: 'Taux',
+              },
+              {
+                name: 'type_account_id',
+                type: 'select',
+                required: false,
+                itemText: 'name',
+                items: this.typeAccounts,
+                label: 'Mode de paiement'
+              },
+              {
+                name: 'nature_id',
+                type: 'select',
+                required: false,
+                itemText: 'name',
+                items: this.natures,
+                label: 'Nature Op. Niv. 1',
+                childSync: 'sub_nature_id',
+                childItems: 'sub_natures',
+              },
+              {
+                name: 'sub_nature_id',
+                type: 'select',
+                required: false,
+                itemText: 'name',
+                items: this.subNatures,
+                label: 'Nature Op. Niv. 2',
+                childSync: 'compte_nature_id',
+                childItems: 'compte_natures',
+                objetEmpty: {
+                  id: '',
+                  name: 'Aucune nature op. (Niv. 2)'
+                }
+              },
+              {
+                name: 'compte_nature_id',
+                type: 'select',
+                required: false,
+                itemText: 'name',
+                items: this.compteNatures,
+                label: 'Compte Op. (Niv. 3)',
+                objetEmpty: {
+                  id: '',
+                  name: 'Aucun compte op. (Niv. 3)'
+                }
+              },
+              {
+                name: 'statuts_conform',
+                type: 'select',
+                required: true,
+                label: 'Conformité',
+                items: [
+                  {
+                    id: 'Conforme',
+                    name: 'Conforme'
+                  },
+                  {
+                    id: 'Non conforme',
+                    name: 'Non conforme'
+                  }
+                ]
+              },
+              {
+                name: 'observation',
+                type: 'textarea',
+                required: false,
+                label: 'Observation',
+                colClass: 'col-lg-12'
+              },
+            ])
+          }
+
+          if (isOfficeDirector || (isCompliance && this.hasApproveStatus)) {
+            fields.push({
+              name: 'statuts_approve',
+              type: 'select',
+              required: true,
+              label: 'Approbation',
+              items: [
+                {
+                  id: 'Approuvé',
+                  name: 'Approuvé'
+                },
+                {
+                  id: 'Rejeté',
+                  name: 'Rejeté'
+                }
+              ]
+            })
+
+            this.updateConfirmation.title = 'Approbation'
+            this.updateConfirmation.message = 'Etes-vous sur de votre attribution d\'approbation ?'
+
+            if (this.hasApproveStatus === 'Approuvé') {
+              fields.push({
+                name: 'account_id',
+                type: 'select',
+                required: true,
+                label: 'Compte à débuter',
+                items: this.accounts
+              })
+
+              this.updateConfirmation.title = 'Exécution paiement'
+              this.updateConfirmation.message = 'Etes-vous d\'effectuer le paiement de cette requête ?'
+            }
+          }
+        }
+      }
+
+      return fields
+    },
   },
   watch: {
     currencies() {
-      this.$set(this.fields[6], 'items', this.currencies)
+      this.$set(this.fields[9], 'items', this.currencies)
     },
     currentUserName() {
       this.$set(this.fields[0], 'value', this.currentUserName)
     },
     currentAdminId() {
-      this.$set(this.fields[9], 'value', this.currentAdminId)
-    }
+      this.$set(this.fields[7], 'value', this.currentAdminId)
+    },
+    currentUser() {
+      console.log('this.currentUser', this.currentUser);
+    },
+    natures() {
+      if (this.isOfficeDirectorOrCompliance) {
+        this.$set(this.fields[12], 'items', this.natures)
+      }
+    },
+    subNatures() {
+      if (this.isOfficeDirectorOrCompliance) {
+        this.$set(this.fields[13], 'items', this.subNatures)
+      }
+    },
+    compteNatures() {
+      if (this.isOfficeDirectorOrCompliance) {
+        this.$set(this.fields[14], 'items', this.compteNatures)
+      }
+    },
+    accounts() {
+      if (this.isOfficeDirectorOrCompliance) {
+        const index = this.fields.findIndex((field) => field.name == 'account_id')
+        if (index > -1) {
+          this.$set(this.fields[18], 'items', this.accounts)
+        }
+      }
+    },
   },
   methods: {
     ...mapActions({
       loadCurrencies: 'currency/load',
       loadUser: 'user/loadUser',
-      showFundRequest: 'fund_request/show'
+      showFundRequest: 'fund_request/show',
+      loadTypeAccounts: 'type_account/load',
+      loadNatures: 'nature/load',
+      loadSubNatures: 'sub_nature/load',
+      loadCompteNatures: 'compte_nature/load',
+      loadAccountsByType: 'account/loadAccountsByType'
     }),
     onSubmit(entity) {
       this.entity = {}
@@ -168,11 +354,20 @@ export default {
     },
     async setEntityEdited() {
       this.entityEdited = await this.showFundRequest({id: this.slug})
+      this.loadAccounts()
     },
+    loadAccounts() {
+      this.loadAccountsByType({id: this.entityEdited.type_account_id})
+    }
   },
   mounted() {
     this.loadCurrencies()
+    this.loadTypeAccounts()
+    this.loadNatures()
+    this.loadSubNatures()
+    this.loadCompteNatures()
     this.loadUser()
+    this.setEntityEdited()
   }
 }
 </script>

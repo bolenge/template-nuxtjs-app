@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid mb-4">
-      <div class="col-6 offset-lg-3">
+      <div class="col-8 offset-lg-2">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <a class="nav-link active" id="config-departments-tab" data-toggle="tab" href="#config-departments" role="tab" aria-controls="config-departments" aria-selected="true"><span class="typcn typcn-home-outline"></span> Configuration Departements</a>

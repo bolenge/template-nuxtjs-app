@@ -97,7 +97,7 @@
 import Global from '~/mixins/Global'
 
 export default {
-  middleware: 'auth',
+  middleware: ['auth', 'auth-superadmin-admin'],
   head() {
     return {
       title: 'Synthese des requetes de fonds'

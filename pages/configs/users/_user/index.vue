@@ -94,7 +94,7 @@ export default {
         {
           name: 'fonction_id',
           type: 'select',
-          required: true,
+          required: false,
           label: 'Fonction',
           items: this.fonctions
         },
@@ -114,7 +114,7 @@ export default {
         {
           name: 'password',
           type: 'password',
-          required: true,
+          required: false,
           label: 'Mot de passe'
         },
       ],

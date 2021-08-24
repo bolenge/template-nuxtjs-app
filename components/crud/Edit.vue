@@ -57,6 +57,12 @@ export default {
     actionLoad: {
       type: String,
       default: 'load'
+    },
+    updateConfirmation: {
+      type: Object,
+      default() {
+        return {}
+      }
     }
   },
   data() {
@@ -70,14 +76,37 @@ export default {
     }),
     async onSubmit (entity) {
       this.loading = true
+
       try {
-        await this.update({ entity, api: this.api, model: this.model, actionLoad: this.actionLoad })
-        this.$toast.success('Modification effectuée avec succès')
-        this.$emit('submitted')
+        if (this.updateConfirmation.message) {
+          this.$swal({
+            title: this.updateConfirmation.title || "Confirmation",
+            text: this.updateConfirmation.message,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            showCancelButton: true
+          }).then(async ({isConfirmed}) => {
+            if (isConfirmed) {
+              await this.update({ entity, api: this.api, model: this.model, actionLoad: this.actionLoad })
+              this.$toast.success('Modification effectuée avec succès')
+              this.$emit('submitted')
+            }
+
+            this.loading = false
+          });
+
+          this.loading = false
+        }else {
+          await this.update({ entity, api: this.api, model: this.model, actionLoad: this.actionLoad })
+          this.$toast.success('Modification effectuée avec succès')
+          this.$emit('submitted')
+          this.loading = false
+        }
       } catch (error) {
-        console.log(error);
+        this.loading = false
         this.$toast.error('Une erreur est survenue, réessayez svp !')
-      } finally {
+
         this.loading = false
       }
     }
