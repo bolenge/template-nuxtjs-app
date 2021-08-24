@@ -7,9 +7,11 @@
     <div class="container-fluid page-body-wrapper">
       <!-- Sidebar -->
       <Sidebar
+        :userRoleId="userRoleId"
         :page-active="pageActive"
         :nav-link-active="navLinkActive"
         :countNewCourriers="countNewCourriers"
+        :isOfficeDirectorOrCompliance="isOfficeDirectorOrCompliance"
       />
 
       <!-- partial -->
@@ -49,10 +51,31 @@ export default {
     navLinkActive() {
       return this.$store.state.nav_link_active
     },
+    currentUser() {
+      return this.userConnected
+    },
+    currentAdminConnected() {
+      return this.currentUser.admin
+    },
     countNewCourriers() {
       return this
         .inboxCourriers
         .filter((courrier) => !courrier.recipient_consulted).length
+    },
+    isOfficeDirectorOrCompliance() {
+       if (this.currentAdminConnected) {
+        if (this.currentAdminConnected.fonction) {
+          const isOfficeDirector = this.currentAdminConnected.fonction.name === 'Directrice Bureau' || this.currentAdminConnected.fonction.name === 'Directeur Bureau'
+          if (isOfficeDirector || this.currentAdminConnected.fonction.name === 'Conformité') {
+            return true
+          }
+        }
+      }
+
+      return false
+    },
+    userRoleId() {
+      return this.currentUser.role.id
     }
   },
   mounted() {
