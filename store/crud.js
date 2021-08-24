@@ -84,8 +84,6 @@ export const actions = {
             }else {
               this.$toast.error('Une erreur est survenue, réessayez svp !')
             }
-            
-            reject(error)
           })
       }
     )
