@@ -200,6 +200,19 @@
 
               <!-- Input field -->
               <input
+                v-else-if="field.type === 'number'"
+                v-model="form[field.name]"
+                :type="field.type"
+                min=".00"
+                class="form-control form-control-sm"
+                :id="field.name"
+                :required="field.required"
+                :disabled="field.disabled"
+              />
+              <!-- End input field -->
+
+              <!-- Input field -->
+              <input
                 v-else
                 v-model="form[field.name]"
                 :type="field.type"
@@ -435,7 +448,7 @@ export default {
     this.initForm()
   },
   mounted() {
-    this.populateFieldsChildrenSync()
+    // this.populateFieldsChildrenSync()
   }
 }
 </script>
