@@ -284,7 +284,7 @@ export default {
       syncField: null,
       defaultSyncValue: null,
       showDownloadFile: null,
-      childrenSync: {}
+      fieldsChildrenSync: []
     }
   },
   computed: {
@@ -321,7 +321,7 @@ export default {
           }
 
           if (field.childSync) {
-            this.childrenSync[field.childItems] = null
+            this.fieldsChildrenSync.push(field) 
           }
         }
 
@@ -405,10 +405,37 @@ export default {
           }
         })
       }
+    },
+    syncPopulateParentChildren(field) {
+      const fieldValue = this.form[field.name]
+      const parent = field.items.find((f) => f.id == fieldValue)
+      let childItems
+
+      if (parent) {
+        childItems = parent[field.childItems]
+
+        this.fields.map((child) => {
+          if (child.name == field.childSync) {
+            child.items = childItems.length ? childItems : [child.objetEmpty]
+
+            if (child.childSync) {
+              this.syncPopulateParentChildren(child)
+            }
+          }
+        })
+      }
+    },
+    populateFieldsChildrenSync() {
+      this.fieldsChildrenSync.forEach((field) => {
+        this.syncPopulateParentChildren(field)
+      })
     }
   },
   beforeMount(){
     this.initForm()
+  },
+  mounted() {
+    this.populateFieldsChildrenSync()
   }
 }
 </script>
