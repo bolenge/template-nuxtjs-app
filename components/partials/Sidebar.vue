@@ -19,6 +19,7 @@
 
           <!-- Item config. systeme -->
           <li
+            v-if="isSuperAdmin"
             class="nav-item"
             :class="setPageActive('configs')"
           >
@@ -181,7 +182,7 @@
                     Mes requêtes
                   </nuxt-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-if="isOfficeDirectorOrCompliance">
                   <nuxt-link
                     to="/requests/synthesis"
                     class="nav-link"
@@ -197,6 +198,7 @@
 
           <!-- Item ressources financiers -->
           <li
+            v-if="isSuperAdmin || isSimpleAdmin"
             class="nav-item"
             :class="setPageActive('finances')"
           >
@@ -264,6 +266,9 @@
 </template>
 
 <script>
+const  ROLE_SUPER_ADMIN = 1
+const  ROLE_ADMIN = 2
+const  ROLE_PLATINUM = 3
 export default {
   props: {
     pageActive: {
@@ -277,9 +282,26 @@ export default {
     countNewCourriers: {
       type: Number,
       default: 0
+    },
+    isOfficeDirectorOrCompliance: {
+      type: Boolean,
+      default: false
+    },
+    userRoleId: {
+      type: Number,
+      default: 2
     }
   },
   computed: {
+    isSuperAdmin() {
+      return this.userRoleId === ROLE_SUPER_ADMIN
+    },
+    isSimpleAdmin() {
+      return this.userRoleId === ROLE_ADMIN
+    },
+    isPlatinum() {
+      return this.userRoleId === ROLE_PLATINUM
+    },
   },
   methods: {
     setPageActive(page) {
