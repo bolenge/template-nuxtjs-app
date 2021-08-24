@@ -60,6 +60,9 @@ export default {
       user(state) {
         return state.user.user
       },
+      accounts(state) {
+        return state.account.accounts
+      },
       typeAccounts(state) {
         return state.type_account.type_accounts
       },
@@ -87,6 +90,9 @@ export default {
     },
     currentAdminConnected() {
       return this.currentUser.admin
+    },
+    hasApproveStatus() {
+      return this.entityEdited ? this.entityEdited.statuts_approve : null
     },
     isOfficeDirectorOrCompliance() {
        if (this.currentAdminConnected) {
@@ -174,8 +180,9 @@ export default {
       if (this.currentAdminConnected) {
         if (this.currentAdminConnected.fonction) {
           const isOfficeDirector = this.currentAdminConnected.fonction.name === 'Directrice Bureau' || this.currentAdminConnected.fonction.name === 'Directeur Bureau'
+          const isCompliance = this.currentAdminConnected.fonction.name === 'Conformité'
 
-          if (isOfficeDirector || this.currentAdminConnected.fonction.name === 'Conformité') {
+          if (isOfficeDirector || isCompliance) {
             fields = fields.concat([
               {
                 name: 'rate',
@@ -253,7 +260,7 @@ export default {
             ])
           }
 
-          if (isOfficeDirector) {
+          if (isOfficeDirector || (isCompliance && this.hasApproveStatus)) {
             fields.push({
               name: 'statuts_approve',
               type: 'select',
@@ -273,6 +280,19 @@ export default {
 
             this.updateConfirmation.title = 'Approbation'
             this.updateConfirmation.message = 'Etes-vous sur de votre attribution d\'approbation ?'
+
+            if (this.hasApproveStatus === 'Approuvé') {
+              fields.push({
+                name: 'statuts_approve',
+                type: 'select',
+                required: true,
+                label: 'Compte à débuter',
+                items: this.accounts
+              })
+
+              this.updateConfirmation.title = 'Exécution paiement'
+              this.updateConfirmation.message = 'Etes-vous d\'effectuer le paiement de cette requête ?'
+            }
           }
         }
       }
@@ -308,6 +328,11 @@ export default {
         this.$set(this.fields[14], 'items', this.compteNatures)
       }
     },
+    accounts() {
+      if (this.isOfficeDirectorOrCompliance) {
+        this.$set(this.fields[18], 'items', this.accounts)
+      }
+    },
   },
   methods: {
     ...mapActions({
@@ -318,6 +343,7 @@ export default {
       loadNatures: 'nature/load',
       loadSubNatures: 'sub_nature/load',
       loadCompteNatures: 'compte_nature/load',
+      loadAccountsByType: 'account/loadAccountsByType'
     }),
     onSubmit(entity) {
       this.entity = {}
@@ -325,7 +351,11 @@ export default {
     },
     async setEntityEdited() {
       this.entityEdited = await this.showFundRequest({id: this.slug})
+      this.loadAccounts()
     },
+    loadAccounts() {
+      this.loadAccountsByType({id: this.entityEdited.type_account_id})
+    }
   },
   mounted() {
     this.loadCurrencies()
