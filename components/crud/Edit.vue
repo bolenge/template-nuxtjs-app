@@ -101,6 +101,7 @@ export default {
           this.loading = false
         }
       } catch (error) {
+        this.loading = false
         this.$toast.error('Une erreur est survenue, réessayez svp !')
 
         this.loading = false
