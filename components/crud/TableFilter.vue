@@ -1,5 +1,11 @@
 <template>
   <div class="card">
+    <div
+      v-if="title"
+      class="card-header"
+    >
+      <h3 class="card-title">{{ title }}</h3>
+    </div>
     <div class="card-body">
       <div class="d-flex">
         <div class="col-lg-8">
@@ -226,7 +232,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Liste des enregistrements'
+      default: ''
     },
     headers: {
       type: Array,
@@ -272,6 +278,10 @@ export default {
       default() {
         return {}
       }
+    },
+    computedItems: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -363,7 +373,8 @@ export default {
         return state[this.model]['loading']
       },
       items(state) {
-        return state[this.model][`${this.model}s`]
+        const computedItems = this.computedItems || this.model+'s'
+        return state[this.model][computedItems]
       }
     }),
     showButtonCreate() {
