@@ -426,8 +426,6 @@ export default {
   },
   mounted() {
     this.initItems()
-
-    console.log('this.itemsPaginated', this.itemsPaginated);
   }
 }
 </script>
