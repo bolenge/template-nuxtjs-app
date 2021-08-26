@@ -97,6 +97,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import $ from 'jquery'
 import Chart from 'chart.js/auto'
 import format from 'date-format'
@@ -112,6 +113,14 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      stats(state) {
+        return state.admin.stats
+      },
+      statsCourriers() {
+        return this.stats.courriers
+      }
+    }),
     currentDate() {
       return format('dd/MM/yyyy')
     },
@@ -120,8 +129,9 @@ export default {
     }
   },
   mounted () {
+    this.loadStats()
   
-    var doughnutPieOptions = {
+    const doughnutPieOptions = {
       responsive: true,
       animation: {
         animateScale: true,
@@ -130,7 +140,7 @@ export default {
     };
 
     if ($("#doughnutChart").length) {
-      var dataRequestsFund = {
+      const dataRequestsFund = {
         datasets: [{
           data: [30, 40, 30, 25, 10, 5],
           backgroundColor: [
@@ -150,8 +160,6 @@ export default {
             'rgba(149, 241, 149, 1)'
           ],
         }],
-
-        // These labels appear in the legend and in the tooltips when hovering different arcs
         labels: [
           'Initiées : 30',
           'Conformes : 40',
@@ -162,53 +170,70 @@ export default {
         ]
       };
 
-      var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
-      new Chart(doughnutChartCanvas, {
-        type: 'doughnut',
-        data: dataRequestsFund,
-        options: doughnutPieOptions
-      });
+      const doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
+      
+      try {
+        new Chart(doughnutChartCanvas, {
+          type: 'doughnut',
+          data: dataRequestsFund,
+          options: doughnutPieOptions
+        });
+      } catch (error) {
+        
+      }
     }
 
     if ($("#pieChart").length) {
-      var doughnutPieData = {
-        datasets: [{
-          data: [30, 40, 30],
-          backgroundColor: [
-            'rgba(54, 162, 235, 0.5)',
-            'rgba(255, 206, 86, 0.5)',
-            'rgba(75, 192, 192, 0.5)',
-            'rgba(153, 102, 255, 0.5)',
-            'rgba(255, 99, 132, 0.5)',
-            'rgba(255, 159, 64, 0.5)',
-          ],
-          borderColor: [
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255,99,132,1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-        }],
+      if (this.statsCourriers) {
+        var doughnutPieData = {
+          datasets: [{
+            data: [
+              this.statsCourriers.received,
+              this.statsCourriers.sent,
+              this.statsCourriers.news,
+            ],
+            backgroundColor: [
+              'rgba(54, 162, 235, 0.5)',
+              'rgba(255, 206, 86, 0.5)',
+              'rgba(75, 192, 192, 0.5)',
+              'rgba(153, 102, 255, 0.5)',
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(255, 159, 64, 0.5)',
+            ],
+            borderColor: [
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255,99,132,1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+          }],
+          labels: [
+            'Reçus : '+this.statsCourriers.received,
+            'Envoyés : '+this.statsCourriers.sent,
+            'Nouveaux : '+this.statsCourriers.news,
+          ]
+        };
+      }
 
-        // These labels appear in the legend and in the tooltips when hovering different arcs
-        labels: [
-          'Reçus : 30',
-          'Envoyés : 40',
-          'Nouveaux : 30',
-        ]
-      };
+      const pieChartCanvas = $("#pieChart").get(0).getContext("2d");
 
-      var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-      new Chart(pieChartCanvas, {
-        type: 'pie',
-        data: doughnutPieData,
-        options: doughnutPieOptions
-      });
+      try {
+        new Chart(pieChartCanvas, {
+          type: 'pie',
+          data: doughnutPieData,
+          options: doughnutPieOptions
+        });
+      } catch (error) {
+        
+      }
     }
   },
   methods: {
+    ...mapActions({
+      loadStats: 'admin/loadCurrentStatsCourriersAndFundRequests'
+    }),
     updateAvatar(e) {
       this.loadingUpdateAvatar = true
 
