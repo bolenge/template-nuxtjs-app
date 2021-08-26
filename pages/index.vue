@@ -49,10 +49,20 @@
 
             <div class="form-group">
               <label for="profile-user" class="btn btn-info d-flex text-center btn-sm">
-                <span class="mdi mdi-camera col-1 text-right"></span>
-                <span class="col-11">Changer photo de profile</span>
+                <span v-if="loadingUpdateAvatar" class="col-12">Chargement...</span>
+                <span v-else>
+                  <span class="mdi mdi-camera col-1 text-right"></span>
+                  <span class="col-11">Changer photo de profile</span>
+                </span>
               </label>
-              <input type="file" name="img" class="file-upload-default" id="profile-user" />
+
+              <input
+                type="file"
+                name="media[]"
+                class="file-upload-default"
+                id="profile-user"
+                @change="updateAvatar"
+              />
             </div>
           </div>
         </div>
@@ -96,6 +106,11 @@ import Global from '~/mixins/Global'
 export default {
   middleware: 'auth',
   mixins: [Account,Global],
+  data() {
+    return {
+      loadingUpdateAvatar: false
+    }
+  },
   computed: {
     currentDate() {
       return format('dd/MM/yyyy')
@@ -191,6 +206,37 @@ export default {
         data: doughnutPieData,
         options: doughnutPieOptions
       });
+    }
+  },
+  methods: {
+    updateAvatar(e) {
+      this.loadingUpdateAvatar = true
+
+      try {
+        const formData = new FormData();
+        const imagefile = e.target;
+
+        formData.append("media", imagefile.files[0]);
+
+        this.$axios.post('/auth/update-user-avatar', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then(({ data }) => {
+          if (data.state) {
+            this.$toast.success(data.message)
+            window.location.reload()
+          }else {
+            this.$toast.error(data.message)
+          }
+        })
+      } catch (error) {
+        this.$toast.error('Une erreur est survenue lors de l\'upload, réessayez svp !')
+      } finally {
+        this.loadingUpdateAvatar = false
+      }
+
+      
     }
   }
 }
