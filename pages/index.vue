@@ -109,7 +109,14 @@ export default {
   mixins: [Account,Global],
   data() {
     return {
-      loadingUpdateAvatar: false
+      loadingUpdateAvatar: false,
+      doughnutPieOptions: {
+        responsive: true,
+        animation: {
+          animateScale: true,
+          animateRotate: true
+        }
+      }
     }
   },
   computed: {
@@ -119,7 +126,10 @@ export default {
       },
       statsCourriers() {
         return this.stats.courriers
-      }
+      },
+      statsFundRequests() {
+        return this.stats.fund_requests
+      },
     }),
     currentDate() {
       return format('dd/MM/yyyy')
@@ -128,107 +138,16 @@ export default {
       return 'home'
     }
   },
+  watch: {
+    statsFundRequests() {
+      this.loadFundRequestsChart()
+    },
+    statsCourriers() {
+      this.loadCourriersChart()
+    },
+  },
   mounted () {
     this.loadStats()
-  
-    const doughnutPieOptions = {
-      responsive: true,
-      animation: {
-        animateScale: true,
-        animateRotate: true
-      }
-    };
-
-    if ($("#doughnutChart").length) {
-      const dataRequestsFund = {
-        datasets: [{
-          data: [30, 40, 30, 25, 10, 5],
-          backgroundColor: [
-            'rgba(54, 162, 235, 0.5)',
-            'rgba(255, 206, 86, 0.5)',
-            'rgba(153, 102, 255, 0.5)',
-            'rgba(75, 192, 192, 0.5)',
-            'rgba(255, 99, 132, 0.5)',
-            'rgba(149, 241, 149, 0.5)',
-          ],
-          borderColor: [
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(255,99,132,1)',
-            'rgba(149, 241, 149, 1)'
-          ],
-        }],
-        labels: [
-          'Initiées : 30',
-          'Conformes : 40',
-          'Non conformes : 30',
-          'Approuvées : 25',
-          'Rejetées : 10',
-          'Exécutées : 5'
-        ]
-      };
-
-      const doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
-      
-      try {
-        new Chart(doughnutChartCanvas, {
-          type: 'doughnut',
-          data: dataRequestsFund,
-          options: doughnutPieOptions
-        });
-      } catch (error) {
-        
-      }
-    }
-
-    if ($("#pieChart").length) {
-      if (this.statsCourriers) {
-        var doughnutPieData = {
-          datasets: [{
-            data: [
-              this.statsCourriers.received,
-              this.statsCourriers.sent,
-              this.statsCourriers.news,
-            ],
-            backgroundColor: [
-              'rgba(54, 162, 235, 0.5)',
-              'rgba(255, 206, 86, 0.5)',
-              'rgba(75, 192, 192, 0.5)',
-              'rgba(153, 102, 255, 0.5)',
-              'rgba(255, 99, 132, 0.5)',
-              'rgba(255, 159, 64, 0.5)',
-            ],
-            borderColor: [
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255,99,132,1)',
-              'rgba(255, 159, 64, 1)'
-            ],
-          }],
-          labels: [
-            'Reçus : '+this.statsCourriers.received,
-            'Envoyés : '+this.statsCourriers.sent,
-            'Nouveaux : '+this.statsCourriers.news,
-          ]
-        };
-      }
-
-      const pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-
-      try {
-        new Chart(pieChartCanvas, {
-          type: 'pie',
-          data: doughnutPieData,
-          options: doughnutPieOptions
-        });
-      } catch (error) {
-        
-      }
-    }
   },
   methods: {
     ...mapActions({
@@ -262,6 +181,108 @@ export default {
       }
 
       
+    },
+    loadCourriersChart() {
+      if ($("#pieChart").length) {
+        if (this.statsCourriers) {
+          var doughnutPieData = {
+            datasets: [{
+              data: [
+                this.statsCourriers.received,
+                this.statsCourriers.sent,
+                this.statsCourriers.news,
+              ],
+              backgroundColor: [
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 206, 86, 0.5)',
+                'rgba(75, 192, 192, 0.5)',
+                'rgba(153, 102, 255, 0.5)',
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(255, 159, 64, 0.5)',
+              ],
+              borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255,99,132,1)',
+                'rgba(255, 159, 64, 1)'
+              ],
+            }],
+            labels: [
+              'Reçus : '+this.statsCourriers.received,
+              'Envoyés : '+this.statsCourriers.sent,
+              'Nouveaux : '+this.statsCourriers.news,
+            ]
+          };
+        }
+
+        const pieChartCanvas = $("#pieChart").get(0).getContext("2d");
+
+        try {
+          new Chart(pieChartCanvas, {
+            type: 'pie',
+            data: doughnutPieData,
+            options: this.doughnutPieOptions
+          });
+        } catch (error) {
+          
+        }
+      }
+    },
+    loadFundRequestsChart() {
+      if ($("#doughnutChart").length) {
+        if (this.statsFundRequests) {
+          const dataRequestsFund = {
+            datasets: [{
+              data: [
+                this.statsFundRequests.initiated,
+                this.statsFundRequests.conform,
+                this.statsFundRequests.unconform,
+                this.statsFundRequests.approved,
+                this.statsFundRequests.rejected,
+                this.statsFundRequests.executed,
+              ],
+              backgroundColor: [
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 206, 86, 0.5)',
+                'rgba(153, 102, 255, 0.5)',
+                'rgba(75, 192, 192, 0.5)',
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(149, 241, 149, 0.5)',
+              ],
+              borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(255,99,132,1)',
+                'rgba(149, 241, 149, 1)'
+              ],
+            }],
+            labels: [
+              'Initiées : '+this.statsFundRequests.initiated,
+              'Conformes : '+this.statsFundRequests.conform,
+              'Non conformes : '+this.statsFundRequests.unconform,
+              'Approuvées : '+this.statsFundRequests.approved,
+              'Rejetées : '+this.statsFundRequests.rejected,
+              'Exécutées : '+this.statsFundRequests.executed
+            ]
+          };
+
+          const doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
+          
+          try {
+            new Chart(doughnutChartCanvas, {
+              type: 'doughnut',
+              data: dataRequestsFund,
+              options: this.doughnutPieOptions
+            });
+          } catch (error) {
+            
+          }
+        }
+      }
     }
   }
 }
