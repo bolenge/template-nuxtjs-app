@@ -88,7 +88,6 @@ export const actions = {
     commit('SET_LOADING', true)
 
     this.$axios.get('courriers/all/inbox').then(({ data }) => {
-      commit('SET_COURRIERS', data.results)
       commit('SET_INBOX_COURRIERS', data.results)
     }).finally((_) => {
       commit('SET_LOADING', false)
