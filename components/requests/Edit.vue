@@ -15,6 +15,7 @@
           :entity="entityEdited"
           :formRow="true"
           :updateConfirmation="updateConfirmation"
+          fieldComplateMessageConfirmation="statuts_conform"
           @submitted="onSubmit"
         />
         <!-- End Form create fund_requests -->
@@ -48,7 +49,8 @@ export default {
       entity: {},
       entityEdited: null,
       updateConfirmation: {
-        message: 'Etes-vous sur de votre attribution de conformité ?'
+        title: 'Conformité',
+        message: 'Cette Requête est-elle'
       }
     }
   },
