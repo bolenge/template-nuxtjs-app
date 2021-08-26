@@ -79,12 +79,14 @@ export default {
           filterable: false
         },
         {
-          text: 'Status',
-          value: 'statut',
+          text: 'Importance',
+          value: 'importance',
           type: 'badge',
           types: {
             'Normal': 'badge-light',
-            'Urgent': 'badge-danger'
+            'Moyen': 'badge-info',
+            'Urgent': 'badge-warning',
+            'Très Urgent': 'badge-danger',
           },
           filterable: true
         },
