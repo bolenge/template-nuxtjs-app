@@ -70,6 +70,31 @@ export default {
           itemText: 'firstname',
         },
         {
+          name: 'importance',
+          type: 'select',
+          required: true,
+          label: 'Importance',
+          items: [
+            {
+              id: 'Très Urgent',
+              name: 'Très Urgent',
+            },
+            {
+              id: 'Urgent',
+              name: 'Urgent',
+            },
+            {
+              id: 'Moyent',
+              name: 'Moyent',
+            },
+            {
+              id: 'Normal',
+              name: 'Normal',
+            },
+          ],
+          itemText: 'name',
+        },
+        {
           name: 'attachment',
           type: 'file',
           required: true,
