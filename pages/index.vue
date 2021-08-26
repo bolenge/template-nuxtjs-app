@@ -38,7 +38,7 @@
 
               <div class="col-lg-6 my-3">
                 <h5>Departement</h5>
-                <span>{{ currentAdmin.department.name }}</span>
+                <span>{{ currentAdmin.department ? currentAdmin.department.name : '---' }}</span>
               </div>
 
               <div class="col-lg-6 my-3">
@@ -52,7 +52,7 @@
                 <span v-if="loadingUpdateAvatar" class="col-12">Chargement...</span>
                 <span v-else>
                   <span class="mdi mdi-camera col-1 text-right"></span>
-                  <span class="col-11">Changer photo de profile</span>
+                  <span class="col-11">Changer Photo Profile</span>
                 </span>
               </label>
 
