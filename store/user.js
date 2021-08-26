@@ -1,3 +1,5 @@
+import { serialize } from 'object-to-formdata'
+
 export const state = () => ({
   users: [],
   user: {},
@@ -45,5 +47,25 @@ export const actions = {
     }).finally((_) => {
       commit('SET_LOADING', false)
     })
+  },
+
+  changePassword ({ dispatch }, { entity }) {
+    const formData = serialize(entity)
+
+    return new Promise(
+      (resolve, reject) => {
+        this.$axios.post('auth/change-password', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+          .then((_) => {
+            resolve()
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      }
+    )
   },
 }
