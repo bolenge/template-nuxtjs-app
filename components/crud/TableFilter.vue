@@ -4,7 +4,7 @@
       v-if="title"
       class="card-header"
     >
-      <h3 class="card-title">{{ title }}</h3>
+      <h3 class="card-title mb-0">{{ title }}</h3>
     </div>
     <div class="card-body">
       <div class="d-flex">
@@ -101,7 +101,7 @@
                 :colspan="headers.length + 1"
                 class="text-center lead"
               >
-                Aucun enregistrement...
+                {{ emptyDataMessage }}
               </td>
             </tr>
             <!-- End no items -->
@@ -282,6 +282,13 @@ export default {
     computedItems: {
       type: String,
       default: ''
+    },
+    payloadActionLoad: {
+      type: Number
+    },
+    emptyDataMessage: {
+      type: String,
+      default: 'Aucun enregistrement...'
     }
   },
   data() {
@@ -300,7 +307,7 @@ export default {
       delete: 'crud/delete'
     }),
     initItems() {
-      this.load()
+      this.load({id: this.payloadActionLoad})
     },
     onLaunchEdit(id) {
       this.$emit('launchEdited', id)
@@ -373,6 +380,10 @@ export default {
         return state[this.model]['loading']
       },
       items(state) {
+        const computedItems = this.computedItems || this.model+'s'
+        return state[this.model][computedItems]
+      },
+      itemsState(state) {
         const computedItems = this.computedItems || this.model+'s'
         return state[this.model][computedItems]
       }
