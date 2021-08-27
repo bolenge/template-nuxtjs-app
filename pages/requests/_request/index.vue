@@ -1,11 +1,12 @@
 <template>
-  <Edit
+  <Detail
     :slug="slug"
   />
 </template>
 
 <script>
 import Edit from '~/components/requests/Edit'
+import Detail from '~/components/requests/Detail'
 import Global from '~/mixins/Global'
 
 export default {
@@ -17,11 +18,20 @@ export default {
   },
   mixins: [Global],
   components: {
-    Edit
+    Edit,
+    Detail
   },
   asyncData ({ params }) {
     const slug = +params.request
     return { slug }
   },
+  computed: {
+    currentPage() {
+      return 'requests'
+    },
+    currentNavLink() {
+      return 'synthesis-requests'
+    },
+  }
 }
 </script>
