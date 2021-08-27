@@ -11,6 +11,7 @@
           :buttonCreate="buttonCreate"
           :buttons="buttonsAction"
           @launchEdited="onLaunchEdited"
+          @showed="onShowed"
         />
       </div>
     </div>
@@ -35,6 +36,13 @@ export default {
   data () {
     return {
       headers: [
+        {
+          text: '',
+          value: 'entitled',
+          type: 'string',
+          filterable: false,
+          undashed: false
+        },
         {
           text: 'Date',
           value: 'created_at',
@@ -79,12 +87,14 @@ export default {
           filterable: false
         },
         {
-          text: 'Status',
-          value: 'statut',
+          text: 'Importance',
+          value: 'importance',
           type: 'badge',
           types: {
             'Normal': 'badge-light',
-            'Urgent': 'badge-danger'
+            'Moyen': 'badge-info',
+            'Urgent': 'badge-warning',
+            'Très Urgent': 'badge-danger',
           },
           filterable: true
         },
@@ -118,7 +128,10 @@ export default {
   },
   methods: {
     onLaunchEdited(id) {
-      // Do something
+      // 
+    },
+    onShowed(id) {
+      this.$router.replace('/courriers/'+id)
     }
   }
 }

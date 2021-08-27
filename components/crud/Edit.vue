@@ -63,6 +63,10 @@ export default {
       default() {
         return {}
       }
+    },
+    fieldComplateMessageConfirmation: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -79,9 +83,13 @@ export default {
 
       try {
         if (this.updateConfirmation.message) {
+          const message = this.fieldComplateMessageConfirmation
+            ? this.updateConfirmation.message + ' ' + entity[this.fieldComplateMessageConfirmation] + ' ?'
+            : this.updateConfirmation.message
+            
           this.$swal({
             title: this.updateConfirmation.title || "Confirmation",
-            text: this.updateConfirmation.message,
+            text: message,
             icon: "warning",
             buttons: true,
             dangerMode: true,

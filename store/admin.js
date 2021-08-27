@@ -1,15 +1,23 @@
 export const state = () => ({
   admins: [],
-  loading: false
+  stats: [],
+  loading: false,
+  loading_stats: false,
 })
 
 export const mutations = {
   SET_ADMINS(State, payload) {
     State.admins = payload
   },
+  SET_STATS(State, payload) {
+    State.stats = payload
+  },
   SET_LOADING(State, payload) {
     State.loading = payload
-  }
+  },
+  SET_LOADING_STATS(State, payload) {
+    State.loading_stats = payload
+  },
 }
 
 export const actions = {
@@ -31,6 +39,16 @@ export const actions = {
         .catch((error) => {
           reject(error)
         })
+    })
+  },
+
+  loadCurrentStatsCourriersAndFundRequests ({ commit }) {
+    commit('SET_LOADING_STATS', true)
+
+    this.$axios.get('admins/stats/courriers-and-fund-requests').then(({ data }) => {
+      commit('SET_STATS', data.results)
+    }).finally((_) => {
+      commit('SET_LOADING_STATS', false)
     })
   },
 }

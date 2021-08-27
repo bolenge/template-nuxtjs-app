@@ -62,7 +62,7 @@
 
                <!-- Select field -->
               <select
-                v-if="field.type === 'select' && field.childSync !== undefined"
+                v-else-if="field.type === 'select' && field.childSync !== undefined"
                 v-model="form[field.name]"
                 class="form-control"
                 :id="field.name"

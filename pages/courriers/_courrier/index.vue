@@ -1,12 +1,14 @@
 <template>
-  <Edit
+  <Detail
     :slug="slug"
   />
 </template>
 
 <script>
-import Edit from '~/components/courriers/Edit'
+import Detail from '~/components/courriers/Detail'
 import Global from '~/mixins/Global'
+import TableFilter from '@/components/crud/TableFilter'
+
 
 export default {
   middleware: 'auth',
@@ -17,11 +19,20 @@ export default {
   },
   mixins: [Global],
   components: {
-    Edit
+    Detail,
+    TableFilter
   },
   asyncData ({ params }) {
     const slug = +params.courrier
     return { slug }
   },
+  computed: {
+    currentPage() {
+      return 'courriers'
+    },
+    currentNavLink() {
+      return 'inbox-courriers'
+    },
+  }
 }
 </script>

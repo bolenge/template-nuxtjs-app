@@ -137,7 +137,10 @@
                 <!-- End Archives courriers -->
 
                 <!-- Synthèse Transmission courriers -->
-                <li class="nav-item">
+                <li
+                  v-if="isOfficeDirectorOrCompliance"
+                  class="nav-item"
+                >
                   <nuxt-link
                     to="/courriers/synthesis-transmission"
                     class="nav-link"
@@ -182,7 +185,10 @@
                     Mes requêtes
                   </nuxt-link>
                 </li>
-                <li class="nav-item" v-if="isOfficeDirectorOrCompliance">
+                <li
+                  v-if="isOfficeDirectorOrCompliance"
+                  class="nav-item"
+                >
                   <nuxt-link
                     to="/requests/synthesis"
                     class="nav-link"
