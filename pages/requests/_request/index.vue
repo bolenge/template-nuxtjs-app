@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import Edit from '~/components/requests/Edit'
 import Detail from '~/components/requests/Detail'
 import Global from '~/mixins/Global'
 
@@ -18,7 +17,6 @@ export default {
   },
   mixins: [Global],
   components: {
-    Edit,
     Detail
   },
   asyncData ({ params }) {
