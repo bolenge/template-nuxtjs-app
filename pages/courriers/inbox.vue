@@ -14,6 +14,7 @@
           :buttons="buttonsAction"
           :trClassByCondition="trClassByCondition"
           @launchEdited="onLaunchEdited"
+          @showed="onShowed"
         />
       </div>
     </div>
@@ -129,6 +130,9 @@ export default {
   methods: {
     onLaunchEdited(id) {
       // Do something
+    },
+    onShowed(id) {
+      this.$router.replace('/courriers/'+id)
     }
   },
 }
