@@ -24,12 +24,16 @@
             <span class="typcn typcn-refresh"></span> Actualiser
           </button>
 
-          <button
+          <download-csv
             v-if="extractData"
             class="btn btn-info btn-sm mr-lg-3"
+            :data="exportItems"
+            delimiter=";"
+            separator-excel
+            :name="`fichier-export.csv`"
           >
             <span class="typcn typcn-database"></span> Extraction données
-          </button>
+          </download-csv>
 
           <button
             class="btn btn-light btn-sm"
@@ -227,8 +231,10 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import JsonCSV from 'vue-json-csv'
 
 export default {
+  components: {downloadCsv: JsonCSV},
   props: {
     title: {
       type: String,
@@ -289,6 +295,12 @@ export default {
     emptyDataMessage: {
       type: String,
       default: 'Aucun enregistrement...'
+    },
+    fieldsExtract: {
+      type: Object,
+      default() {
+        return {}
+      }
     }
   },
   data() {
@@ -336,7 +348,7 @@ export default {
         this.$toast.error('Une erreur est survenue, réessayez svp !')
       }
     },
-    getObject(obj, path) {
+    getObject(obj, path, typeField = 'string') {
       let items = path.split('.')
       let objRes = obj,
           i = items.length
@@ -350,6 +362,8 @@ export default {
 
         i = items.length
       }
+
+      objRes = typeField === 'amount-money' ? objRes.toLocaleString() : objRes
 
       return objRes || '---' 
     },
@@ -434,6 +448,17 @@ export default {
 
       return this.items
     },
+    exportItems() {
+      return this.items.map((item) => {
+        const result = {}
+
+        for (const field of this.fieldsExtract) {
+          result[field.text] =  this.getObject(item, field.value)
+        }
+
+        return result
+      })
+    }
   },
   mounted() {
     this.initItems()
