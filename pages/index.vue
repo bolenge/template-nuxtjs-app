@@ -4,10 +4,10 @@
       <div class="col-lg-8 grid-margin grid-margin-lg-0 stretch-card">
         <div class="card">
           <div class="card-body text-center p-5">
-            <h1 class="my-4 mb-5">Bienvenu(e) sur {{ APP_NAME }} Application</h1>
+            <h3 class="my-4 mb-5">Bienvenu(e) sur {{ APP_NAME }} Application</h3>
 
-            <div class="p-5">
-              <img src="images/one-touch-logo.png" alt="Logo de One touch" />
+            <div class="p-lg-5">
+              <img src="images/one-touch-logo.png" alt="Logo de One touch" width="180px" />
             </div>
           </div>
         </div>
@@ -17,7 +17,7 @@
         <div class="card">
           <div class="card-body text-center p-5">
             <div class="mb-4">
-              <h5>{{ userConnected.name }}</h5>
+              <h5 class="font-weight-bold text-uppercase">{{ userConnected.name }}</h5>
               <img
                 :src="currentUserAvatar ? `${BASE_PATH_USER_PICTURES}/${currentUserAvatar}` : DEFAULT_USER_AVATAR"
                 alt="Current user avatar"
@@ -27,32 +27,32 @@
 
             <div class="row">
               <div class="col-lg-6 my-3">
-                <h5>Date</h5>
-                <span>Le {{ currentDate }} </span>
+                <h5 class="font-weight-bold">Date</h5>
+                <span>{{ currentDate }} </span>
               </div>
 
               <div class="col-lg-6 my-3">
-                <h5>Heure Login</h5>
+                <h5 class="font-weight-bold">Heure Login</h5>
                 <span>{{ getUserMomentLogged }} </span>
               </div>
 
               <div class="col-lg-6 my-3">
-                <h5>Departement</h5>
+                <h5 class="font-weight-bold">Departement</h5>
                 <span>{{ currentAdmin.department ? currentAdmin.department.name : '---' }}</span>
               </div>
 
               <div class="col-lg-6 my-3">
-                <h5>Role</h5>
+                <h5 class="font-weight-bold">Role</h5>
                 <span>{{ userConnected.role.name }}</span>
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="profile-user" class="btn btn-info d-flex text-center btn-sm">
-                <span v-if="loadingUpdateAvatar" class="col-12">Chargement...</span>
+            <div class="form-group mt-3 mb-0">
+              <label for="profile-user" class="btn btn-info text-center btn-sm btn-change-avatar">
+                <span v-if="loadingUpdateAvatar">Chargement...</span>
                 <span v-else>
-                  <span class="mdi mdi-camera col-1 text-right"></span>
-                  <span class="col-11">Changer Photo Profile</span>
+                  <span class="mdi mdi-camera float-left mr-2"></span>
+                  <span class=" d-inline">Changer photo</span>
                 </span>
               </label>
 
@@ -72,7 +72,7 @@
       <div class="col-lg-6 grid-margin grid-margin-lg-0 stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Courriers</h4>
+            <h4 class="card-title text-normal text-center">Courriers</h4>
 
             <div class="container p-5">
               <canvas id="pieChart"></canvas>
@@ -84,7 +84,7 @@
       <div class="col-lg-6 grid-margin grid-margin-lg-0 stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Requêtes de fonds</h4>
+            <h4 class="card-title text-normal text-center">Requêtes de Fonds</h4>
 
             <div class="container p-5">
               <canvas id="doughnutChart"></canvas>
@@ -292,5 +292,12 @@ export default {
   .user-home-avatar {
     width: 90px;
     border-radius: 4px;
+  }
+  .btn-change-avatar {
+    font-size: 13px !important;
+    padding: 5px 10px !important;
+  }
+  .text-normal {
+    text-transform: none !important;
   }
 </style>
