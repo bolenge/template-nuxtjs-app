@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title text-normal text-center mb-0">{{ title }}</h4>
+      <h5 class="card-title text-normal text-center mb-0 font-weight-400">{{ title }}</h5>
         <p
           v-if="description"
           class="card-description text-center"
@@ -459,5 +459,14 @@ export default {
   }
   .btn-in-loading {
     cursor: not-allowed !important;
+  }
+  .font-weight-400 {
+    font-weight: 400 !important;
+  }
+  .font-weight-300 {
+    font-weight: 300 !important;
+  }
+  .card-title {
+    font-size: 16px !important;
   }
 </style>
