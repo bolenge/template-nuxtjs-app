@@ -4,7 +4,7 @@
       <div class="col-lg-8 grid-margin grid-margin-lg-0 stretch-card">
         <div class="card">
           <div class="card-body text-center p-5">
-            <h3 class="my-4 mb-5">Bienvenu(e) sur {{ APP_NAME }} Application</h3>
+            <h3 class="my-4 mb-5 font-weight-400">Bienvenu(e) sur {{ APP_NAME }} Application</h3>
 
             <div class="p-lg-5">
               <img src="images/one-touch-logo.png" alt="Logo de One touch" width="180px" />
@@ -17,7 +17,7 @@
         <div class="card">
           <div class="card-body text-center p-5">
             <div class="mb-4">
-              <h5 class="font-weight-bold text-uppercase">{{ userConnected.name }}</h5>
+              <h5 class="font-weight-bold text-uppercase font-weight-400">{{ userConnected.name }}</h5>
               <img
                 :src="currentUserAvatar ? `${BASE_PATH_USER_PICTURES}/${currentUserAvatar}` : DEFAULT_USER_AVATAR"
                 alt="Current user avatar"
@@ -72,7 +72,7 @@
       <div class="col-lg-6 grid-margin grid-margin-lg-0 stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title text-normal text-center">Courriers</h4>
+            <h4 class="card-title text-normal text-center font-weight-400">Courriers</h4>
 
             <div class="container p-5">
               <canvas id="pieChart"></canvas>
@@ -84,7 +84,7 @@
       <div class="col-lg-6 grid-margin grid-margin-lg-0 stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title text-normal text-center">Requêtes de Fonds</h4>
+            <h4 class="card-title text-normal text-center font-weight-400">Requêtes de Fonds</h4>
 
             <div class="container p-5">
               <canvas id="doughnutChart"></canvas>
@@ -299,5 +299,11 @@ export default {
   }
   .text-normal {
     text-transform: none !important;
+  }
+  .font-weight-400 {
+    font-weight: 400 !important;
+  }
+  .font-weight-300 {
+    font-weight: 300 !important;
   }
 </style>
