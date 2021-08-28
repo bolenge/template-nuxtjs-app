@@ -16,10 +16,10 @@
                             alt="Current user avatar"
                             style="margin-bottom: -9px;"
                         />
-                        <span class="nav-profile-name mb-0 font-weight-bold">{{ $auth.user.name }}</span><br>
+                        <span class="nav-profile-name mb-0 font-weight-bold text-uppercase">{{ $auth.user.name }}</span><br>
                         <p
                             class="sidebar-designation"
-                            style="margin-bottom: -2px;margin-top: -8px;margin-left: 2.5rem;"
+                            style="margin-bottom: -2px;margin-top: -6px;margin-left: 2.5rem;"
                         >
                             {{ $auth.user.role.name }}
                             {{ $auth.user.admin.fonction ? ' - ' + $auth.user.admin.fonction.name : '' }}
