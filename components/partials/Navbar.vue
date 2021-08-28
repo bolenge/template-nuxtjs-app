@@ -14,9 +14,16 @@
                         <img
                             :src="userAvatar ? `${BASE_PATH_USER_PICTURES}/${userAvatar}` : DEFAULT_USER_AVATAR"
                             alt="Current user avatar"
+                            style="margin-bottom: -9px;"
                         />
                         <span class="nav-profile-name mb-0 font-weight-bold">{{ $auth.user.name }}</span><br>
-                        <p class="sidebar-designation" style="margin-bottom: -2px;margin-top: -9px;margin-left: 2.5rem;">{{ $auth.user.role.name }}</p>
+                        <p
+                            class="sidebar-designation"
+                            style="margin-bottom: -2px;margin-top: -8px;margin-left: 2.5rem;"
+                        >
+                            {{ $auth.user.role.name }}
+                            {{ $auth.user.admin.fonction ? ' - ' + $auth.user.admin.fonction.name : '' }}
+                        </p>
                     </a>
                 </li>
             </ul>
