@@ -89,7 +89,7 @@
           >
             <a class="nav-link" data-toggle="collapse" href="#courriers" aria-expanded="false" aria-controls="courriers">
               <em class="typcn typcn-mail menu-icon"></em>
-              <span class="menu-title">Gestion courriers</span>
+              <span class="menu-title">Gestion Courriers</span>
               <em class="typcn typcn-chevron-right menu-arrow"></em>
             </a>
             <div class="collapse" id="courriers">
@@ -113,7 +113,7 @@
                     class="nav-link"
                     :class="setNavLinkActive('inbox-courriers')"
                   >
-                    Boite de reception
+                    Boîte de Réception
                     <span
                       v-if="countNewCourriers"
                       class="badge badge-primary p-1"
@@ -162,7 +162,7 @@
           >
             <a class="nav-link" data-toggle="collapse" href="#requests" aria-expanded="false" aria-controls="requests">
               <em class="typcn typcn-film menu-icon"></em>
-              <span class="menu-title">Requête de fonds</span>
+              <span class="menu-title">Requête de Fonds</span>
               <em class="typcn typcn-chevron-right menu-arrow"></em>
             </a>
             <div class="collapse" id="requests">
@@ -182,7 +182,7 @@
                     class="nav-link"
                     :class="setNavLinkActive('inbox-requests')"
                   >
-                    Mes requêtes
+                    Mes Requêtes
                   </nuxt-link>
                 </li>
                 <li
@@ -194,7 +194,7 @@
                     class="nav-link"
                     :class="setNavLinkActive('synthesis-requests')"
                   >
-                    Synthese CRF
+                    Synthèse CRF
                   </nuxt-link>
                 </li>
               </ul>
@@ -210,7 +210,7 @@
           >
             <a class="nav-link" data-toggle="collapse" href="#finances" aria-expanded="false" aria-controls="finances">
               <em class="typcn typcn-credit-card menu-icon"></em>
-              <span class="menu-title">Ressources financières</span>
+              <span class="menu-title">Ressources Financières</span>
               <em class="typcn typcn-chevron-right menu-arrow"></em>
             </a>
             <div class="collapse" id="finances">
@@ -254,7 +254,7 @@
           >
             <nuxt-link class="nav-link" to="/account/change-password">
               <em class="typcn typcn-key menu-icon"></em>
-              <span class="menu-title">Modifier mot de passe</span>
+              <span class="menu-title">Modifier Mot de Passe</span>
             </nuxt-link>
           </li>
           <!-- End Item Modifier mot de passe -->
@@ -262,8 +262,8 @@
           <!-- Item Deconnexion -->
           <li class="nav-item">
             <a class="nav-link cursor-click" @click.prevent="onLogout">
-              <em class="typcn typcn-power menu-icon"></em>
-              <span class="menu-title">Deconnexion</span>
+              <em class="typcn typcn-power menu-icon text-danger font-weight-bold font-size-2"></em>
+              <span class="menu-title">Déconnexion</span>
             </a>
           </li>
           <!-- End Item Deconnexion -->
@@ -337,5 +337,8 @@ export default {
 <style>
   .cursor-click {
     cursor: pointer !important;
+  }
+  .font-size-2 {
+    font-size: 1.8em !important;
   }
 </style>
