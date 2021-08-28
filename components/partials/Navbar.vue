@@ -3,7 +3,7 @@
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
             <nuxt-link class="navbar-brand brand-logo" to="/admin"><img src="/images/one-touch-logo.png" alt="logo"/></nuxt-link>
             <nuxt-link class="navbar-brand brand-logo-mini" to="/"><img src="/images/logo-one-touch-mobile.png" alt="logo"/></nuxt-link>
-            <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
+            <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-none" type="button" data-toggle="minimize">
                 <span class="typcn typcn-th-menu"></span>
             </button>
         </div>
