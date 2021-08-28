@@ -98,7 +98,7 @@ export const actions = {
 
           this.$swal({
             title: "Suppression",
-            text: 'Operation effectuée avec succès',
+            text: 'Opération effectuée avec succès',
             icon: "success",
             confirmButtonText: 'Ok'
           })
