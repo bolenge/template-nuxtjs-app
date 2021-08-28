@@ -341,4 +341,7 @@ export default {
   .font-size-2 {
     font-size: 1.8em !important;
   }
+  .menu-arrow {
+    margin-bottom: -10px;
+  }
 </style>
