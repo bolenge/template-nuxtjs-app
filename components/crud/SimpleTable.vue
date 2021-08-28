@@ -55,10 +55,10 @@
               >
                 <!-- Actions fields -->
                 <span v-if="head.type == 'actions'">
-                  <button class="btn btn-sm btn-info" @click="onLaunchEdit(item.id)">
+                  <button class="btn btn-sm btn-sm-action btn-info" @click="onLaunchEdit(item.id)">
                     <span class="typcn typcn-pencil"></span>
                   </button>
-                  <button class="btn btn-sm btn-danger" @click="onDelete(item.id)">
+                  <button class="btn btn-sm btn-sm-action btn-danger" @click="onDelete(item.id)">
                     <span class="typcn typcn-trash"></span>
                   </button>
                 </span>
@@ -177,7 +177,7 @@ export default {
   .text-normal {
     text-transform: none !important;
   }
-  .btn-sm.btn {
+  .btn-sm-action {
     padding: 6px !important;
     font-size: 12px !important;
   }
@@ -193,5 +193,8 @@ export default {
   }
   .font-weight-300 {
     font-weight: 300 !important;
+  }
+  .font-weight-500 {
+    font-weight: 400 !important;
   }
 </style>

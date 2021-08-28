@@ -74,12 +74,13 @@
       <div class="table-responsive">
         <table class="table table-hover" aria-describedby="">
           <thead>
-            <tr>
+            <tr class="tr-table">
               <th scope="">#</th>
               <th
                 v-for="(head, i) in headers"
                 :key="i"
                 :id="i"
+                class="font-weight-600"
               >
                 {{ head.text }}
               </th>
@@ -114,6 +115,7 @@
               v-for="(item, i) in itemsPaginated"
               :key="i"
               :class="trClass(item)"
+              class="tr-table"
             >
               <td>{{ offset + 1 + i}}</td>
               <td
@@ -165,21 +167,21 @@
                 >
                   <button
                     v-if="buttons.edit"
-                    class="btn btn-sm btn-info"
+                    class="btn btn-sm btn-sm-action btn-info"
                     @click="onLaunchEdit(item.id)"
                   >
                     <span class="typcn typcn-pencil"></span>
                   </button>
                   <button
                     v-if="buttons.delete"
-                    class="btn btn-sm btn-danger"
+                    class="btn btn-sm btn-sm-action btn-danger"
                     @click="onDelete(item.id)"
                   >
                     <span class="typcn typcn-trash"></span>
                   </button>
                   <button
                     v-if="buttons.show"
-                    class="btn btn-sm btn-success"
+                    class="btn btn-sm btn-sm-action btn-success"
                     @click="onShow(item.id)"
                   >
                     <span class="typcn typcn-eye-outline"></span>

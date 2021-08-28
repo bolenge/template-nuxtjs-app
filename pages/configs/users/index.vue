@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-user-outline"></span> Configuration Utilisateurs</h2>
+      <h4 class="font-weight-500 mb-4"><span class="typcn typcn-user-outline"></span> Configuration Utilisateurs</h4>
     </div>
     <div class="row">
       <div class="col-lg-12 grid-margin stretch-card">
