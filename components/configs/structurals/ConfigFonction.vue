@@ -1,10 +1,10 @@
 <template>
   <ConfigPanel
     title="Configuration Fonction"
-    createFormTitle="Création de fonction"
-    editFormTitle="Edition du fonction"
+    createFormTitle="Créer Fonction"
+    editFormTitle="Edition Fonction"
     model="fonction"
-    tableTitle="Liste de fonctions"
+    tableTitle="Liste des Fonctions"
     :edited="edited"
     :entityEdited="entityEdited"
     :entity="entity"
