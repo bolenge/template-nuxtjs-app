@@ -120,7 +120,7 @@ export default {
     onDelete(id) {
       this.$swal({
         title: "Suppression",
-        text: "Voulez-vous vraiment supprimé cet enregistrement ?",
+        text: "Voulez-vous vraiment supprimer cet enregistrement ?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
