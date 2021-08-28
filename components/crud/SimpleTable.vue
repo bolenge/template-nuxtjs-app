@@ -1,12 +1,13 @@
 <template>
   <div class="card">
+    <div class="card-header">
+      <h4 class="card-title text-normal mb-0 font-weight-400">{{ title }}</h4>
+    </div>
     <div class="card-body">
-      <h4 class="card-title text-normal">{{ title }}</h4>
-
       <div class="table-responsive">
         <table class="table table-hover" aria-describedby="">
           <thead>
-            <tr>
+            <tr class="tr-table">
               <th scope="">#</th>
               <th
                 v-for="(head, i) in headers"
@@ -45,6 +46,7 @@
             <tr
               v-for="(item, i) in items"
               :key="i"
+              class="tr-table"
             >
               <td>{{ i + 1 }}</td>
               <td
@@ -174,5 +176,22 @@ export default {
 <style>
   .text-normal {
     text-transform: none !important;
+  }
+  .btn-sm.btn {
+    padding: 6px !important;
+    font-size: 12px !important;
+  }
+  .tr-table th,
+  .tr-table td {
+    padding: 11px !important;
+  }
+  .tr-table th {
+    font-size: 15px !important;
+  }
+  .font-weight-400 {
+    font-weight: 400 !important;
+  }
+  .font-weight-300 {
+    font-weight: 300 !important;
   }
 </style>
