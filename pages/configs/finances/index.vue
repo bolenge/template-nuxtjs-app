@@ -1,35 +1,35 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid text-center mb-4">
-      <div class="col-12">
+      <div class="col-lg-12 d-flex justify-content-center">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <!-- Tab config comptes banks -->
           <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="config-banks-tab" data-toggle="tab" href="#config-banks" role="tab" aria-controls="config-banks" aria-selected="true"><span class="typcn typcn-credit-card"></span> Comptes Bancaires</a>
+            <a class="nav-link py-2 active" id="config-banks-tab" data-toggle="tab" href="#config-banks" role="tab" aria-controls="config-banks" aria-selected="true"><span class="typcn typcn-credit-card"></span> Comptes Bancaires</a>
           </li>
           <!-- End Tab config comptes banks -->
 
           <!-- Tab config comptes caisses -->
           <li class="nav-item" role="presentation">
-            <a class="nav-link" id="config-caisses-tab" data-toggle="tab" href="#config-caisses" role="tab" aria-controls="config-caisses" aria-selected="false"><span class="typcn typcn-document-text"></span> Comptes Caisses</a>
+            <a class="nav-link py-2" id="config-caisses-tab" data-toggle="tab" href="#config-caisses" role="tab" aria-controls="config-caisses" aria-selected="false"><span class="typcn typcn-document-text"></span> Comptes Caisses</a>
           </li>
           <!-- End Tab config comptes caisses -->
 
           <!-- Tab config natures -->
           <li class="nav-item" role="presentation">
-            <a class="nav-link" id="config-tags-tab" data-toggle="tab" href="#config-natures" role="tab" aria-controls="config-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Nature Op. (Niveau 1)</a>
+            <a class="nav-link py-2" id="config-tags-tab" data-toggle="tab" href="#config-natures" role="tab" aria-controls="config-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Nature Op. (Niveau 1)</a>
           </li>
           <!-- End Tab config natures -->
 
           <!-- Tab config sub-natures -->
           <li class="nav-item" role="presentation">
-            <a class="nav-link" id="config-tags-tab" data-toggle="tab" href="#config-sub-natures" role="tab" aria-controls="config-sub-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Nature Op. (Niveau 2)</a>
+            <a class="nav-link py-2" id="config-tags-tab" data-toggle="tab" href="#config-sub-natures" role="tab" aria-controls="config-sub-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Nature Op. (Niveau 2)</a>
           </li>
           <!-- End Tab config sub-natures -->
 
           <!-- Tab config comptes-natures -->
           <li class="nav-item" role="presentation">
-            <a class="nav-link" id="config-tags-tab" data-toggle="tab" href="#config-comptes-natures" role="tab" aria-controls="config-comptes-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Comptes des Op. (Niveau 3)</a>
+            <a class="nav-link py-2" id="config-tags-tab" data-toggle="tab" href="#config-comptes-natures" role="tab" aria-controls="config-comptes-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Comptes des Op. (Niveau 3)</a>
           </li>
           <!-- End Tab config comptes-natures -->
         </ul>
