@@ -55,6 +55,10 @@ export default {
         href: "/css/vertical-layout-light/style.css",
       },
       {
+        rel: "stylesheet",
+        href: "/css/main.css",
+      },
+      {
         rel: 'icon',
         type: 'image/x-icon',
         href: '/favicon.png'
