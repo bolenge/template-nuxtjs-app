@@ -125,7 +125,10 @@
                 <!-- End Boite de reception courriers -->
 
                 <!-- Archives courriers -->
-                <li class="nav-item">
+                <li
+                  v-if="isSuperAdmin || isSimpleAdmin"
+                  class="nav-item"
+                >
                   <nuxt-link
                     to="/courriers/archives"
                     class="nav-link"
@@ -138,7 +141,7 @@
 
                 <!-- Synthèse Transmission courriers -->
                 <li
-                  v-if="isOfficeDirectorOrCompliance"
+                  v-if="isSuperAdmin || isSimpleAdmin"
                   class="nav-item"
                 >
                   <nuxt-link
