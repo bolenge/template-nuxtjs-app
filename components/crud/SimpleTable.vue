@@ -7,7 +7,7 @@
       <div class="table-responsive">
         <table class="table table-hover" aria-describedby="">
           <thead>
-            <tr class="tr-table">
+            <tr class="tr-table text-center">
               <th scope="">#</th>
               <th
                 v-for="(head, i) in headers"
@@ -20,7 +20,10 @@
           </thead>
           <tbody>
             <!-- Loading -->
-            <tr v-if="loading">
+            <tr
+              v-if="loading"
+              class="text-center"
+            >
               <td
                 :colspan="headers.length + 1"
                 class="text-center lead"
@@ -33,6 +36,7 @@
             <!-- No items -->
             <tr
               v-else-if="!items.length"
+              class="text-center"
             >
               <td
                 :colspan="headers.length + 1"
@@ -46,7 +50,7 @@
             <tr
               v-for="(item, i) in items"
               :key="i"
-              class="tr-table"
+              class="tr-table text-center"
             >
               <td>{{ i + 1 }}</td>
               <td
