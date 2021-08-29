@@ -35,23 +35,25 @@
             <span class="typcn typcn-database"></span> Extraction données
           </download-csv>
 
-          <button
-            class="btn btn-light btn-sm"
-            :class="{'btn-in-loading disabled': disablePreviousButton}"
-            :disabled="disablePreviousButton"
-            @click="previousPaginate"
-          >
-            <span class="typcn typcn-chevron-left"></span>
-          </button>
-          <span>{{ countItems ? offset + 1 : 0 }}-{{ countItemsPaginated }} sur {{ countItems }}</span>
-          <button
-            class="btn btn-light btn-sm"
-            :class="{'btn-in-loading disabled': disableNextButton}"
-            :disabled="disableNextButton"
-            @click="nextPaginate"
-          >
-            <span class="typcn typcn-chevron-right"></span>
-          </button>
+          <span v-if="showPagination">
+            <button
+              class="btn btn-light btn-sm"
+              :class="{'btn-in-loading disabled': disablePreviousButton}"
+              :disabled="disablePreviousButton"
+              @click="previousPaginate"
+            >
+              <span class="typcn typcn-chevron-left"></span>
+            </button>
+            <span>{{ countItems ? offset + 1 : 0 }}-{{ countItemsPaginated }} sur {{ countItems }}</span>
+            <button
+              class="btn btn-light btn-sm"
+              :class="{'btn-in-loading disabled': disableNextButton}"
+              :disabled="disableNextButton"
+              @click="nextPaginate"
+            >
+              <span class="typcn typcn-chevron-right"></span>
+            </button>
+          </span>
         </div>
         <div class="form-group col-4">
           <div class="input-group">
@@ -304,6 +306,10 @@ export default {
       default() {
         return {}
       }
+    },
+    showPagination: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
