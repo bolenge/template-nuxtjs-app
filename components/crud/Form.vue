@@ -202,8 +202,8 @@
               <input
                 v-else-if="field.type === 'number'"
                 v-model="form[field.name]"
-                :type="field.type"
-                min=".00"
+                :type="'number'"
+                min="1.00"
                 class="form-control form-control-sm"
                 :id="field.name"
                 :required="field.required"
