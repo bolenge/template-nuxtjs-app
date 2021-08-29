@@ -1,6 +1,6 @@
 <template>
   <div class="content-wrapper">
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-lg-8 grid-margin stretch-card">
         <!-- Form create transactions -->
         <Create
@@ -79,6 +79,12 @@ export default {
           type: 'number',
           required: true,
           label: 'Montant',
+        },
+        {
+          name: 'rate',
+          type: 'number',
+          required: true,
+          label: 'Taux',
         },
         {
           name: 'type_account_id',
