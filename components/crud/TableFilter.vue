@@ -476,6 +476,10 @@ export default {
   .btn-in-loading {
     cursor: not-allowed !important;
   }
+  .btn-sm-action {
+    padding: 6px !important;
+    font-size: 12px !important;
+  }
   .tr-table th,
   .tr-table td {
     padding: 10px !important;

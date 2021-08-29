@@ -187,7 +187,15 @@ export default {
   }
   .tr-table th,
   .tr-table td {
-    padding: 11px !important;
+    padding: 10px !important;
+    font-family: "Montserrat", sans-serif !important;
+  }
+  .tr-table th {
+    font-weight: bold !important;
+    font-size: 13px !important;
+  }
+  .tr-table td {
+    font-size: 13px !important;
   }
   .font-weight-400 {
     font-weight: 400 !important;
