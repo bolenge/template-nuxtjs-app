@@ -15,13 +15,15 @@ export default {
     currentUserAvatar() {
       return this.userConnected.avatar
     },
-    isComplianceOrOfficeManager() {
-      return this.currentAdmin.fonction.validation_level_id === OFFICE_MANAGER ||
-             this.currentAdmin.fonction.validation_level_id === COMPLIANCE
-    },
     isOfficeManager() {
       return this.currentAdmin.fonction.validation_level_id === OFFICE_MANAGER
-    }
+    },
+    isCompliance() {
+      return this.currentAdmin.fonction.validation_level_id === COMPLIANCE
+    },
+    isComplianceOrOfficeManager() {
+      return this.isOfficeManager || this.isCompliance
+    },
   },
   methods: {
   }

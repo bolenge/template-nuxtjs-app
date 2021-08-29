@@ -54,6 +54,7 @@ import DetailCourrier from './DetailCourrier'
 import TableFilter from '../crud/TableFilter'
 
 const ROLE_ADMIN = 2
+const TYPE_COURRIER_SORTANT = 2
 
 export default {
   props: {
@@ -102,14 +103,14 @@ export default {
         },
         {
           text: 'Expéditeur',
-          value: 'sender',
-          type: 'string',
+          value: 'admin_recipient.user.name',
+          type: 'object',
           filterable: true
         },
         {
           text: 'Destinataire',
-          value: 'admin_recipient.user.name',
-          type: 'object',
+          value: 'sender',
+          type: 'string',
           filterable: true
         },
         {
@@ -143,13 +144,14 @@ export default {
         delete: false,
         show: true
       },
-      ownerCourrier: false
+      ownerCourrier: false,
+      courrierSender: null
     }
   },
   computed: {
     ...mapState({
       typeCourriers(state) {
-        return state.type_courrier.type_courriers
+        return state.type_courrier.type_courriers.filter((type) => type.id == TYPE_COURRIER_SORTANT)
       },
       recipients(state) {
         return state.admin.admins
@@ -196,12 +198,12 @@ export default {
           disabled: true
         },
         {
-          name: 'admin_recipient_id',
-          type: 'select',
+          name: 'recipient',
+          type: 'text',
           required: true,
+          disabled: true,
           label: 'Destinataire',
-          items: this.recipients,
-          itemText: 'firstname',
+          value: this.courrierSender,
         },
         {
           name: 'attachment',
@@ -236,6 +238,13 @@ export default {
           required: false,
           label: '',
           value: this.slug
+        },
+        {
+          name: 'admin_recipient_id',
+          type: 'hidden',
+          required: false,
+          label: '',
+          value: this.currentAdminLogged.id,
         }
       ]
     }
@@ -244,12 +253,9 @@ export default {
     typeCourriers() {
       this.$set(this.fields[0], 'items', this.typeCourriers)
     },
-    recipients() {
-      this.$set(this.fields[3], 'items', this.recipients)
-    },
     childrenCourriers() {
       console.log('childrenCourriers', this.childrenCourriers);
-    }
+    },
   },
   methods: {
     ...mapActions({
@@ -265,6 +271,7 @@ export default {
     async setEntityCourrier() {
       this.loadingEntityCourrier = true
       this.entityCourrier = await this.showCourrier({id: this.slug})
+      this.courrierSender = this.entityCourrier.sender
       this.ownerCourrier = this.entityCourrier.admin_recipient_id === this.currentAdminLogged.id && this.entityCourrier.transmitted
       this.loadingEntityCourrier = false
     },

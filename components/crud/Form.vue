@@ -54,6 +54,7 @@
                   v-for="(item, it) in field.items"
                   :key="it"
                   :value="item.id"
+                  :selected="item.id === field.selected"
                 >
                   {{ item[field.itemText || 'name'] }}
                 </option>
@@ -202,8 +203,8 @@
               <input
                 v-else-if="field.type === 'number'"
                 v-model="form[field.name]"
-                :type="field.type"
-                min=".00"
+                :type="'number'"
+                min="1.00"
                 class="form-control form-control-sm"
                 :id="field.name"
                 :required="field.required"

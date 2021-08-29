@@ -53,7 +53,7 @@ export default {
         {
           text: 'Taux',
           value: 'rate',
-          type: 'string',
+          type: 'amount-money',
           filterable: true
         },
         {

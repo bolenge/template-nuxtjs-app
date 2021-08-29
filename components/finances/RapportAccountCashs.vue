@@ -6,6 +6,7 @@
     actionLoad="loadAccountCashs"
     computedItems="accounts_cashs"
     :buttons="buttonsAction"
+    :showPagination="false"
     @launchEdited="onLaunchEdited"
   />
 </template>

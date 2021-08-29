@@ -10,7 +10,7 @@
         <Create
           api="fund_requests"
           model="fund_request"
-          title="Enregistrement d'une nouvelle requete de fonds"
+          title="Enregistrement Nouvelle Requête CRF"
           :fields="fields"
           :entity="entity"
           :formRow="true"
@@ -88,7 +88,7 @@ export default {
           name: 'date_use',
           type: 'date',
           required: false,
-          label: 'Date d\'utilisation',
+          label: 'Date d\'Utilisation',
         },
         {
           name: 'description',
@@ -121,7 +121,7 @@ export default {
           name: 'insert_administration_bases',
           type: 'file',
           required: false,
-          label: 'Uploader soubassements Administratifs',
+          label: 'Uploader Soubassements Administratifs',
         },
         {
           name: 'admin_fund_requestor_id',

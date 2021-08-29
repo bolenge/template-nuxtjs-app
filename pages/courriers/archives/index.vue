@@ -37,7 +37,7 @@ export default {
     return {
       headers: [
         {
-          text: '',
+          text: 'RE',
           value: 'entitled',
           type: 'string',
           filterable: false,

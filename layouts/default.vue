@@ -11,6 +11,7 @@
         :page-active="pageActive"
         :nav-link-active="navLinkActive"
         :countNewCourriers="countNewCourriers"
+        :countNoTransmittedCourriers="countNoTransmittedCourriers"
         :isOfficeDirectorOrCompliance="isOfficeDirectorOrCompliance"
       />
 
@@ -46,7 +47,10 @@ export default {
     ...mapState({
       inboxCourriers(state) {
         return state.courrier.inbox_courriers
-      }
+      },
+      noTransmittedCourriers(state) {
+        return state.courrier.no_transmitted_courriers
+      },
     }),
     pageActive() {
       return this.$store.state.page_active
@@ -64,6 +68,11 @@ export default {
       return this
         .inboxCourriers
         .filter((courrier) => !courrier.recipient_consulted).length
+    },
+    countNoTransmittedCourriers() {
+      return this
+        .noTransmittedCourriers
+        .length
     },
     isOfficeDirectorOrCompliance() {
        if (this.currentAdminConnected) {
@@ -84,14 +93,10 @@ export default {
     }
   },
   mounted() {
-    this.loadInboxCourriers()
     this.collapseItemSidebar()
     this.autoActiveCollapseItem()
   },
   methods: {
-    ...mapActions({
-      loadInboxCourriers: 'courrier/loadInboxCourriersAdmin'
-    }),
     collapseItemSidebar() {
       const $parent = this
 
