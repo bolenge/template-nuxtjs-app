@@ -121,13 +121,13 @@
               <td
                 v-for="(head, j) in headers"
                 :key="j"
-                :class="{'py-1': head.type == 'image'}"
               >
                 <!-- Image fields -->
                 <img
                   v-if="head.type == 'image'"
                   :src="`${API_BASE_URL}/${head.baseUrl}/${item[head.value]}`"
                   alt="image"
+                  style="width: 30px;height: 30px;"
                 />
                 <!-- End image fields -->
 
@@ -474,5 +474,26 @@ export default {
   }
   .btn-in-loading {
     cursor: not-allowed !important;
+  }
+  .tr-table th,
+  .tr-table td {
+    padding: 10px !important;
+    font-family: "Montserrat", sans-serif !important;
+  }
+  .tr-table th {
+    font-weight: bold !important;
+    font-size: 13px !important;
+  }
+  .tr-table td {
+    font-size: 13px !important;
+  }
+  .font-weight-400 {
+    font-weight: 400 !important;
+  }
+  .font-weight-300 {
+    font-weight: 300 !important;
+  }
+  .font-weight-500 {
+    font-weight: 400 !important;
   }
 </style>
