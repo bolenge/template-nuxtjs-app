@@ -132,7 +132,7 @@ export default {
     onTransmitted(item) {
       this.$swal({
         title: "Transmission",
-        text: "Souhaitezvous Transmettre ce Courrier à son destinataire ? ’",
+        text: "Souhaitez-vous transmettre ce courrier à son destinataire ? ’",
         icon: "warning",
         buttons: true,
         dangerMode: true,
