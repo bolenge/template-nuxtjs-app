@@ -89,7 +89,12 @@
           >
             <a class="nav-link" data-toggle="collapse" href="#courriers" aria-expanded="false" aria-controls="courriers">
               <em class="typcn typcn-mail menu-icon"></em>
-              <span class="menu-title">Gestion Courriers</span>
+              <span class="menu-title">Gestion Courriers 
+                <span
+                  v-if="hasNotificationCourriers"
+                  class="badge badge-primary p-1"
+                >{{ ' ' }}</span>
+              </span>
               <em class="typcn typcn-chevron-right menu-arrow"></em>
             </a>
             <div class="collapse" id="courriers">
@@ -150,6 +155,12 @@
                     :class="setNavLinkActive('synthesis-transmission-courriers')"
                   >
                     Synthèse Transmission
+                    <span
+                      v-if="countNoTransmittedCourriers"
+                      class="badge badge-primary p-1"
+                    >
+                      {{ countNoTransmittedCourriers }}
+                    </span>
                   </nuxt-link>
                 </li>
                 <!-- End Synthèse Transmission courriers -->
@@ -301,6 +312,10 @@ export default {
       type: Number,
       default: 0
     },
+    countNoTransmittedCourriers: {
+      type: Number,
+      default: 0
+    },
     isOfficeDirectorOrCompliance: {
       type: Boolean,
       default: false
@@ -320,6 +335,10 @@ export default {
     isPlatinum() {
       return this.userRoleId === ROLE_PLATINUM
     },
+    hasNotificationCourriers() {
+      return (this.countNewCourriers || this.countNoTransmittedCourriers) &&
+             (this.isSuperAdmin || this.isSimpleAdmin)
+    }
   },
   methods: {
     setPageActive(page) {
