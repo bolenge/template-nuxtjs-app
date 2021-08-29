@@ -137,7 +137,7 @@ export default {
     },
     async deleteRecord(entity) {
       try {
-        await this.delete({ entity, api: this.model+'s', model: this.model })
+        await this.delete({ entity, api: this.model+'s', model: this.model, actionLoad: this.customLoadAction })
       } catch (error) {
         this.$toast.error('Une erreur est survenue, réessayez svp !')
       }
