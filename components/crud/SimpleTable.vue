@@ -185,9 +185,6 @@ export default {
   .tr-table td {
     padding: 11px !important;
   }
-  .tr-table th {
-    font-size: 15px !important;
-  }
   .font-weight-400 {
     font-weight: 400 !important;
   }
