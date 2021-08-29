@@ -15,7 +15,7 @@
         <Create
           api="admins"
           model="admin"
-          title="Création d'un nouvel utilisateur"
+          title="Créer un Utilisateur"
           :fields="fields"
           :entity="entity"
           :formRow="true"
