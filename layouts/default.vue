@@ -36,6 +36,9 @@ import Sidebar from '@/components/partials/Sidebar'
 import Footer from '@/components/partials/Footer'
 import Account from '~/mixins/Account'
 
+const COMPLIANCE = 1
+const OFFICE_MANAGER = 2
+
 export default {
   mixins: [Account],
   components: {Navbar, Sidebar, Footer},
@@ -65,8 +68,10 @@ export default {
     isOfficeDirectorOrCompliance() {
        if (this.currentAdminConnected) {
         if (this.currentAdminConnected.fonction) {
-          const isOfficeDirector = this.currentAdminConnected.fonction.name === 'Directrice Bureau' || this.currentAdminConnected.fonction.name === 'Directeur Bureau'
-          if (isOfficeDirector || this.currentAdminConnected.fonction.name === 'Conformité') {
+          const isOfficeDirector = this.currentAdminConnected.fonction.validation_level_id === OFFICE_MANAGER
+          const isCompliance = this.currentAdminConnected.fonction.validation_level_id === COMPLIANCE
+          
+          if (isOfficeDirector || isCompliance) {
             return true
           }
         }

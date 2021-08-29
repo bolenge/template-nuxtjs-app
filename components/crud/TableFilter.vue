@@ -452,7 +452,7 @@ export default {
       return this.items
     },
     exportItems() {
-      return this.items.map((item) => {
+      /* TODO : return this.items.map((item) => {
         const result = {}
 
         for (const field of this.fieldsExtract) {
@@ -460,7 +460,9 @@ export default {
         }
 
         return result
-      })
+      }) */
+
+      return []
     }
   },
   mounted() {
