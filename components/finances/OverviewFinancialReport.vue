@@ -20,13 +20,19 @@ export default {
     return {
       headers: [
         {
+          text: 'Date',
+          value: 'created_at',
+          type: 'date',
+          filterable: true
+        },
+        {
           text: 'Compte',
           value: 'compte_nature.name',
           type: 'object',
           filterable: true
         },
         {
-          text: 'Regroupement niveau 2',
+          text: 'Regroupement Niveau 2',
           value: 'sub_nature.name',
           type: 'object',
           filterable: true
@@ -44,7 +50,7 @@ export default {
           filterable: true
         },
         {
-          text: 'USD',
+          text: 'Montant en USD',
           value: 'usd',
           type: 'amount-money',
           filterable: true
