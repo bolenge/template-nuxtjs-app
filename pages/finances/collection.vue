@@ -1,7 +1,5 @@
 <template>
-  <div class="content-wrapper">
-    <Create />
-  </div>
+  <Create />
 </template>
 <script>
 import Global from '~/mixins/Global'
