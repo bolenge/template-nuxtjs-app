@@ -6,8 +6,10 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
 
-              <h4>Changer de mot de passe</h4>
-              <h6 class="font-weight-light">Saisissez un nouveau mot de passe</h6>
+              <div class="text-center">
+                <h4>Changer Mot de Passe</h4>
+                <h6 class="font-weight-light">Saisissez un nouveau mot de passe</h6>
+              </div>
 
               <form class="pt-3" @submit.prevent="onSubmit">
                 <div class="form-group">
