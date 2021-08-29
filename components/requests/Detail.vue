@@ -136,7 +136,7 @@
           :entity="entityEdited"
           :formRow="false"
           :updateConfirmation="updateConfirmation"
-          fieldComplateMessageConfirmation="statuts_conform"
+          :fieldComplateMessageConfirmation="fieldComplateMessageConfirmation"
           @submitted="onSubmit"
         />
         <!-- End Form create fund_requests -->
@@ -194,7 +194,8 @@ export default {
       },
       badgeStatut: null,
       requestStatus: null,
-      badgeTypicon: null
+      badgeTypicon: null,
+      fieldComplateMessageConfirmation: 'statuts_conform'
     }
   },
   computed: {
@@ -334,7 +335,8 @@ export default {
                 items: this.accounts
               })
 
-              this.updateConfirmation.title = 'Exécution paiement'
+              this.fieldComplateMessageConfirmation = ''
+              this.updateConfirmation.title = 'Exécution Paiement'
               this.updateConfirmation.message = 'Etes-vous d\'effectuer le paiement de cette requête ?'
             }else {
               if (this.requestStatuts !== 'Conforme') {
@@ -435,6 +437,7 @@ export default {
               ]
             })
 
+            this.fieldComplateMessageConfirmation = ''
             this.updateConfirmation.title = 'Approbation'
             this.updateConfirmation.message = 'Etes-vous sur de votre attribution d\'approbation ?'
           }
@@ -444,7 +447,9 @@ export default {
       return fields
     },
     showValidationForm() {
-      return (this.requestStatuts !== 'Conforme' && this.requestStatuts !== 'Approuvé')
+      return (this.requestStatuts === 'En etude' && this.isCompliance) ||
+             (this.requestStatuts === 'Conforme' && this.isOfficeManager) ||
+             (this.requestStatuts === 'Approuvé' && this.isCompliance)
     }
   },
   watch: {
