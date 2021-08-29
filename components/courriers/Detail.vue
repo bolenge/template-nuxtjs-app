@@ -19,7 +19,7 @@
         <Create
           api="courriers"
           model="courrier"
-          title="Réponse au courrier"
+          title="Réponse au Courrier"
           :fields="fields"
           :entity="entityRespond"
           :formRow="true"
@@ -29,7 +29,7 @@
       </div>
       <div class="col-lg-12">
         <TableFilter
-          title="Liste des réponses"
+          title="Liste des Réponses"
           model="courrier"
           computedItems="children_courriers"
           :stateItems="true"
@@ -101,7 +101,7 @@ export default {
           filterable: true
         },
         {
-          text: 'Expediteur',
+          text: 'Expéditeur',
           value: 'sender',
           type: 'string',
           filterable: true
@@ -113,7 +113,7 @@ export default {
           filterable: true
         },
         {
-          text: 'Piece',
+          text: 'Pièce',
           value: 'attachment',
           type: 'attachment',
           baseUrl: 'storage/fichiers',
@@ -173,7 +173,7 @@ export default {
           name: 'type_courrier_id',
           type: 'select',
           required: true,
-          label: 'Type de courrier',
+          label: 'Type Courrier',
           items: this.typeCourriers,
           syncField: 'code',
           syncCapterValue: 'code',
@@ -183,7 +183,7 @@ export default {
           name: 'code',
           type: 'text',
           required: true,
-          label: 'Code courrier',
+          label: 'Code Courrier',
           value: this.formatDate('hh/mm/ss/dd/MM/yy', new Date),
           isSync: true
         },
@@ -191,7 +191,7 @@ export default {
           name: 'sender',
           type: 'text',
           required: true,
-          label: 'Expediteur',
+          label: 'Expéditeur',
           value: this.senderName,
           disabled: true
         },
@@ -207,7 +207,7 @@ export default {
           name: 'attachment',
           type: 'file',
           required: true,
-          label: 'Uploader le fichier scanné',
+          label: 'Uploader Fichier Scanné',
         },
         {
           name: 'importance',
@@ -216,20 +216,16 @@ export default {
           label: 'Importance',
           items: [
             {
-              id: 'Très Urgent',
-              name: 'Très Urgent',
+              id: 'Haute',
+              name: 'Haute',
             },
             {
-              id: 'Urgent',
-              name: 'Urgent',
+              id: 'Moyenne',
+              name: 'Moyenne',
             },
             {
-              id: 'Moyent',
-              name: 'Moyent',
-            },
-            {
-              id: 'Normal',
-              name: 'Normal',
+              id: 'Normale',
+              name: 'Normale',
             },
           ],
           itemText: 'name',

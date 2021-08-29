@@ -1,16 +1,16 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h4 class="font-weight-400 mb-4 mt-0"><span class="typcn typcn-mail"></span> Initiation Courrier</h4>
+      <h4 class="font-weight-400 mb-4"><span class="typcn typcn-mail"></span> Initiation Courrier</h4>
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-lg-8 grid-margin stretch-card">
+      <div class="col-lg-9 grid-margin stretch-card">
         <!-- Form create courriers -->
         <Create
           api="courriers"
           model="courrier"
-          title="Enregistrement d'un nouveau courrier"
+          title="Enregistrement Nouveau Courrier"
           :fields="fields"
           :entity="entity"
           :formRow="true"
@@ -41,7 +41,7 @@ export default {
           name: 'type_courrier_id',
           type: 'select',
           required: true,
-          label: 'Type de courrier',
+          label: 'Type Courrier',
           items: this.typeCourriers,
           syncField: 'code',
           syncCapterValue: 'code',
@@ -51,7 +51,7 @@ export default {
           name: 'code',
           type: 'text',
           required: true,
-          label: 'Code courrier (Généré automatiquement)',
+          label: 'Code Courrier (Généré Automatiquement)',
           value: this.formatDate('hh/mm/ss/dd/MM/yy', new Date),
           isSync: true
         },
@@ -76,20 +76,16 @@ export default {
           label: 'Importance',
           items: [
             {
-              id: 'Très Urgent',
-              name: 'Très Urgent',
+              id: 'Haute',
+              name: 'Haute',
             },
             {
-              id: 'Urgent',
-              name: 'Urgent',
+              id: 'Moyenne',
+              name: 'Moyenne',
             },
             {
-              id: 'Moyent',
-              name: 'Moyent',
-            },
-            {
-              id: 'Normal',
-              name: 'Normal',
+              id: 'Normale',
+              name: 'Normale',
             },
           ],
           itemText: 'name',
@@ -98,7 +94,7 @@ export default {
           name: 'attachment',
           type: 'file',
           required: true,
-          label: 'Uploader le fichier scanner ici',
+          label: 'Uploader Fichier Scanné ici',
         },
       ],
       entity: {}
