@@ -238,6 +238,15 @@
                 </li>
                 <li class="nav-item">
                   <nuxt-link
+                    to="/finances/overview"
+                    class="nav-link"
+                    :class="setNavLinkActive('overview-finances')"
+                  >
+                    Overview Financier
+                  </nuxt-link>
+                </li>
+                <li class="nav-item">
+                  <nuxt-link
                     to="/finances/synthesis"
                     class="nav-link"
                     :class="setNavLinkActive('synthesis-finances')"
