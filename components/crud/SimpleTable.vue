@@ -178,32 +178,4 @@ export default {
 </script>
 
 <style>
-  .text-normal {
-    text-transform: none !important;
-  }
-  .btn-sm-action {
-    padding: 6px !important;
-    font-size: 12px !important;
-  }
-  .tr-table th,
-  .tr-table td {
-    padding: 10px !important;
-    font-family: "Montserrat", sans-serif !important;
-  }
-  .tr-table th {
-    font-weight: bold !important;
-    font-size: 13px !important;
-  }
-  .tr-table td {
-    font-size: 13px !important;
-  }
-  .font-weight-400 {
-    font-weight: 400 !important;
-  }
-  .font-weight-300 {
-    font-weight: 300 !important;
-  }
-  .font-weight-500 {
-    font-weight: 400 !important;
-  }
 </style>
