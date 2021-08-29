@@ -83,7 +83,7 @@ export default {
           filterable: true
         },
         {
-          text: 'Departement',
+          text: 'Département',
           value: 'department.name',
           type: 'object',
           filterable: true
@@ -107,7 +107,7 @@ export default {
     buttonCreate() {
       return {
         link: '/configs/users/create',
-        text: 'Ajouter un utilisateur'
+        text: 'Ajouter un Utilisateur'
       }
     }
   },
