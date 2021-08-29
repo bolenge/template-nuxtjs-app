@@ -40,6 +40,13 @@ export default {
     return {
       headers: [
         {
+          text: 'RE',
+          value: 'entitled',
+          type: 'string',
+          filterable: false,
+          undashed: false
+        },
+        {
           text: 'Date',
           value: 'created_at',
           type: 'date',
