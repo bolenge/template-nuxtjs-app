@@ -1,10 +1,10 @@
 <template>
   <ConfigPanel
     title="Configuration Comptes Bancaires"
-    create-form-title="Création de compte"
-    edit-form-title="Edition du compte"
+    create-form-title="Créer Compte"
+    edit-form-title="Edition du Compte"
     model="account"
-    table-title="Liste de comptes"
+    table-title="Liste des Comptes"
     icon-title="typcn-credit-card"
     :edited="edited"
     :entity-edited="entityEdited"  
@@ -42,7 +42,7 @@ export default {
           name: 'account_number',
           type: 'text',
           required: true,
-          label: 'Numero Compte'
+          label: 'Numéro Compte'
         },
         {
           name: 'type_account_id',
@@ -68,7 +68,7 @@ export default {
           type: 'string'
         },
         {
-          text: 'Numero Compte',
+          text: 'Numéro Compte',
           value: 'account_number',
           type: 'string'
         },
