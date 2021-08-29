@@ -22,7 +22,7 @@
                             style="margin-bottom: -2px;margin-top: -6px;margin-left: 2.5rem;"
                         >
                             {{ $auth.user.role.name }}
-                            {{ $auth.user.admin.fonction ? ' - ' + $auth.user.admin.fonction.name : '' }}
+                            {{ $auth.user.admin.fonction ? ' - ' + $auth.user.admin.fonction.validation_level.name : '' }}
                         </p>
                     </a>
                 </li>
