@@ -1,3 +1,6 @@
+const COMPLIANCE = 1
+const OFFICE_MANAGER = 2
+
 export default {
   computed: {
     userConnected() {
@@ -11,6 +14,13 @@ export default {
     },
     currentUserAvatar() {
       return this.userConnected.avatar
+    },
+    isComplianceOrOfficeManager() {
+      return this.currentAdmin.fonction.validation_level_id === OFFICE_MANAGER ||
+             this.currentAdmin.fonction.validation_level_id === COMPLIANCE
+    },
+    isOfficeManager() {
+      return this.currentAdmin.fonction.validation_level_id === OFFICE_MANAGER
     }
   },
   methods: {

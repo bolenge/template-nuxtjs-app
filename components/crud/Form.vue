@@ -9,7 +9,7 @@
           {{ description }}
         </p>
     </div>
-    <div class="card-body">
+    <div class="card-body pt-0">
       <form class="forms-sample" @submit.prevent="onSubmit" autocomplete="off">
         <div :class="{'row': formRow}">
           <div
