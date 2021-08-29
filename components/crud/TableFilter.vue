@@ -24,12 +24,16 @@
             <span class="typcn typcn-refresh"></span> Actualiser
           </button>
 
-          <button
+          <download-csv
             v-if="extractData"
             class="btn btn-info btn-sm mr-lg-3"
+            :data="exportItems"
+            delimiter=";"
+            separator-excel
+            :name="`fichier-export.csv`"
           >
             <span class="typcn typcn-database"></span> Extraction données
-          </button>
+          </download-csv>
 
           <button
             class="btn btn-light btn-sm"
@@ -70,12 +74,13 @@
       <div class="table-responsive">
         <table class="table table-hover" aria-describedby="">
           <thead>
-            <tr>
+            <tr class="tr-table text-center">
               <th scope="">#</th>
               <th
                 v-for="(head, i) in headers"
                 :key="i"
                 :id="i"
+                class="font-weight-600"
               >
                 {{ head.text }}
               </th>
@@ -83,7 +88,7 @@
           </thead>
           <tbody>
             <!-- Loading -->
-            <tr v-if="loading">
+            <tr v-if="loading" class="text-center">
               <td
                 :colspan="headers.length + 1"
                 class="text-center lead"
@@ -96,6 +101,7 @@
             <!-- No items -->
             <tr
               v-else-if="!countItems"
+              class="text-center"
             >
               <td
                 :colspan="headers.length + 1"
@@ -110,18 +116,19 @@
               v-for="(item, i) in itemsPaginated"
               :key="i"
               :class="trClass(item)"
+              class="tr-table text-center"
             >
               <td>{{ offset + 1 + i}}</td>
               <td
                 v-for="(head, j) in headers"
                 :key="j"
-                :class="{'py-1': head.type == 'image'}"
               >
                 <!-- Image fields -->
                 <img
                   v-if="head.type == 'image'"
                   :src="`${API_BASE_URL}/${head.baseUrl}/${item[head.value]}`"
                   alt="image"
+                  style="width: 30px;height: 30px;"
                 />
                 <!-- End image fields -->
 
@@ -161,21 +168,21 @@
                 >
                   <button
                     v-if="buttons.edit"
-                    class="btn btn-sm btn-info"
+                    class="btn btn-sm btn-sm-action btn-info"
                     @click="onLaunchEdit(item.id)"
                   >
                     <span class="typcn typcn-pencil"></span>
                   </button>
                   <button
                     v-if="buttons.delete"
-                    class="btn btn-sm btn-danger"
+                    class="btn btn-sm btn-sm-action btn-danger"
                     @click="onDelete(item.id)"
                   >
                     <span class="typcn typcn-trash"></span>
                   </button>
                   <button
                     v-if="buttons.show"
-                    class="btn btn-sm btn-success"
+                    class="btn btn-sm btn-sm-action btn-success"
                     @click="onShow(item.id)"
                   >
                     <span class="typcn typcn-eye-outline"></span>
@@ -185,7 +192,7 @@
                     <button
                       v-for="(button,iB) in customButtons"
                       :key="iB"
-                      class="btn btn-sm"
+                      class="btn btn-sm btn-sm-action"
                       :class="button.type"
                       type="button"
                       @click="lauchCustomButtonEvent(button.event, item)"
@@ -227,8 +234,10 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import JsonCSV from 'vue-json-csv'
 
 export default {
+  components: {downloadCsv: JsonCSV},
   props: {
     title: {
       type: String,
@@ -289,6 +298,12 @@ export default {
     emptyDataMessage: {
       type: String,
       default: 'Aucun enregistrement...'
+    },
+    fieldsExtract: {
+      type: Object,
+      default() {
+        return {}
+      }
     }
   },
   data() {
@@ -336,7 +351,7 @@ export default {
         this.$toast.error('Une erreur est survenue, réessayez svp !')
       }
     },
-    getObject(obj, path) {
+    getObject(obj, path, typeField = 'string') {
       let items = path.split('.')
       let objRes = obj,
           i = items.length
@@ -350,6 +365,8 @@ export default {
 
         i = items.length
       }
+
+      objRes = typeField === 'amount-money' ? objRes.toLocaleString() : objRes
 
       return objRes || '---' 
     },
@@ -434,6 +451,19 @@ export default {
 
       return this.items
     },
+    exportItems() {
+      /* TODO : return this.items.map((item) => {
+        const result = {}
+
+        for (const field of this.fieldsExtract) {
+          result[field.text] =  this.getObject(item, field.value)
+        }
+
+        return result
+      }) */
+
+      return []
+    }
   },
   mounted() {
     this.initItems()
@@ -442,10 +472,4 @@ export default {
 </script>
 
 <style>
-  .text-normal {
-    text-transform: none !important;
-  }
-  .btn-in-loading {
-    cursor: not-allowed !important;
-  }
 </style>

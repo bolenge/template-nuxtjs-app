@@ -1,21 +1,20 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-user-outline"></span> Configuration Utilisateurs</h2>
+      <h4 class="font-weight-400 mb-4"><span class="typcn typcn-user-outline"></span> Configuration Utilisateurs</h4>
+
+      <div class="d-block">
+        <nuxt-link class="btn btn-info btn-sm float-left" to="/configs/users">&#8592; Retour</nuxt-link>
+      </div>
     </div>
 
-    <div class="row">
-      <div class="col-lg-8 mb-3">
-        <div class="d-block">
-          <nuxt-link class="btn btn-info btn-sm float-left" to="/configs/users">&#8592; Retour</nuxt-link>
-        </div>
-      </div>
-      <div class="col-lg-8 grid-margin stretch-card">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 grid-margin stretch-card">
         <!-- Form create users -->
         <Create
           api="admins"
           model="admin"
-          title="Création d'un nouvel utilisateur"
+          title="Créer un Utilisateur"
           :fields="fields"
           :entity="entity"
           :formRow="true"

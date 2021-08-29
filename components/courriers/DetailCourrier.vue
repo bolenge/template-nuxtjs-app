@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title mb-0">Detail du courrier</h3>
+      <h3 class="card-title mb-0">Détail Courrier</h3>
     </div>
 
     <div class="card-body">
@@ -13,7 +13,7 @@
       </div>
       <div class="row" v-else-if="entityCourrier">
         <div class="col-lg-6 mb-4" >
-          <strong class="d-block mb-2">Type de courrier</strong>
+          <strong class="d-block mb-2">Type Courrier</strong>
           <span>{{ entityCourrier.type_courrier.name }}</span>
         </div>
         <div class="col-lg-6 mb-4" >
@@ -25,7 +25,7 @@
           <span>{{ entityCourrier.admin.user.name }}</span>
         </div>
         <div class="col-lg-6 mb-4" >
-          <strong class="d-block mb-2">Expediteur</strong>
+          <strong class="d-block mb-2">Expéditeur</strong>
           <span>{{ entityCourrier.sender }}</span>
         </div>
         <div class="col-lg-6 mb-4" >
@@ -44,7 +44,7 @@
             :download="`${API_BASE_URL}/storage/fichiers/${entityCourrier.attachment}`"
           >
             <span class="typcn typcn-download-outline"></span>
-            Téléchqrger le fichier du courrier
+            Télécharger Fichier du Courrier
           </a>
         </div>
       </div>

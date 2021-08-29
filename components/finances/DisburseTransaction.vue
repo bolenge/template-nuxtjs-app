@@ -1,9 +1,10 @@
 <template>
   <TableFilter
+    title="Tableau des Désencaissements"
     :headers="headers"
     model="transaction"
-    actionLoad="loadCollectionTransactions"
-    computedItems="collection_transactions"
+    actionLoad="loadDisburseTransactions"
+    computedItems="disburse_transactions"
   />
 </template>
 
@@ -26,14 +27,20 @@ export default {
           filterable: true
         },
         {
-          text: 'Compte',
+          text: 'Nature Op. Niv. 2',
+          value: 'sub_nature.name',
+          type: 'object',
+          filterable: true
+        },
+        {
+          text: 'Compte Op.',
           value: 'compte_nature.name',
           type: 'object',
           filterable: true
         },
         {
-          text: 'Regroupement Niveau 2',
-          value: 'sub_nature.name',
+          text: 'Bénéficiaire',
+          value: 'admin_beneficiary.user.name',
           type: 'object',
           filterable: true
         },
@@ -53,6 +60,18 @@ export default {
           text: 'Montant en USD',
           value: 'usd',
           type: 'amount-money',
+          filterable: true
+        },
+        {
+          text: 'Compte Imputé',
+          value: 'account.name',
+          type: 'object',
+          filterable: true
+        },
+        {
+          text: 'Status',
+          value: 'statuts',
+          type: 'string',
           filterable: true
         },
       ]

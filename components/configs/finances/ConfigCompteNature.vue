@@ -1,10 +1,10 @@
 <template>
   <ConfigPanel
-    title="Configuration Comptes Operations (Niveau 3)"
-    create-form-title="Création de compte"
-    edit-form-title="Edition du compte"
+    title="Configuration Comptes Opérations (Niveau 3)"
+    create-form-title="Créer Compte"
+    edit-form-title="Edition Compte"
     model="compte_nature"
-    table-title="Liste de comptes d'operations"
+    table-title="Liste de Comptes d'Opérations"
     icon-title="typcn-tags"
     :edited="edited"
     :entity-edited="entityEdited"  
@@ -40,7 +40,7 @@ export default {
           required: true,
           itemText: 'name',
           items: this.subNatures,
-          label: 'Nature operation niveau 2'
+          label: 'Nature Opération Niveau 2'
         },
       ],
       entity: {},

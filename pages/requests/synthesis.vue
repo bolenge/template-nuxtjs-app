@@ -11,6 +11,7 @@
           :buttonCreate="buttonCreate"
           :buttons="buttonsAction"
           :extractData="true"
+          :fieldsExtract="fieldsExtract"
           @launchEdited="onLaunchEdited"
           @showed="onShowed"
         />
@@ -104,7 +105,37 @@ export default {
         edit: false,
         delete: false,
         show: true
-      }
+      },
+      fieldsExtract: [
+        {
+          value: 'created_at',
+          text: 'Date'
+        },
+        {
+          value: 'admin_fund_requestor.user.name',
+          text: 'initiateur'
+        },
+        {
+          value: 'object',
+          text: 'Objet'
+        },
+        {
+          value: 'amount',
+          text: 'Montant'
+        },
+        {
+          value: 'Taux',
+          text: 'rate'
+        },
+        {
+          value: 'object',
+          text: 'Montant en USD'
+        },
+        {
+          value: 'statuts',
+          text: 'Status'
+        },
+      ]
     }
   },
   computed: {

@@ -1,5 +1,6 @@
 <template>
   <TableFilter
+    title="Tableau des Encaissements"
     :headers="headers"
     model="transaction"
     actionLoad="loadCollectionTransactions"
@@ -26,15 +27,15 @@ export default {
           filterable: true
         },
         {
-          text: 'Compte',
-          value: 'compte_nature.name',
+          text: 'Initiateur',
+          value: 'admin_initiator.user.name',
           type: 'object',
           filterable: true
         },
         {
-          text: 'Regroupement Niveau 2',
-          value: 'sub_nature.name',
-          type: 'object',
+          text: 'Source',
+          value: 'source',
+          type: 'string',
           filterable: true
         },
         {
@@ -47,6 +48,12 @@ export default {
           text: 'Montant',
           value: 'amount',
           type: 'amount-money',
+          filterable: true
+        },
+        {
+          text: 'Taux',
+          value: 'rate',
+          type: 'string',
           filterable: true
         },
         {

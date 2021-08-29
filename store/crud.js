@@ -90,15 +90,17 @@ export const actions = {
       }
     )
   },
-  delete({ dispatch }, { entity, api, model }) {
+  delete({ dispatch }, { entity, api, model, actionLoad }) {
+    actionLoad = actionLoad || 'load'
+
     this.$axios.delete(`${api}/${entity.id}`)
       .then(({ data }) => {
         if (data.state) {
-          dispatch(`${model}/load`, {}, { root: true })
+          dispatch(`${model}/${actionLoad}`, {}, { root: true })
 
           this.$swal({
             title: "Suppression",
-            text: 'Operation effectuée avec succès',
+            text: 'Opération effectuée avec succès',
             icon: "success",
             confirmButtonText: 'Ok'
           })

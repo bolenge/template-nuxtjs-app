@@ -32,7 +32,7 @@ export default {
           filterable: true
         },
         {
-          text: 'Regroupement Niveau 2',
+          text: 'Regroupement niveau 2',
           value: 'sub_nature.name',
           type: 'object',
           filterable: true

@@ -64,7 +64,7 @@ export default {
           filterable: true
         },
         {
-          text: 'Expediteur',
+          text: 'Expéditeur',
           value: 'sender',
           type: 'string',
           filterable: true
@@ -87,10 +87,9 @@ export default {
           value: 'importance',
           type: 'badge',
           types: {
-            'Normal': 'badge-light',
-            'Moyen': 'badge-info',
-            'Urgent': 'badge-warning',
-            'Très Urgent': 'badge-danger',
+            'Normale': 'badge-info',
+            'Moyenne': 'badge-warning',
+            'Haute': 'badge-danger',
           },
           filterable: true
         },
@@ -133,7 +132,7 @@ export default {
     onTransmitted(item) {
       this.$swal({
         title: "Transmission",
-        text: "Souhaitezvous Transmettre ce Courrier à son destinataire ? ’",
+        text: "Souhaitez-vous transmettre ce courrier à son destinataire ? ’",
         icon: "warning",
         buttons: true,
         dangerMode: true,

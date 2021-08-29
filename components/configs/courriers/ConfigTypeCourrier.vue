@@ -1,10 +1,10 @@
 <template>
   <ConfigPanel
     title="Configuration Courriers"
-    createFormTitle="Création de type courrier"
-    editFormTitle="Edition du type courrier"
+    createFormTitle="Créer Type Courrier"
+    editFormTitle="Edition Type Courrier"
     model="type_courrier"
-    tableTitle="Liste de type courriers"
+    tableTitle="Liste des Type Courriers"
     iconTitlte="typcn-mail"
     :edited="edited"
     :entityEdited="entityEdited"  

@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-mail"></span> Boite de reception courriers</h2>
+      <h4 class="font-weight-400 mb-4"><span class="typcn typcn-mail"></span> Boite de reception courriers</h4>
     </div>
     <div class="row">
       <div class="col-lg-12 grid-margin stretch-card">
@@ -64,7 +64,7 @@ export default {
           filterable: true
         },
         {
-          text: 'Expediteur',
+          text: 'Expéditeur',
           value: 'sender',
           type: 'string',
           filterable: true
@@ -76,7 +76,7 @@ export default {
           filterable: true
         },
         {
-          text: 'Piece',
+          text: 'Pièce',
           value: 'attachment',
           type: 'attachment',
           baseUrl: 'storage/fichiers',
@@ -87,10 +87,9 @@ export default {
           value: 'importance',
           type: 'badge',
           types: {
-            'Normal': 'badge-light',
-            'Moyen': 'badge-info',
-            'Urgent': 'badge-warning',
-            'Très Urgent': 'badge-danger',
+            'Normale': 'badge-info',
+            'Moyenne': 'badge-warning',
+            'Haute': 'badge-danger',
           },
           filterable: true
         },

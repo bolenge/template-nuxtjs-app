@@ -68,7 +68,7 @@ export default {
           filterable: true
         },
         {
-          text: 'Expediteur',
+          text: 'Expéditeur',
           value: 'sender',
           type: 'string',
           filterable: true
@@ -80,7 +80,7 @@ export default {
           filterable: true
         },
         {
-          text: 'Piece',
+          text: 'Pièce',
           value: 'attachment',
           type: 'attachment',
           baseUrl: 'storage/fichiers',
@@ -91,10 +91,9 @@ export default {
           value: 'importance',
           type: 'badge',
           types: {
-            'Normal': 'badge-light',
-            'Moyen': 'badge-info',
-            'Urgent': 'badge-warning',
-            'Très Urgent': 'badge-danger',
+            'Normale': 'badge-info',
+            'Moyenne': 'badge-warning',
+            'Haute': 'badge-danger',
           },
           filterable: true
         },

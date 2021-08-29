@@ -27,6 +27,10 @@ export default {
     ],
     link: [
       {
+        rel: 'stylesheet',
+        href: '"https://fonts.googleapis.com/css?family=Montserrat:400,500,700"'
+      },
+      {
         rel: "stylesheet",
         href: "/vendors/typicons.font/font/typicons.css",
       },
@@ -49,6 +53,10 @@ export default {
       {
         rel: "stylesheet",
         href: "/css/vertical-layout-light/style.css",
+      },
+      {
+        rel: "stylesheet",
+        href: "/css/main.css",
       },
       {
         rel: 'icon',

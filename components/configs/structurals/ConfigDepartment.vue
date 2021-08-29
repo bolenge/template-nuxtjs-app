@@ -1,10 +1,10 @@
 <template>
   <ConfigPanel
-    title="Configuration Departements"
-    createFormTitle="Création de departement"
-    editFormTitle="Edition du departement"
+    title="Configuration Départements"
+    createFormTitle="Créer Département"
+    editFormTitle="Edition Département"
     model="department"
-    tableTitle="Liste de departements"
+    tableTitle="Liste des Départements"
     :edited="edited"
     :entity="entity"
     :entityEdited="entityEdited"
