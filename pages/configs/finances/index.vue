@@ -1,6 +1,6 @@
 <template>
   <div class="content-wrapper">
-    <div class="container-fluid text-center mb-4">
+    <div class="mb-4">
       <div class="col-lg-12 d-flex justify-content-center">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <!-- Tab config comptes banks -->
@@ -29,7 +29,7 @@
 
           <!-- Tab config comptes-natures -->
           <li class="nav-item" role="presentation">
-            <a class="nav-link py-2" id="config-tags-tab" data-toggle="tab" href="#config-comptes-natures" role="tab" aria-controls="config-comptes-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Comptes des Op. (Niveau 3)</a>
+            <a class="nav-link py-2" id="config-tags-tab" data-toggle="tab" href="#config-comptes-natures" role="tab" aria-controls="config-comptes-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Comptes Op. (Niveau 3)</a>
           </li>
           <!-- End Tab config comptes-natures -->
         </ul>

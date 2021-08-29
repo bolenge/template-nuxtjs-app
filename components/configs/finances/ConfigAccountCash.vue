@@ -1,10 +1,10 @@
 <template>
   <ConfigPanel
     title="Configuration Comptes Caisses"
-    create-form-title="Création de compte"
-    edit-form-title="Edition du compte"
+    create-form-title="Créer Compte"
+    edit-form-title="Edition Compte"
     model="account"
-    table-title="Liste de comptes"
+    table-title="Liste des Comptes"
     icon-title="typcn-document-text"
     :edited="edited"
     :entity-edited="entityEdited"  
