@@ -192,7 +192,7 @@
                     <button
                       v-for="(button,iB) in customButtons"
                       :key="iB"
-                      class="btn btn-sm"
+                      class="btn btn-sm btn-sm-action"
                       :class="button.type"
                       type="button"
                       @click="lauchCustomButtonEvent(button.event, item)"
