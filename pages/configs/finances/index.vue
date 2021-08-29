@@ -107,14 +107,4 @@ export default {
 </script>
 
 <style>
-  .text-normal {
-    text-transform: none !important;
-  }
-  .nav-tabs .nav-item .nav-link {
-    border-top: 2.5px solid #0063f7 !important;
-  }
-  .nav-tabs .nav-item .nav-link.active {
-    background-color: #0063f7 !important;
-    color: #fff !important;
-  }
 </style>
