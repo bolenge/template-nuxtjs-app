@@ -3,6 +3,7 @@
 </template>
 <script>
 import Create from '~/components/courriers/Create'
+import Global from '~/mixins/Global'
 
 export default {
   middleware: 'auth',
@@ -11,6 +12,7 @@ export default {
       title: 'Initiation d\'un courrier'
     }
   },
+  mixins: [Global],
   components: {
     Create
   },
