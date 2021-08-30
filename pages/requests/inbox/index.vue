@@ -165,7 +165,7 @@ export default {
       // Do something
     },
     onShowed(id) {
-      this.$router.replace('/requests/'+id)
+      this.$router.replace('/requests/inbox/'+id)
     }
   }
 }
