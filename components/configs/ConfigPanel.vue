@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2 class="title mb-4">
+    <h4 class="mb-4 font-weight-400">
       <span class="typcn" :class="iconTitle"></span> {{ title }}
-    </h2>
+    </h4>
 
     <div class="row">
       <div class="col-md-4">

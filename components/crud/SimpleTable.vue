@@ -1,12 +1,13 @@
 <template>
   <div class="card">
+    <div class="card-header">
+      <h4 class="card-title text-normal mb-0 font-weight-400">{{ title }}</h4>
+    </div>
     <div class="card-body">
-      <h4 class="card-title text-normal">{{ title }}</h4>
-
       <div class="table-responsive">
         <table class="table table-hover" aria-describedby="">
           <thead>
-            <tr>
+            <tr class="tr-table text-center">
               <th scope="">#</th>
               <th
                 v-for="(head, i) in headers"
@@ -19,7 +20,10 @@
           </thead>
           <tbody>
             <!-- Loading -->
-            <tr v-if="loading">
+            <tr
+              v-if="loading"
+              class="text-center"
+            >
               <td
                 :colspan="headers.length + 1"
                 class="text-center lead"
@@ -32,6 +36,7 @@
             <!-- No items -->
             <tr
               v-else-if="!items.length"
+              class="text-center"
             >
               <td
                 :colspan="headers.length + 1"
@@ -45,6 +50,7 @@
             <tr
               v-for="(item, i) in items"
               :key="i"
+              class="tr-table text-center"
             >
               <td>{{ i + 1 }}</td>
               <td
@@ -53,10 +59,10 @@
               >
                 <!-- Actions fields -->
                 <span v-if="head.type == 'actions'">
-                  <button class="btn btn-sm btn-info" @click="onLaunchEdit(item.id)">
+                  <button class="btn btn-sm btn-sm-action btn-info" @click="onLaunchEdit(item.id)">
                     <span class="typcn typcn-pencil"></span>
                   </button>
-                  <button class="btn btn-sm btn-danger" @click="onDelete(item.id)">
+                  <button class="btn btn-sm btn-sm-action btn-danger" @click="onDelete(item.id)">
                     <span class="typcn typcn-trash"></span>
                   </button>
                 </span>
@@ -118,7 +124,7 @@ export default {
     onDelete(id) {
       this.$swal({
         title: "Suppression",
-        text: "Voulez-vous vraiment supprimé cet enregistrement ?",
+        text: "Voulez-vous vraiment supprimer cet enregistrement ?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -131,7 +137,7 @@ export default {
     },
     async deleteRecord(entity) {
       try {
-        await this.delete({ entity, api: this.model+'s', model: this.model })
+        await this.delete({ entity, api: this.model+'s', model: this.model, actionLoad: this.customLoadAction })
       } catch (error) {
         this.$toast.error('Une erreur est survenue, réessayez svp !')
       }
@@ -172,7 +178,4 @@ export default {
 </script>
 
 <style>
-  .text-normal {
-    text-transform: none !important;
-  }
 </style>

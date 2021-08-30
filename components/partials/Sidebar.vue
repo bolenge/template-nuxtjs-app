@@ -19,6 +19,7 @@
 
           <!-- Item config. systeme -->
           <li
+            v-if="isSuperAdmin"
             class="nav-item"
             :class="setPageActive('configs')"
           >
@@ -88,7 +89,12 @@
           >
             <a class="nav-link" data-toggle="collapse" href="#courriers" aria-expanded="false" aria-controls="courriers">
               <em class="typcn typcn-mail menu-icon"></em>
-              <span class="menu-title">Gestion courriers</span>
+              <span class="menu-title">Gestion Courriers 
+                <span
+                  v-if="hasNotificationCourriers"
+                  class="badge badge-primary p-1"
+                >{{ ' ' }}</span>
+              </span>
               <em class="typcn typcn-chevron-right menu-arrow"></em>
             </a>
             <div class="collapse" id="courriers">
@@ -112,7 +118,7 @@
                     class="nav-link"
                     :class="setNavLinkActive('inbox-courriers')"
                   >
-                    Boite de reception
+                    Boîte de Réception
                     <span
                       v-if="countNewCourriers"
                       class="badge badge-primary p-1"
@@ -124,7 +130,10 @@
                 <!-- End Boite de reception courriers -->
 
                 <!-- Archives courriers -->
-                <li class="nav-item">
+                <li
+                  v-if="isSuperAdmin || isSimpleAdmin"
+                  class="nav-item"
+                >
                   <nuxt-link
                     to="/courriers/archives"
                     class="nav-link"
@@ -136,13 +145,22 @@
                 <!-- End Archives courriers -->
 
                 <!-- Synthèse Transmission courriers -->
-                <li class="nav-item">
+                <li
+                  v-if="isSuperAdmin || isSimpleAdmin"
+                  class="nav-item"
+                >
                   <nuxt-link
                     to="/courriers/synthesis-transmission"
                     class="nav-link"
                     :class="setNavLinkActive('synthesis-transmission-courriers')"
                   >
                     Synthèse Transmission
+                    <span
+                      v-if="countNoTransmittedCourriers"
+                      class="badge badge-primary p-1"
+                    >
+                      {{ countNoTransmittedCourriers }}
+                    </span>
                   </nuxt-link>
                 </li>
                 <!-- End Synthèse Transmission courriers -->
@@ -158,7 +176,7 @@
           >
             <a class="nav-link" data-toggle="collapse" href="#requests" aria-expanded="false" aria-controls="requests">
               <em class="typcn typcn-film menu-icon"></em>
-              <span class="menu-title">Requête de fonds</span>
+              <span class="menu-title">Requête de Fonds</span>
               <em class="typcn typcn-chevron-right menu-arrow"></em>
             </a>
             <div class="collapse" id="requests">
@@ -178,16 +196,19 @@
                     class="nav-link"
                     :class="setNavLinkActive('inbox-requests')"
                   >
-                    Mes requêtes
+                    Mes Requêtes
                   </nuxt-link>
                 </li>
-                <li class="nav-item">
+                <li
+                  v-if="isOfficeDirectorOrCompliance"
+                  class="nav-item"
+                >
                   <nuxt-link
                     to="/requests/synthesis"
                     class="nav-link"
                     :class="setNavLinkActive('synthesis-requests')"
                   >
-                    Synthese CRF
+                    Synthèse CRF
                   </nuxt-link>
                 </li>
               </ul>
@@ -197,12 +218,13 @@
 
           <!-- Item ressources financiers -->
           <li
+            v-if="isSuperAdmin || isSimpleAdmin"
             class="nav-item"
             :class="setPageActive('finances')"
           >
             <a class="nav-link" data-toggle="collapse" href="#finances" aria-expanded="false" aria-controls="finances">
               <em class="typcn typcn-credit-card menu-icon"></em>
-              <span class="menu-title">Ressources financières</span>
+              <span class="menu-title">Ressources Financières</span>
               <em class="typcn typcn-chevron-right menu-arrow"></em>
             </a>
             <div class="collapse" id="finances">
@@ -227,6 +249,15 @@
                 </li>
                 <li class="nav-item">
                   <nuxt-link
+                    to="/finances/overview"
+                    class="nav-link"
+                    :class="setNavLinkActive('overview-finances')"
+                  >
+                    Overview Financier
+                  </nuxt-link>
+                </li>
+                <li class="nav-item">
+                  <nuxt-link
                     to="/finances/synthesis"
                     class="nav-link"
                     :class="setNavLinkActive('synthesis-finances')"
@@ -246,7 +277,7 @@
           >
             <nuxt-link class="nav-link" to="/account/change-password">
               <em class="typcn typcn-key menu-icon"></em>
-              <span class="menu-title">Modifier mot de passe</span>
+              <span class="menu-title">Modifier Mot de Passe</span>
             </nuxt-link>
           </li>
           <!-- End Item Modifier mot de passe -->
@@ -254,8 +285,8 @@
           <!-- Item Deconnexion -->
           <li class="nav-item">
             <a class="nav-link cursor-click" @click.prevent="onLogout">
-              <em class="typcn typcn-power menu-icon"></em>
-              <span class="menu-title">Deconnexion</span>
+              <em class="typcn typcn-power menu-icon text-danger font-weight-bold font-size-2"></em>
+              <span class="menu-title">Déconnexion</span>
             </a>
           </li>
           <!-- End Item Deconnexion -->
@@ -264,6 +295,9 @@
 </template>
 
 <script>
+const  ROLE_SUPER_ADMIN = 1
+const  ROLE_ADMIN = 2
+const  ROLE_PLATINUM = 3
 export default {
   props: {
     pageActive: {
@@ -277,9 +311,34 @@ export default {
     countNewCourriers: {
       type: Number,
       default: 0
+    },
+    countNoTransmittedCourriers: {
+      type: Number,
+      default: 0
+    },
+    isOfficeDirectorOrCompliance: {
+      type: Boolean,
+      default: false
+    },
+    userRoleId: {
+      type: Number,
+      default: 2
     }
   },
   computed: {
+    isSuperAdmin() {
+      return this.userRoleId === ROLE_SUPER_ADMIN
+    },
+    isSimpleAdmin() {
+      return this.userRoleId === ROLE_ADMIN
+    },
+    isPlatinum() {
+      return this.userRoleId === ROLE_PLATINUM
+    },
+    hasNotificationCourriers() {
+      return (this.countNewCourriers || this.countNoTransmittedCourriers) &&
+             (this.isSuperAdmin || this.isSimpleAdmin)
+    }
   },
   methods: {
     setPageActive(page) {
@@ -309,5 +368,11 @@ export default {
 <style>
   .cursor-click {
     cursor: pointer !important;
+  }
+  .font-size-2 {
+    font-size: 1.8em !important;
+  }
+  .menu-arrow {
+    margin-bottom: -10px;
   }
 </style>

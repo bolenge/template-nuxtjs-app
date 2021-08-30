@@ -1,10 +1,10 @@
 <template>
   <ConfigPanel
     title="Configuration Fonction"
-    createFormTitle="Création de fonction"
-    editFormTitle="Edition du fonction"
+    createFormTitle="Créer Fonction"
+    editFormTitle="Edition Fonction"
     model="fonction"
-    tableTitle="Liste de fonctions"
+    tableTitle="Liste des Fonctions"
     :edited="edited"
     :entityEdited="entityEdited"
     :entity="entity"
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import ConfigPanel from '../ConfigPanel'
 
 export default {
@@ -32,6 +32,13 @@ export default {
           type: 'text',
           required: true,
           label: 'Intitulé'
+        },
+        {
+          name: 'validation_level_id',
+          type: 'select',
+          required: false,
+          label: 'Niveau Validation',
+          items: this.validationLevels,
         }
       ],
       entity: {},
@@ -39,6 +46,11 @@ export default {
         {
           text: 'Intitulé',
           value: 'name',
+          type: 'string'
+        },
+        {
+          text: 'Niveau Validation',
+          value: 'validation_level.name',
           type: 'string'
         },
         {
@@ -51,9 +63,22 @@ export default {
       entityEdited: null
     }
   },
+  computed: {
+    ...mapState({
+      validationLevels(state) {
+        return state.validation_level.validation_levels
+      }
+    })
+  },
+  watch: {
+    validationLevels() {
+      this.$set(this.fields[1], 'items', this.validationLevels)
+    }
+  },
   methods: {
     ...mapActions({
-      showFonction: 'fonction/show'
+      showFonction: 'fonction/show',
+      loadValidationLevels: 'validation_level/load'
     }),
     async onLaunchEdit(id) {
       this.entityEdited = await this.showFonction({id})
@@ -66,6 +91,9 @@ export default {
     onEntityReseted() {
       this.entity = {}
     }
+  },
+  mounted() {
+    this.loadValidationLevels()
   }
 }
 </script>

@@ -7,9 +7,12 @@
     <div class="container-fluid page-body-wrapper">
       <!-- Sidebar -->
       <Sidebar
+        :userRoleId="userRoleId"
         :page-active="pageActive"
         :nav-link-active="navLinkActive"
         :countNewCourriers="countNewCourriers"
+        :countNoTransmittedCourriers="countNoTransmittedCourriers"
+        :isOfficeDirectorOrCompliance="isOfficeDirectorOrCompliance"
       />
 
       <!-- partial -->
@@ -34,6 +37,9 @@ import Sidebar from '@/components/partials/Sidebar'
 import Footer from '@/components/partials/Footer'
 import Account from '~/mixins/Account'
 
+const COMPLIANCE = 1
+const OFFICE_MANAGER = 2
+
 export default {
   mixins: [Account],
   components: {Navbar, Sidebar, Footer},
@@ -41,7 +47,10 @@ export default {
     ...mapState({
       inboxCourriers(state) {
         return state.courrier.inbox_courriers
-      }
+      },
+      noTransmittedCourriers(state) {
+        return state.courrier.no_transmitted_courriers
+      },
     }),
     pageActive() {
       return this.$store.state.page_active
@@ -49,21 +58,45 @@ export default {
     navLinkActive() {
       return this.$store.state.nav_link_active
     },
+    currentUser() {
+      return this.userConnected
+    },
+    currentAdminConnected() {
+      return this.currentUser.admin
+    },
     countNewCourriers() {
       return this
         .inboxCourriers
         .filter((courrier) => !courrier.recipient_consulted).length
+    },
+    countNoTransmittedCourriers() {
+      return this
+        .noTransmittedCourriers
+        .length
+    },
+    isOfficeDirectorOrCompliance() {
+       if (this.currentAdminConnected) {
+        if (this.currentAdminConnected.fonction) {
+          const isOfficeDirector = this.currentAdminConnected.fonction.validation_level_id === OFFICE_MANAGER
+          const isCompliance = this.currentAdminConnected.fonction.validation_level_id === COMPLIANCE
+          
+          if (isOfficeDirector || isCompliance) {
+            return true
+          }
+        }
+      }
+
+      return false
+    },
+    userRoleId() {
+      return this.currentUser.role.id
     }
   },
   mounted() {
-    this.loadInboxCourriers()
     this.collapseItemSidebar()
     this.autoActiveCollapseItem()
   },
   methods: {
-    ...mapActions({
-      loadInboxCourriers: 'courrier/loadInboxCourriersAdmin'
-    }),
     collapseItemSidebar() {
       const $parent = this
 

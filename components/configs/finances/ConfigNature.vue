@@ -1,10 +1,10 @@
 <template>
   <ConfigPanel
-    title="Configuration Nature Operations Niveau 1"
-    create-form-title="Création de nature"
-    edit-form-title="Edition de la nature"
+    title="Configuration Nature Opérations Niveau 1"
+    create-form-title="Créer Nature"
+    edit-form-title="Edition Nature"
     model="nature"
-    table-title="Liste de nature d'operations"
+    table-title="Liste des Nature d'Opérations"
     icon-title="typcn-tags"
     :edited="edited"
     :entity-edited="entityEdited"  

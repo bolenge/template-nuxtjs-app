@@ -3,7 +3,7 @@
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
             <nuxt-link class="navbar-brand brand-logo" to="/admin"><img src="/images/one-touch-logo.png" alt="logo"/></nuxt-link>
             <nuxt-link class="navbar-brand brand-logo-mini" to="/"><img src="/images/logo-one-touch-mobile.png" alt="logo"/></nuxt-link>
-            <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
+            <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-none" type="button" data-toggle="minimize">
                 <span class="typcn typcn-th-menu"></span>
             </button>
         </div>
@@ -14,9 +14,16 @@
                         <img
                             :src="userAvatar ? `${BASE_PATH_USER_PICTURES}/${userAvatar}` : DEFAULT_USER_AVATAR"
                             alt="Current user avatar"
+                            style="margin-bottom: -9px;"
                         />
-                        <span class="nav-profile-name mb-0 font-weight-bold">{{ $auth.user.name }}</span><br>
-                        <p class="sidebar-designation" style="margin-bottom: -2px;margin-top: -9px;margin-left: 2.5rem;">{{ $auth.user.role.name }}</p>
+                        <span class="nav-profile-name mb-0 font-weight-bold text-uppercase">{{ $auth.user.name }}</span><br>
+                        <p
+                            class="sidebar-designation"
+                            style="margin-bottom: -2px;margin-top: -6px;margin-left: 2.5rem;"
+                        >
+                            {{ $auth.user.role.name }}
+                            {{ $auth.user.admin.fonction ? ' - ' + $auth.user.admin.fonction.validation_level.name : '' }}
+                        </p>
                     </a>
                 </li>
             </ul>

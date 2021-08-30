@@ -1,5 +1,11 @@
 <template>
   <div class="card">
+    <div
+      v-if="title"
+      class="card-header"
+    >
+      <h3 class="card-title mb-0">{{ title }}</h3>
+    </div>
     <div class="card-body">
       <div class="d-flex">
         <div class="col-lg-8">
@@ -18,30 +24,37 @@
             <span class="typcn typcn-refresh"></span> Actualiser
           </button>
 
-          <button
+          <download-csv
             v-if="extractData"
             class="btn btn-info btn-sm mr-lg-3"
+            :class="{'disabled btn-in-loading': !exportItems.length}"
+            :data="exportItems"
+            delimiter=";"
+            separator-excel
+            :name="`${fileExtractName}.csv`"
           >
             <span class="typcn typcn-database"></span> Extraction données
-          </button>
+          </download-csv>
 
-          <button
-            class="btn btn-light btn-sm"
-            :class="{'btn-in-loading disabled': disablePreviousButton}"
-            :disabled="disablePreviousButton"
-            @click="previousPaginate"
-          >
-            <span class="typcn typcn-chevron-left"></span>
-          </button>
-          <span>{{ countItems ? offset + 1 : 0 }}-{{ countItemsPaginated }} sur {{ countItems }}</span>
-          <button
-            class="btn btn-light btn-sm"
-            :class="{'btn-in-loading disabled': disableNextButton}"
-            :disabled="disableNextButton"
-            @click="nextPaginate"
-          >
-            <span class="typcn typcn-chevron-right"></span>
-          </button>
+          <span v-if="showPagination">
+            <button
+              class="btn btn-light btn-sm"
+              :class="{'btn-in-loading disabled': disablePreviousButton}"
+              :disabled="disablePreviousButton"
+              @click="previousPaginate"
+            >
+              <span class="typcn typcn-chevron-left"></span>
+            </button>
+            <span>{{ countItems ? offset + 1 : 0 }}-{{ countItemsPaginated }} sur {{ countItems }}</span>
+            <button
+              class="btn btn-light btn-sm"
+              :class="{'btn-in-loading disabled': disableNextButton}"
+              :disabled="disableNextButton"
+              @click="nextPaginate"
+            >
+              <span class="typcn typcn-chevron-right"></span>
+            </button>
+          </span>
         </div>
         <div class="form-group col-4">
           <div class="input-group">
@@ -64,12 +77,13 @@
       <div class="table-responsive">
         <table class="table table-hover" aria-describedby="">
           <thead>
-            <tr>
+            <tr class="tr-table text-center">
               <th scope="">#</th>
               <th
                 v-for="(head, i) in headers"
                 :key="i"
                 :id="i"
+                class="font-weight-600"
               >
                 {{ head.text }}
               </th>
@@ -77,7 +91,7 @@
           </thead>
           <tbody>
             <!-- Loading -->
-            <tr v-if="loading">
+            <tr v-if="loading" class="text-center">
               <td
                 :colspan="headers.length + 1"
                 class="text-center lead"
@@ -90,12 +104,13 @@
             <!-- No items -->
             <tr
               v-else-if="!countItems"
+              class="text-center"
             >
               <td
                 :colspan="headers.length + 1"
                 class="text-center lead"
               >
-                Aucun enregistrement...
+                {{ emptyDataMessage }}
               </td>
             </tr>
             <!-- End no items -->
@@ -104,18 +119,19 @@
               v-for="(item, i) in itemsPaginated"
               :key="i"
               :class="trClass(item)"
+              class="tr-table text-center"
             >
               <td>{{ offset + 1 + i}}</td>
               <td
                 v-for="(head, j) in headers"
                 :key="j"
-                :class="{'py-1': head.type == 'image'}"
               >
                 <!-- Image fields -->
                 <img
                   v-if="head.type == 'image'"
                   :src="`${API_BASE_URL}/${head.baseUrl}/${item[head.value]}`"
                   alt="image"
+                  style="width: 30px;height: 30px;"
                 />
                 <!-- End image fields -->
 
@@ -155,21 +171,21 @@
                 >
                   <button
                     v-if="buttons.edit"
-                    class="btn btn-sm btn-info"
+                    class="btn btn-sm btn-sm-action btn-info"
                     @click="onLaunchEdit(item.id)"
                   >
                     <span class="typcn typcn-pencil"></span>
                   </button>
                   <button
                     v-if="buttons.delete"
-                    class="btn btn-sm btn-danger"
+                    class="btn btn-sm btn-sm-action btn-danger"
                     @click="onDelete(item.id)"
                   >
                     <span class="typcn typcn-trash"></span>
                   </button>
                   <button
                     v-if="buttons.show"
-                    class="btn btn-sm btn-success"
+                    class="btn btn-sm btn-sm-action btn-success"
                     @click="onShow(item.id)"
                   >
                     <span class="typcn typcn-eye-outline"></span>
@@ -179,7 +195,7 @@
                     <button
                       v-for="(button,iB) in customButtons"
                       :key="iB"
-                      class="btn btn-sm"
+                      class="btn btn-sm btn-sm-action"
                       :class="button.type"
                       type="button"
                       @click="lauchCustomButtonEvent(button.event, item)"
@@ -200,6 +216,12 @@
                 <!-- End Simple fields -->
 
                 <!-- Simple fields -->
+                <span v-else-if="head.type == 'amount-money'">
+                  {{ getItemMoney(item, head.value) }}
+                </span>
+                <!-- End Simple fields -->
+
+                <!-- Simple fields -->
                 <span v-else>
                   {{ item[head.value] || '---' }}
                 </span>
@@ -215,12 +237,14 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import JsonCSV from 'vue-json-csv'
 
 export default {
+  components: {downloadCsv: JsonCSV},
   props: {
     title: {
       type: String,
-      default: 'Liste des enregistrements'
+      default: ''
     },
     headers: {
       type: Array,
@@ -266,6 +290,31 @@ export default {
       default() {
         return {}
       }
+    },
+    computedItems: {
+      type: String,
+      default: ''
+    },
+    payloadActionLoad: {
+      type: Number
+    },
+    emptyDataMessage: {
+      type: String,
+      default: 'Aucun enregistrement...'
+    },
+    fieldsExtract: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+    showPagination: {
+      type: Boolean,
+      default: true
+    },
+    fileExtractName: {
+      type: String,
+      default: 'extracton-donnees'
     }
   },
   data() {
@@ -284,7 +333,7 @@ export default {
       delete: 'crud/delete'
     }),
     initItems() {
-      this.load()
+      this.load({id: this.payloadActionLoad})
     },
     onLaunchEdit(id) {
       this.$emit('launchEdited', id)
@@ -313,7 +362,7 @@ export default {
         this.$toast.error('Une erreur est survenue, réessayez svp !')
       }
     },
-    getObject(obj, path) {
+    getObject(obj, path, typeField = 'string') {
       let items = path.split('.')
       let objRes = obj,
           i = items.length
@@ -328,7 +377,13 @@ export default {
         i = items.length
       }
 
+      objRes = typeField === 'amount-money' ? objRes.toLocaleString() : objRes
+
       return objRes || '---' 
+    },
+    getItemMoney(obj, path) {
+      const value = obj[path]
+      return value ? value.toLocaleString() : '---'
     },
     nextPaginate() {
       this.offset = this.offset + this.limit
@@ -353,7 +408,12 @@ export default {
         return state[this.model]['loading']
       },
       items(state) {
-        return state[this.model][`${this.model}s`]
+        const computedItems = this.computedItems || this.model+'s'
+        return state[this.model][computedItems]
+      },
+      itemsState(state) {
+        const computedItems = this.computedItems || this.model+'s'
+        return state[this.model][computedItems]
       }
     }),
     showButtonCreate() {
@@ -402,6 +462,17 @@ export default {
 
       return this.items
     },
+    exportItems() {
+      return this.items.map((item) => {
+        const result = {}
+
+        for (const field of this.fieldsExtract) {
+          result[field.text] =  this.getObject(item, field.value)
+        }
+
+        return result
+      })
+    }
   },
   mounted() {
     this.initItems()
@@ -410,10 +481,4 @@ export default {
 </script>
 
 <style>
-  .text-normal {
-    text-transform: none !important;
-  }
-  .btn-in-loading {
-    cursor: not-allowed !important;
-  }
 </style>

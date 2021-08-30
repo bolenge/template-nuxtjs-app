@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title text-normal text-center mb-0">{{ title }}</h4>
+      <h5 class="card-title text-normal text-center mb-0 font-weight-400">{{ title }}</h5>
         <p
           v-if="description"
           class="card-description text-center"
@@ -9,13 +9,13 @@
           {{ description }}
         </p>
     </div>
-    <div class="card-body">
+    <div class="card-body pt-0">
       <form class="forms-sample" @submit.prevent="onSubmit" autocomplete="off">
         <div :class="{'row': formRow}">
           <div
             v-for="(field, i) in fields"
             :key="i"
-            :class="{'col-lg-6': formRow}"
+            :class="showColClass(field)"
           >
             <!-- Field checkbox -->
             <div
@@ -40,7 +40,7 @@
               >
                 {{ field.label }} <span v-if="field.required" class="text-danger">*</span>
               </label>
-              <!-- Select field -->
+              <!-- Select sync field -->
               <select
                 v-if="field.type === 'select' && field.syncField !== undefined"
                 v-model="form[field.name]"
@@ -49,6 +49,27 @@
                 :required="field.required"
                 style="height: 39px;"
                 @change="onChangeSyncerField"
+              >
+                <option
+                  v-for="(item, it) in field.items"
+                  :key="it"
+                  :value="item.id"
+                  :selected="item.id === field.selected"
+                >
+                  {{ item[field.itemText || 'name'] }}
+                </option>
+              </select>
+              <!-- End select field -->
+
+               <!-- Select field -->
+              <select
+                v-else-if="field.type === 'select' && field.childSync !== undefined"
+                v-model="form[field.name]"
+                class="form-control"
+                :id="field.name"
+                :required="field.required"
+                style="height: 39px;"
+                @change="onSyncParentChildren(field)"
               >
                 <option
                   v-for="(item, it) in field.items"
@@ -165,6 +186,32 @@
               </div>
               <!-- End input password field -->
 
+               <!-- Textarea field -->
+               <textarea
+                v-else-if="field.type === 'textarea'"
+                v-model="form[field.name]"
+                :name="field.name"
+                :id="field.name"
+                :required="field.required"
+                :disabled="field.disabled"
+                class="form-control form-control-sm"
+              >
+              </textarea>
+              <!-- End Textarea field -->
+
+              <!-- Input field -->
+              <input
+                v-else-if="field.type === 'number'"
+                v-model="form[field.name]"
+                :type="'number'"
+                min="1.00"
+                class="form-control form-control-sm"
+                :id="field.name"
+                :required="field.required"
+                :disabled="field.disabled"
+              />
+              <!-- End input field -->
+
               <!-- Input field -->
               <input
                 v-else
@@ -173,6 +220,7 @@
                 class="form-control form-control-sm"
                 :id="field.name"
                 :required="field.required"
+                :disabled="field.disabled"
               />
               <!-- End input field -->
             </div>
@@ -249,8 +297,11 @@ export default {
       showPassword: false,
       syncField: null,
       defaultSyncValue: null,
-      showDownloadFile: null
+      showDownloadFile: null,
+      fieldsChildrenSync: []
     }
+  },
+  computed: {
   },
   watch: {
     entity() {
@@ -262,6 +313,9 @@ export default {
       this.form = {...this.entity}
 
       this.fields.forEach((field) => {
+        if (field.value) {
+          this.form[field.name] = field.value
+        }
     
         // si le champs est un fichier et nous faisons un update on definie comme valeur par defaut un objet
         // en cas de modification pour prevenir de l'erreur d'un string affécté à un v-file-input
@@ -278,6 +332,10 @@ export default {
         if (field.type === 'select') {
           if (field.syncField !== undefined) {
             this.syncField = field.syncField
+          }
+
+          if (field.childSync) {
+            this.fieldsChildrenSync.push(field) 
           }
         }
 
@@ -331,10 +389,67 @@ export default {
           }
         }
       }
+    },
+    showColClass(field) {
+      if (field.type == 'hidden') {
+        return 'd-inline'
+      }
+
+      let className
+
+      if (this.formRow && !field.colClass) {
+        className = 'col-lg-6'
+      }else if (field.colClass) {
+        className = field.colClass
+      }
+
+      return className
+    },
+    onSyncParentChildren(field) {
+      const fieldValue = this.form[field.name]
+      const parent = field.items.find((f) => f.id == fieldValue)
+      let childItems
+
+      if (parent) {
+        childItems = parent[field.childItems]
+
+        this.fields.map((child) => {
+          if (child.name == field.childSync) {
+            child.items = childItems.length ? childItems : [child.objetEmpty]
+          }
+        })
+      }
+    },
+    syncPopulateParentChildren(field) {
+      const fieldValue = this.form[field.name]
+      const parent = field.items.find((f) => f.id == fieldValue)
+      let childItems
+
+      if (parent) {
+        childItems = parent[field.childItems]
+
+        this.fields.map((child) => {
+          if (child.name == field.childSync) {
+            child.items = childItems.length ? childItems : [child.objetEmpty]
+
+            if (child.childSync) {
+              this.syncPopulateParentChildren(child)
+            }
+          }
+        })
+      }
+    },
+    populateFieldsChildrenSync() {
+      this.fieldsChildrenSync.forEach((field) => {
+        this.syncPopulateParentChildren(field)
+      })
     }
   },
   beforeMount(){
     this.initForm()
+  },
+  mounted() {
+    // this.populateFieldsChildrenSync()
   }
 }
 </script>
@@ -345,5 +460,14 @@ export default {
   }
   .btn-in-loading {
     cursor: not-allowed !important;
+  }
+  .font-weight-400 {
+    font-weight: 400 !important;
+  }
+  .font-weight-300 {
+    font-weight: 300 !important;
+  }
+  .card-title {
+    font-size: 16px !important;
   }
 </style>

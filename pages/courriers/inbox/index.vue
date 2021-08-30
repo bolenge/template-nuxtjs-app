@@ -1,18 +1,20 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-mail"></span> Boite de reception courriers</h2>
+      <h4 class="font-weight-400 mb-4"><span class="typcn typcn-mail"></span> Boite de reception courriers</h4>
     </div>
     <div class="row">
       <div class="col-lg-12 grid-margin stretch-card">
         <TableFilter
           model="courrier"
           actionLoad="loadInboxCourriersAdmin"
+          computedItems="inbox_courriers"
           :headers="headers"
           :buttonCreate="buttonCreate"
           :buttons="buttonsAction"
           :trClassByCondition="trClassByCondition"
           @launchEdited="onLaunchEdited"
+          @showed="onShowed"
         />
       </div>
     </div>
@@ -38,6 +40,13 @@ export default {
     return {
       headers: [
         {
+          text: 'RE',
+          value: 'entitled',
+          type: 'string',
+          filterable: false,
+          undashed: false
+        },
+        {
           text: 'Date',
           value: 'created_at',
           type: 'date',
@@ -62,7 +71,7 @@ export default {
           filterable: true
         },
         {
-          text: 'Expediteur',
+          text: 'Expéditeur',
           value: 'sender',
           type: 'string',
           filterable: true
@@ -74,19 +83,20 @@ export default {
           filterable: true
         },
         {
-          text: 'Piece',
+          text: 'Pièce',
           value: 'attachment',
           type: 'attachment',
           baseUrl: 'storage/fichiers',
           filterable: false
         },
         {
-          text: 'Status',
-          value: 'statut',
+          text: 'Importance',
+          value: 'importance',
           type: 'badge',
           types: {
-            'Normal': 'badge-light',
-            'Urgent': 'badge-danger'
+            'Normale': 'badge-info',
+            'Moyenne': 'badge-warning',
+            'Haute': 'badge-danger',
           },
           filterable: true
         },
@@ -126,6 +136,9 @@ export default {
   methods: {
     onLaunchEdited(id) {
       // Do something
+    },
+    onShowed(id) {
+      this.$router.replace('/courriers/inbox/'+id)
     }
   },
 }

@@ -67,21 +67,40 @@ export const actions = {
             dispatch(`${model}/${actionLoad}`, true, { root: true })
           })
           .catch((error) => {
-            console.log('Store crud error', error);
+            if (error.response && (error.response.status === 422 || error.response.status === 401)) {
+              if (error.response.data) {
+                const data = error.response.data
+                
+                this.$swal({
+                  title: "Erreur",
+                  text: data.message,
+                  icon: "warning",
+                  buttons: true,
+                  confirmButtonText: 'Ok'
+                })
+              }else {
+                this.$toast.error('Une erreur est survenue, réessayez svp !')
+              }
+            }else {
+              this.$toast.error('Une erreur est survenue, réessayez svp !')
+            }
+            
             reject(error)
           })
       }
     )
   },
-  delete({ dispatch }, { entity, api, model }) {
+  delete({ dispatch }, { entity, api, model, actionLoad }) {
+    actionLoad = actionLoad || 'load'
+
     this.$axios.delete(`${api}/${entity.id}`)
       .then(({ data }) => {
         if (data.state) {
-          dispatch(`${model}/load`, {}, { root: true })
+          dispatch(`${model}/${actionLoad}`, {}, { root: true })
 
           this.$swal({
             title: "Suppression",
-            text: 'Operation effectuée avec succès',
+            text: 'Opération effectuée avec succès',
             icon: "success",
             confirmButtonText: 'Ok'
           })

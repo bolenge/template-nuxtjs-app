@@ -1,6 +1,9 @@
 export const state = () => ({
   courriers: [],
   inbox_courriers: [],
+  archives_courriers: [],
+  no_transmitted_courriers: [],
+  children_courriers: [],
   loading: false
 })
 
@@ -10,6 +13,15 @@ export const mutations = {
   },
   SET_INBOX_COURRIERS(State, payload) {
     State.inbox_courriers = payload
+  },
+  SET_ARCHIVES_COURRIERS(State, payload) {
+    State.archives_courriers = payload
+  },
+  SET_NO_TRANSMITTED_COURRIERS(State, payload) {
+    State.no_transmitted_courriers = payload
+  },
+  SET_CHILDREN_COURRIERS(State, payload) {
+    State.children_courriers = payload
   },
   SET_LOADING(State, payload) {
     State.loading = payload
@@ -22,6 +34,16 @@ export const actions = {
 
     this.$axios.get('courriers').then(({ data }) => {
       commit('SET_COURRIERS', data.results)
+    }).finally((_) => {
+      commit('SET_LOADING', false)
+    })
+  },
+  
+  loadCourriersArchives({ dispatch, commit }) {
+    commit('SET_LOADING', true)
+
+    this.$axios.get('courriers').then(({ data }) => {
+      commit('SET_ARCHIVES_COURRIERS', data.results)
     }).finally((_) => {
       commit('SET_LOADING', false)
     })
@@ -42,8 +64,9 @@ export const actions = {
   loadCourriersNoTransmitted({ commit }) {
     commit('SET_LOADING', true)
 
-    this.$axios.get('courriers/all/transmitted').then(({ data }) => {
+    this.$axios.get('courriers/all/no-transmitted').then(({ data }) => {
       commit('SET_COURRIERS', data.results)
+      commit('SET_NO_TRANSMITTED_COURRIERS', data.results)
     }).finally((_) => {
       commit('SET_LOADING', false)
     })
@@ -88,8 +111,17 @@ export const actions = {
     commit('SET_LOADING', true)
 
     this.$axios.get('courriers/all/inbox').then(({ data }) => {
-      commit('SET_COURRIERS', data.results)
       commit('SET_INBOX_COURRIERS', data.results)
+    }).finally((_) => {
+      commit('SET_LOADING', false)
+    })
+  },
+
+  loadCourrierChildren({ commit }, payload) {
+    commit('SET_LOADING', true)
+
+    this.$axios.get(`courriers/${payload.id}/children`).then(({ data }) => {
+      commit('SET_CHILDREN_COURRIERS', data.results)
     }).finally((_) => {
       commit('SET_LOADING', false)
     })

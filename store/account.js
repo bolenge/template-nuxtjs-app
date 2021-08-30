@@ -59,4 +59,16 @@ export const actions = {
       commit('SET_LOADING', false)
     })
   },
+
+  loadAccountsByType({ commit }, payload) {
+    commit('SET_LOADING', true)
+
+    this.$axios.get('accounts/by-id-type/'+payload.id).then(({ data }) => {
+      console.log('SET_ACCOUNTS', data.results)
+      
+      commit('SET_ACCOUNTS', data.results)
+    }).finally((_) => {
+      commit('SET_LOADING', false)
+    })
+  },
 }

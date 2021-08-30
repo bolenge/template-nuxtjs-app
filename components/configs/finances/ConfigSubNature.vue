@@ -1,10 +1,10 @@
 <template>
   <ConfigPanel
     title="Configuration Nature Operations Niveau 2"
-    create-form-title="Création de nature"
-    edit-form-title="Edition de la nature"
+    create-form-title="Créer Nature"
+    edit-form-title="Edition Nature"
     model="sub_nature"
-    table-title="Liste de nature d'operations"
+    table-title="Liste des Nature d'Opérations"
     icon-title="typcn-tags"
     :edited="edited"
     :entity-edited="entityEdited"  
@@ -40,7 +40,7 @@ export default {
           required: true,
           itemText: 'name',
           items: this.natures,
-          label: 'Nature operation niveau 1'
+          label: 'Nature Opération Niveau 1'
         },
       ],
       entity: {},
@@ -51,7 +51,7 @@ export default {
           type: 'string'
         },
         {
-          text: 'Nature niveau 1',
+          text: 'Nature Niveau 1',
           value: 'nature.name',
           type: 'object'
         },

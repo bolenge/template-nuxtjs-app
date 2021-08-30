@@ -1,109 +1,86 @@
 <template>
   <div class="content-wrapper">
-    <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-credit-card"></span> Synthèse de transactions</h2>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex">
-              <div class="col">
-                <button class="btn btn-success btn-sm">
-                  <span class="typcn typcn-refresh"></span> Actualiser
-                </button>
+    <div class="container">
+      <h4 class="font-weight-400 mb-4"><span class="typcn typcn-credit-card"></span> Synthèse Transactions</h4>
 
-                <button class="btn btn-info btn-sm mx-lg-3">
-                  <span class="typcn typcn-database"></span> Extraction données
-                </button>
+      <div class="row">
+        <div class="col-lg-12 d-flex justify-content-center">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <!-- Nav Item Collection -->
+            <li
+              class="nav-item"
+              role="presentation"
+            >
+              <a
+                class="nav-link active py-2"
+                id="collection-tab"
+                data-toggle="tab"
+                href="#collection"
+                role="tab"
+                aria-controls="collection"
+                aria-selected="true"
+              >
+                <span class="typcn typcn-database"></span> Encaissements
+              </a>
+            </li>
+            <!-- End Nav Item Collection -->
 
-                <button class="btn btn-light btn-sm">
-                  <span class="typcn typcn-chevron-left"></span>
-                </button>
-                <span>1/10</span>
-                <button class="btn btn-light btn-sm">
-                  <span class="typcn typcn-chevron-right"></span>
-                </button>
-              </div>
-              <div class="form-group col">
-                <div class="input-group">
-                  <label for="search" class="mr-3 mt-2">Filtre : </label>
-                  <input type="text" id="search" class="form-control form-control-sm py-2" placeholder="Recherche..." aria-label="Search">
-                  <div class="input-group-append">
-                    <button class="btn btn-sm btn-light" type="button"><span class="typcn typcn-zoom"></span></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            
-
-            <div class="table-responsive">
-              <table class="table table-hover" aria-describedby="">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Date</th>
-                    <th>Type operation</th>
-                    <th>Rubrique</th>
-                    <th>Nature Op.</th>
-                    <th>Comptes</th>
-                    <th>Bénéficiaire</th>
-                    <th>Montant</th>
-                    <th>Devise</th>
-                    <th>Status OP</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="i in 10"
-                    :key="i"
-                  >
-                    <td>{{ i }}</td>
-                    <td>{{ formatDate('dd/MM/yyyy', new Date) }}</td>
-                    <td>Decaissement</td>
-                    <td>Voyage</td>
-                    <td>---</td>
-                    <td>---</td>
-                    <td>Emmanuel</td>
-                    <td>6 000</td>
-                    <td>USD</td>
-                    <td>
-                      <label
-                        class="badge"
-                        :class="{'badge-warning': numberIsPair(randValue), 'badge-success': !numberIsPair(randValue)}"
-                      >
-                          {{ !numberIsPair(randValue) ? 'Payé' : 'En cours' }}
-                        </label>
-                    </td>
-                    <td>
-                      <button class="btn btn-sm btn-info">
-                        <span class="typcn typcn-eye-outline"></span>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+            <!-- Nav Item Disburse -->
+            <li
+              class="nav-item"
+              role="presentation"
+            >
+              <a
+                class="nav-link py-2"
+                id="disburse-tab"
+                data-toggle="tab"
+                href="#disburse"
+                role="tab"
+                aria-controls="disburse"
+                aria-selected="false"
+              >
+                <span class="typcn typcn-puzzle-outline"></span> Décaissements
+              </a>
+            </li>
+            <!-- End Nav Item Disburse -->
+          </ul>
         </div>
       </div>
+    </div>
+
+    <div class="tab-content" id="myTabContent">
+      <!-- Tab pane collection transaction -->
+      <div class="tab-pane fade show active" id="collection" role="tabpanel" aria-labelledby="collection-tab">
+        <CollectionTransaction />
+      </div>
+      <!-- End tab pane collection transaction -->
+
+      <!-- Tab pane disburse transaction -->
+      <div class="tab-pane fade" id="disburse" role="tabpanel" aria-labelledby="disburse-tab">
+        <DisburseTransaction />
+      </div>
+      <!-- End tab pane disburse transaction -->
     </div>
   </div>
 </template>
 
 <script>
 import Global from '~/mixins/Global'
+import CollectionTransaction from '~/components/finances/CollectionTransaction'
+import DisburseTransaction from '~/components/finances/DisburseTransaction'
 
 export default {
-  middleware: 'auth',
+  middleware: ['auth', 'auth-superadmin-admin'],
   head() {
     return {
-      title: 'Synthese des requetes de fonds'
+      title: 'Synthèse Transactions'
     }
   },
   mixins: [Global],
+  components: {
+    DisburseTransaction,
+    CollectionTransaction,
+  },
   data() {
     return {
       j: 1
