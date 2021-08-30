@@ -138,7 +138,7 @@ export default {
       // Do something
     },
     onShowed(id) {
-      this.$router.replace('/courriers/'+id)
+      this.$router.replace('/courriers/inbox/'+id)
     }
   },
 }

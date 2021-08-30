@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title mb-0">Détail Courrier</h3>
+      <h3 class="card-title mb-0">{{ title }}</h3>
     </div>
 
     <div class="card-body">
@@ -68,6 +68,10 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    title: {
+      type: String,
+      default: 'Détail Courrier'
     }
   },
   mixins: [Global, Account],
