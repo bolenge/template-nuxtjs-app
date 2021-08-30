@@ -23,17 +23,9 @@ export default {
     currentNavLink() {
       return 'init-courriers'
     },
-    adminId() {
-      return this.currentAdmin.id
-    }
-  },
-  watch: {
   },
 }
 </script>
 
 <style>
-  .text-normal {
-    text-transform: none !important;
-  }
 </style>

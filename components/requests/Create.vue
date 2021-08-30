@@ -1,10 +1,10 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-film"></span> Initiation CRF</h2>
+      <h4 class="font-weight-300 mb-4"><span class="typcn typcn-film"></span> Initiation CRF</h4>
     </div>
 
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-lg-8 grid-margin stretch-card">
         <!-- Form create fund_requests -->
         <Create

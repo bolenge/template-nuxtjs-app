@@ -83,7 +83,7 @@ export default {
         {
           name: 'rate',
           type: 'number',
-          required: true,
+          required: false,
           label: 'Taux',
         },
         {
