@@ -13,7 +13,7 @@
       </div>
       <div v-if="parentEntityCourrier" class="col-lg-6 grid-margin stretch-card">
         <DetailCourrier
-          title="Détqil Réponse Courrier"
+          title="Détail Réponse Courrier"
           :loading="loadingEntityCourrier"
           :entityCourrier="parentEntityCourrier"
         />
@@ -36,6 +36,7 @@
       </div>
       <div v-if="!parentEntityCourrier" class="col-lg-12">
         <TableFilter
+          v-if="!loadingEntityCourrier"
           title="Liste des Réponses"
           model="courrier"
           computedItems="children_courriers"
