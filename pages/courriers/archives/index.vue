@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-mail"></span> Archives Courriers</h2>
+      <h4 class="font-weight-400 mb-4"><span class="typcn typcn-mail"></span> Archives Courriers</h4>
     </div>
     <div class="row">
       <div class="col-lg-12 grid-margin stretch-card">
@@ -25,7 +25,7 @@ import Global from '~/mixins/Global'
 import TableFilter from '@/components/crud/TableFilter'
 
 export default {
-  middleware: 'auth',
+  middleware: ['auth', 'auth-superadmin-admin'],
   head() {
     return {
       title: 'Archives de courriers'
