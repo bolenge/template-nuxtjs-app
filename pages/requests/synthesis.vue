@@ -8,6 +8,7 @@
         <TableFilter
           :headers="headers"
           model="fund_request"
+          :fileExtractName="fileExtractName"
           :buttonCreate="buttonCreate"
           :buttons="buttonsAction"
           :extractData="true"
@@ -150,6 +151,9 @@ export default {
         link: '/requests/init',
         text: 'CRF'
       }
+    },
+    fileExtractName() {
+      return 'extraction-syntheses-crf-' + this.formatDate('hh-mm-ss-dd-MM-yy', new Date)
     }
   },
   methods: {

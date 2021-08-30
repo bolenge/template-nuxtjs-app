@@ -27,10 +27,11 @@
           <download-csv
             v-if="extractData"
             class="btn btn-info btn-sm mr-lg-3"
+            :class="{'disabled btn-in-loading': !exportItems.length}"
             :data="exportItems"
             delimiter=";"
             separator-excel
-            :name="`fichier-export.csv`"
+            :name="`${fileExtractName}.csv`"
           >
             <span class="typcn typcn-database"></span> Extraction données
           </download-csv>
@@ -302,14 +303,18 @@ export default {
       default: 'Aucun enregistrement...'
     },
     fieldsExtract: {
-      type: Object,
+      type: Array,
       default() {
-        return {}
+        return []
       }
     },
     showPagination: {
       type: Boolean,
       default: true
+    },
+    fileExtractName: {
+      type: String,
+      default: 'extracton-donnees'
     }
   },
   data() {
@@ -458,7 +463,7 @@ export default {
       return this.items
     },
     exportItems() {
-      /* TODO : return this.items.map((item) => {
+      return this.items.map((item) => {
         const result = {}
 
         for (const field of this.fieldsExtract) {
@@ -466,9 +471,7 @@ export default {
         }
 
         return result
-      }) */
-
-      return []
+      })
     }
   },
   mounted() {

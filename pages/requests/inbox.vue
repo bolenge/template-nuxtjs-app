@@ -12,6 +12,8 @@
           :buttonCreate="buttonCreate"
           :buttons="buttonsAction"
           :extractData="true"
+          :fieldsExtract="fieldsExtract"
+          :fileExtractName="fileExtractName"
           @launchEdited="onLaunchEdited"
           @showed="onShowed"
         />
@@ -105,7 +107,37 @@ export default {
         edit: false,
         delete: false,
         show: true
-      }
+      },
+      fieldsExtract: [
+        {
+          value: 'created_at',
+          text: 'Date'
+        },
+        {
+          value: 'admin_fund_requestor.user.name',
+          text: 'initiateur'
+        },
+        {
+          value: 'object',
+          text: 'Objet'
+        },
+        {
+          value: 'amount',
+          text: 'Montant'
+        },
+        {
+          value: 'Taux',
+          text: 'rate'
+        },
+        {
+          value: 'object',
+          text: 'Montant en USD'
+        },
+        {
+          value: 'statuts',
+          text: 'Status'
+        },
+      ]
     }
   },
   computed: {
@@ -123,6 +155,9 @@ export default {
         link: '/requests/init',
         text: 'CRF'
       }
+    },
+    fileExtractName() {
+      return 'extraction-syntheses-crf-' + this.formatDate('hh-mm-ss-dd-MM-yy', new Date)
     }
   },
   methods: {
