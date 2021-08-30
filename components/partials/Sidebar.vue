@@ -150,7 +150,7 @@
                   class="nav-item"
                 >
                   <nuxt-link
-                    to="/courriers/synthesis-transmission"
+                    to="/courriers/synthesis"
                     class="nav-link"
                     :class="setNavLinkActive('synthesis-transmission-courriers')"
                   >
