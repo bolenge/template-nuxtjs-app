@@ -39,6 +39,12 @@ export default {
           filterable: true
         },
         {
+          text: 'Compte Approvisionné',
+          value: 'account.name',
+          type: 'object',
+          filterable: true
+        },
+        {
           text: 'Devise',
           value: 'currency.code',
           type: 'object',
