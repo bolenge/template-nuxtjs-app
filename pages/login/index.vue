@@ -3,8 +3,8 @@
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper d-flex align-items-center auth px-5">
         <div class="row w-100 mx-0">
-          <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+          <div class="col-sm-3 mx-auto">
+            <div class="auth-form-light text-left py-5 px-3 px-lg-4">
               <div class="brand-logo text-center">
                 <img src="/images/one-touch-logo.png" alt="Logo" />
               </div>
@@ -14,7 +14,7 @@
                   <input
                     v-model="form.email"
                     type="email"
-                    class="form-control"
+                    class="form-control form-control-sm font-weight-300 font-size-13px"
                     placeholder="Email"
                   />
                 </div>
@@ -22,15 +22,15 @@
                   <input
                     v-model="form.password"
                     type="password"
-                    class="form-control"
+                    class="form-control form-control-sm font-weight-300 font-size-13px"
                     placeholder="Mot de passe"
                   />
                 </div>
 
-                <div class="mt-3">
+                <div class="mt-3 text-center">
                   <button
                     type="submit"
-                    class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn"
+                    class="btn btn-info btn-sm py-2 px-3"
                     :class="{disabled: loading, 'btn-in-loading': loading}"
                     :disabled="loading"
                     >
@@ -45,7 +45,7 @@
             </div>
 
             <div class="text-center py-5">
-              <p class="font-size-20px">Powered by <strong><a href="https://mtechinteractives.com">Mtech Interactives</a></strong></p>
+              <p class="font-size-20px font-weight-300">Powered by <strong><a href="https://mtechinteractives.com">Mtech Interactives</a></strong></p>
             </div>
           </div>
         </div>
@@ -109,7 +109,7 @@ export default {
 
 <style>
   .font-size-20px {
-    font-size: 17px !important;
+    font-size: 15px !important;
   }
   .input-helper::before {
     border-color: #2b80ff !important;
