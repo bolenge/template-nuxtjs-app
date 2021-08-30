@@ -1,10 +1,10 @@
 <template>
   <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="content-wrapper d-flex align-items-center auth px-5">
+      <div class="content-wrapper d-flex px-5">
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+            <div class="card text-left py-5 px-4 px-sm-4">
 
               <div class="text-center">
                 <h4>Changer Mot de Passe</h4>
@@ -16,7 +16,7 @@
                   <input
                     v-model="form.email"
                     type="email"
-                    class="form-control"
+                    class="form-control form-control-sm font-size-13px"
                     placeholder="Email"
                     required="required"
                   />
@@ -26,7 +26,7 @@
                   <input
                     v-model="form.password"
                     type="password"
-                    class="form-control"
+                    class="form-control form-control-sm font-size-13px"
                     placeholder="Nouveau mot de passe"
                     required="required"
                   />
@@ -42,10 +42,10 @@
                   />
                 </div>
 
-                <div class="mt-3">
+                <div class="mt-3 text-center">
                   <button
                     type="submit"
-                    class="btn btn-block btn-info btn-lg font-weight-medium auth-form-btn"
+                    class="btn btn-info btn-sm"
                   >
                     <span v-if="loading">Chargement...</span>
                     <span v-else>ENREGISTRER</span>
