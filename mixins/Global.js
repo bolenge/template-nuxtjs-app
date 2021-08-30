@@ -13,11 +13,13 @@ export default {
       loadCourriersNoTransmitted: 'courrier/loadCourriersNoTransmitted',
     }),
     commitSetPageActive() {
-      const page = this.currentPage || 'home'
-      const navLink = this.currentNavLink || ''
-      
-      this.$store.commit('CHANGE_PAGE_ACTIVE', page)
-      this.$store.commit('CHANGE_NAV_LINK_ACTIVE', navLink)
+      if (this.currentPage) {
+        this.$store.commit('CHANGE_PAGE_ACTIVE', this.currentPage)
+      }
+
+      if (this.currentNavLink) {
+        this.$store.commit('CHANGE_NAV_LINK_ACTIVE', this.currentNavLink) 
+      }
     }
   }
 }

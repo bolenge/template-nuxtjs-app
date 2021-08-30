@@ -1,6 +1,7 @@
 <template>
   <Detail
     :slug="slug"
+    backLink="/courriers/inbox"
   />
 </template>
 

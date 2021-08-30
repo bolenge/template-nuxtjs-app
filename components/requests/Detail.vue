@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <nuxt-link to="/requests/synthesis" class="btn btn-sm btn-info mb-2">&#8592; Retour</nuxt-link>
+      <button @click="goBack" class="btn btn-sm btn-info mb-2">&#8592; Retour</button>
     </div>
 
     <div class="row justify-content-center">
@@ -159,6 +159,10 @@ export default {
     slug: {
       type: Number,
       required: true
+    },
+    backLink: {
+      type: String,
+      default: '/requests/synthesis'
     }
   },
   mixins: [Global, Account],
@@ -525,6 +529,9 @@ export default {
     },
     loadAccounts() {
       this.loadAccountsByType({id: this.entityEdited.type_account_id})
+    },
+    goBack() {
+      this.$router.replace(this.backLink)
     }
   },
   mounted() {

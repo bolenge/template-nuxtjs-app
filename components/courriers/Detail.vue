@@ -1,7 +1,7 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid mb-4">
-      <nuxt-link to="/courriers/archives" class="btn btn-sm btn-info">&#8592; Retour</nuxt-link>
+      <button @click="goBack" class="btn btn-sm btn-info mb-2">&#8592; Retour</button>
     </div>
 
     <div class="row">
@@ -11,15 +11,22 @@
           :entityCourrier="entityCourrier"
         />
       </div>
+      <div v-if="parentEntityCourrier" class="col-lg-6 grid-margin stretch-card">
+        <DetailCourrier
+          title="Détqil Réponse Courrier"
+          :loading="loadingEntityCourrier"
+          :entityCourrier="parentEntityCourrier"
+        />
+      </div>
       <div
-        v-if="ownerCourrier"
+        v-if="ownerCourrier && !parentEntityCourrier"
         class="col-lg-6 grid-margin stretch-card"
       >
         <!-- Form Edit courriers -->
         <Create
           api="courriers"
           model="courrier"
-          title="Réponse au Courrier"
+          title="Réponse Courrier"
           :fields="fields"
           :entity="entityRespond"
           :formRow="true"
@@ -27,7 +34,7 @@
         />
         <!-- End Form Edit courriers -->
       </div>
-      <div class="col-lg-12">
+      <div v-if="!parentEntityCourrier" class="col-lg-12">
         <TableFilter
           title="Liste des Réponses"
           model="courrier"
@@ -61,6 +68,10 @@ export default {
     slug: {
       type: Number,
       required: true
+    },
+    backLink: {
+      type: String,
+      default: '/courriers/archives'
     }
   },
   mixins: [Global, Account],
@@ -76,6 +87,7 @@ export default {
       edited: false,
       loadingEntityCourrier: false,
       entityCourrier: null,
+      parentEntityCourrier: null,
       headers: [
         {
           text: 'Date',
@@ -247,7 +259,7 @@ export default {
           value: this.currentAdminLogged.id,
         }
       ]
-    }
+    },
   },
   watch: {
     typeCourriers() {
@@ -271,12 +283,16 @@ export default {
     async setEntityCourrier() {
       this.loadingEntityCourrier = true
       this.entityCourrier = await this.showCourrier({id: this.slug})
+      this.parentEntityCourrier = this.entityCourrier.parent
       this.courrierSender = this.entityCourrier.sender
       this.ownerCourrier = this.entityCourrier.admin_recipient_id === this.currentAdminLogged.id && this.entityCourrier.transmitted
       this.loadingEntityCourrier = false
     },
     onShowed(id) {
       this.$router.replace('/courriers/'+id)
+    },
+    goBack() {
+      this.$router.replace(this.backLink)
     }
   },
   mounted() {

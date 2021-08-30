@@ -1,6 +1,7 @@
 export const state = () => ({
   courriers: [],
   inbox_courriers: [],
+  archives_courriers: [],
   no_transmitted_courriers: [],
   children_courriers: [],
   loading: false
@@ -12,6 +13,9 @@ export const mutations = {
   },
   SET_INBOX_COURRIERS(State, payload) {
     State.inbox_courriers = payload
+  },
+  SET_ARCHIVES_COURRIERS(State, payload) {
+    State.archives_courriers = payload
   },
   SET_NO_TRANSMITTED_COURRIERS(State, payload) {
     State.no_transmitted_courriers = payload
@@ -30,6 +34,16 @@ export const actions = {
 
     this.$axios.get('courriers').then(({ data }) => {
       commit('SET_COURRIERS', data.results)
+    }).finally((_) => {
+      commit('SET_LOADING', false)
+    })
+  },
+  
+  loadCourriersArchives({ dispatch, commit }) {
+    commit('SET_LOADING', true)
+
+    this.$axios.get('courriers').then(({ data }) => {
+      commit('SET_ARCHIVES_COURRIERS', data.results)
     }).finally((_) => {
       commit('SET_LOADING', false)
     })

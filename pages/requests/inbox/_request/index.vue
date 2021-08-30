@@ -1,32 +1,36 @@
 <template>
   <Detail
     :slug="slug"
+    backLink="/requests/inbox"
   />
 </template>
 
 <script>
-import Detail from '~/components/courriers/Detail'
+import Detail from '~/components/requests/Detail'
 import Global from '~/mixins/Global'
-import TableFilter from '@/components/crud/TableFilter'
-
 
 export default {
   middleware: 'auth',
   head() {
     return {
-      title: 'Edition d\'un courrier'
+      title: 'Detail d\'un CRF'
     }
   },
   mixins: [Global],
   components: {
-    Detail,
-    TableFilter
+    Detail
   },
   asyncData ({ params }) {
-    const slug = +params.courrier
+    const slug = +params.request
     return { slug }
   },
   computed: {
+    currentPage() {
+      return 'requests'
+    },
+    currentNavLink() {
+      return 'inbox-requests'
+    },
   }
 }
 </script>
