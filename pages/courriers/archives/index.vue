@@ -8,6 +8,8 @@
         <TableFilter
           :headers="headers"
           model="courrier"
+          actionLoad="loadCourriersArchives"
+          computedItems="archives_courriers"
           :buttonCreate="buttonCreate"
           :buttons="buttonsAction"
           @launchEdited="onLaunchEdited"
