@@ -165,6 +165,7 @@ export default {
     redirect: {
       logout: '/login',
       login: '/login',
+      callback: '/login',
       home: '/'
     },
     strategies: {

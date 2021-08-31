@@ -13,9 +13,9 @@ export default {
       loadCourriersNoTransmitted: 'courrier/loadCourriersNoTransmitted',
     }),
     commitSetPageActive() {
-      if (this.currentPage) {
-        this.$store.commit('CHANGE_PAGE_ACTIVE', this.currentPage)
-      }
+      const page = this.currentPage || 'home'
+
+      this.$store.commit('CHANGE_PAGE_ACTIVE', page)
 
       if (this.currentNavLink) {
         this.$store.commit('CHANGE_NAV_LINK_ACTIVE', this.currentNavLink) 

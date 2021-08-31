@@ -3,6 +3,7 @@
 </template>
 <script>
 import Create from '~/components/courriers/Create'
+import Global from '~/mixins/Global'
 
 export default {
   middleware: 'auth',
@@ -11,6 +12,7 @@ export default {
       title: 'Initiation d\'un courrier'
     }
   },
+  mixins: [Global],
   components: {
     Create
   },
@@ -21,17 +23,9 @@ export default {
     currentNavLink() {
       return 'init-courriers'
     },
-    adminId() {
-      return this.currentAdmin.id
-    }
-  },
-  watch: {
   },
 }
 </script>
 
 <style>
-  .text-normal {
-    text-transform: none !important;
-  }
 </style>

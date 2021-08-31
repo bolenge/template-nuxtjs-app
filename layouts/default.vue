@@ -129,7 +129,6 @@ export default {
         const containerCollapse = $($this).next()
 
         if (!$(containerCollapse).hasClass('show')) {
-          console.log(containerCollapse);
           $($this).attr('aria-expanded', true)
           
           setTimeout(() => {
