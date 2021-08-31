@@ -1,11 +1,12 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
+      <h4 class="font-weight-300 mb-4"><span class="typcn typcn-film"></span> {{ title }}</h4>
       <button @click="goBack" class="btn btn-sm btn-info mb-2">&#8592; Retour</button>
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-lg-8">
+      <div class="col-lg-8 grid-margin stretch-card">
         <div class="card">
           <div class="card-header">
             <span
@@ -125,7 +126,7 @@
       </div>
       <div
         v-if="!requestExecuted && showValidationForm"
-        class="col-lg-4 pt-0"
+        class="col-lg-4 pt-0 grid-margin stretch-card"
       >
         <!-- Form create fund_requests -->
         <Edit
@@ -163,6 +164,10 @@ export default {
     backLink: {
       type: String,
       default: '/requests/synthesis'
+    },
+    title: {
+      type: String,
+      default: 'Synthèse CRF'
     }
   },
   mixins: [Global, Account],
@@ -304,12 +309,6 @@ export default {
           type: 'hidden',
           required: false,
           label: 'Uploader soubassements Administratifs',
-        },
-        {
-          name: 'admin_fund_requestor_id',
-          type: 'hidden',
-          required: false,
-          value: this.currentAdminId
         },
         {
           name: 'amount',
