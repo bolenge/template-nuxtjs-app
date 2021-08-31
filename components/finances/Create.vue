@@ -1,5 +1,7 @@
 <template>
   <div class="content-wrapper">
+    <h4 class="font-weight-400 mb-4"><span class="typcn typcn-credit-card"></span> Encaissement</h4>
+
     <div class="row justify-content-center">
       <div class="col-lg-8 grid-margin stretch-card">
         <!-- Form create transactions -->
