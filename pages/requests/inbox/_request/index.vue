@@ -2,6 +2,7 @@
   <Detail
     :slug="slug"
     backLink="/requests/inbox"
+    title="Mes Requêtes"
   />
 </template>
 

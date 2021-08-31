@@ -14,7 +14,7 @@
         <Edit
           api="admins"
           model="admin"
-          title="Edition compte utilisateur"
+          title="Edition Compte Utilisateur"
           :fields="fields"
           :entity="entityEdited"
           :formRow="true"
