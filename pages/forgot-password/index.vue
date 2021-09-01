@@ -74,13 +74,13 @@ export default {
         await this.forgotPassword({ entity: this.form })
 
         this.$swal({
-          title: "Opération effectuée avec succès.",
+          title: "Opération réussie.",
           text: "Un mail vous est envoyé pour réinitialiser votre mot de passe.",
           icon: "success",
           buttons: true,
           confirmButtonText: 'Ok'
         }).then(({isConfirmed}) => {
-          this.$auth.logout()
+          this.$router.replace('/login')
         });
 
       } catch (error) {
