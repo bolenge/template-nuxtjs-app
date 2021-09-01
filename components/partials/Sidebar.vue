@@ -349,7 +349,7 @@ export default {
     },
     onLogout() {
       this.$swal({
-        title: "Déconnxion",
+        title: "Déconnexion",
         text: "Voulez-vous vraiment vous déconnecter ?",
         icon: "warning",
         buttons: true,

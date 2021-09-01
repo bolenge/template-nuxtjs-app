@@ -4,7 +4,7 @@
       <div class="col-lg-8 grid-margin grid-margin-lg-0 stretch-card">
         <div class="card">
           <div class="card-body text-center p-5">
-            <h3 class="my-4 mb-5 font-weight-400">Bienvenu(e) sur {{ APP_NAME }} Application</h3>
+            <h3 class="my-4 mb-5 font-weight-400">Bienvenu(e) sur {{ APP_NAME }}</h3>
 
             <div class="p-lg-5">
               <img src="images/one-touch-logo.png" alt="Logo de One touch" width="180px" />

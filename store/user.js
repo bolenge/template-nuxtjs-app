@@ -68,4 +68,44 @@ export const actions = {
       }
     )
   },
+  
+  forgotPassword ({ dispatch }, { entity }) {
+    const formData = serialize(entity)
+
+    return new Promise(
+      (resolve, reject) => {
+        this.$axios.post('auth/forgot-password', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+          .then((_) => {
+            resolve()
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      }
+    )
+  },
+
+  resetPassword ({ dispatch }, { entity }) {
+    const formData = serialize(entity)
+
+    return new Promise(
+      (resolve, reject) => {
+        this.$axios.post('auth/reset-password', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+          .then((_) => {
+            resolve()
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      }
+    )
+  },
 }
