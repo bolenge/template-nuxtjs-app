@@ -30,6 +30,13 @@ export default {
           filterable: true
         },
         {
+          text: '',
+          value: 'account_number',
+          type: 'string',
+          defaultValue: '4576-9837-9495-74769495-747676',
+          filterable: false
+        },
+        {
           text: 'Devise',
           value: 'currency.code',
           type: 'object',

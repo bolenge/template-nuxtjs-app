@@ -1,5 +1,9 @@
 <template>
   <div class="content-wrapper">
+    <div class="container-fluid">
+      <h4 class="font-weight-400 mb-4"><span class="typcn typcn-credit-card"></span> Synthèse Transactions</h4>
+    </div>
+    
     <div class="container">
       <div class="row">
         <div class="col-lg-12 d-flex justify-content-center">
@@ -44,10 +48,6 @@
           </ul>
         </div>
       </div>
-    </div>
-
-    <div class="container-fluid">
-      <h4 class="font-weight-400 mb-4"><span class="typcn typcn-credit-card"></span> Synthèse Transactions</h4>
     </div>
 
     <div class="tab-content" id="myTabContent">

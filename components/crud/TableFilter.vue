@@ -85,7 +85,8 @@
                 :id="i"
                 class="font-weight-600"
               >
-                {{ head.text }}
+                <span v-if="head.defaultValue" class="text-white">{{ head.defaultValue }}</span>
+                <span v-else>{{ head.text }}</span>
               </th>
             </tr>
           </thead>
@@ -218,6 +219,12 @@
                 <!-- Simple fields -->
                 <span v-else-if="head.type == 'amount-money'">
                   {{ getItemMoney(item, head.value) }}
+                </span>
+                <!-- End Simple fields -->
+
+                <!-- Simple fields -->
+                <span v-else-if="head.defaultValue"  class="text-white">
+                  {{ head.defaultValue }}
                 </span>
                 <!-- End Simple fields -->
 
