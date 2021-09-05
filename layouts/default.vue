@@ -11,6 +11,7 @@
         :page-active="pageActive"
         :nav-link-active="navLinkActive"
         :countNewCourriers="countNewCourriers"
+        :countFundRequestsEnCours="countFundRequestsEnCours"
         :countNoTransmittedCourriers="countNoTransmittedCourriers"
         :isOfficeDirectorOrCompliance="isOfficeDirectorOrCompliance"
       />
@@ -51,6 +52,9 @@ export default {
       noTransmittedCourriers(state) {
         return state.courrier.no_transmitted_courriers
       },
+      fundRequests(state) {
+        return state.fund_request.fund_requests_notification
+      }
     }),
     pageActive() {
       return this.$store.state.page_active
@@ -90,6 +94,12 @@ export default {
     },
     userRoleId() {
       return this.currentUser.role.id
+    },
+    countFundRequestsEnCours() {
+      return this
+        .fundRequests
+        .filter((fundRequest) => fundRequest.statuts == 'En Cours')
+        .length
     }
   },
   mounted() {
