@@ -7,6 +7,9 @@
     computedItems="accounts_banks"
     :buttons="buttonsAction"
     :showPagination="false"
+    :extractData="true"
+    :fieldsExtract="fieldsExtract"
+    :fileExtractName="fileExtractName"
     @launchEdited="onLaunchEdited"
   />
 </template>
@@ -52,10 +55,31 @@ export default {
         edit: false,
         delete: false,
         show: true
-      }
+      },
+      fieldsExtract: [
+        {
+          value: 'name',
+          text: 'Compte'
+        },
+        {
+          value: 'account_number',
+          text: 'Numero de compte'
+        },
+        {
+          value: 'currency.code',
+          text: 'Devise'
+        },
+        {
+          value: 'amount',
+          text: 'Montant'
+        },
+      ]
     }
   },
   computed: {
+    fileExtractName() {
+      return 'extraction-compte-bancaire-' + this.formatDate('hh-mm-ss-dd-MM-yy', new Date)
+    }
   },
   methods: {
     onLaunchEdited(id) {
