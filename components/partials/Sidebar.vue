@@ -274,7 +274,7 @@
                     class="nav-link"
                     :class="setNavLinkActive('synthesis-finances')"
                   >
-                    Rapport Financier
+                    Avoirs en Compte
                   </nuxt-link>
                 </li>
               </ul>
