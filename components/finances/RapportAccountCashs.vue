@@ -5,8 +5,11 @@
     model="account"
     actionLoad="loadAccountCashs"
     computedItems="accounts_cashs"
+    :fileExtractName="fileExtractName"
     :buttons="buttonsAction"
     :showPagination="false"
+    :extractData="true"
+    :fieldsExtract="fieldsExtract"
     @launchEdited="onLaunchEdited"
   />
 </template>
@@ -53,10 +56,27 @@ export default {
         edit: false,
         delete: false,
         show: true
-      }
+      },
+      fieldsExtract: [
+        {
+          value: 'name',
+          text: 'Compte'
+        },
+        {
+          value: 'currency.code',
+          text: 'Devise'
+        },
+        {
+          value: 'amount',
+          text: 'Montant'
+        },
+      ]
     }
   },
   computed: {
+    fileExtractName() {
+      return 'extraction-compte-tresorerie-' + this.formatDate('hh-mm-ss-dd-MM-yy', new Date)
+    }
   },
   methods: {
     onLaunchEdited(id) {
