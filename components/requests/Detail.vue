@@ -19,6 +19,16 @@
                 :class="badgeTypicon"
               ></em>
             </span>
+            <nuxt-link
+              v-if="canEdit"
+              :to="`/requests/inbox/edit/${slug}`"
+              class="float-right badge badge-info mx-2"
+            >
+              Modifier
+              <em
+                class="typcn typcn-pencil "
+              ></em>
+            </nuxt-link>
             <h3 class="card-title mb-0">Détail CRF</h3>
           </div>
           <div class="card-body">
@@ -204,7 +214,8 @@ export default {
       badgeStatut: null,
       requestStatus: null,
       badgeTypicon: null,
-      fieldComplateMessageConfirmation: 'statuts_conform'
+      fieldComplateMessageConfirmation: 'statuts_conform',
+      canEdit: false
     }
   },
   computed: {
@@ -457,7 +468,10 @@ export default {
   },
   watch: {
     currencies() {
-      this.$set(this.fields[9], 'items', this.currencies)
+      const index = this.fields.findIndex((field) => field.name == 'currency_id')
+      if (index > -1) {
+        this.$set(this.fields[index], 'items', this.currencies)
+      }
     },
     currentUserName() {
       this.$set(this.fields[0], 'value', this.currentUserName)
@@ -525,12 +539,23 @@ export default {
       this.badgeTypicon = this.typicons[this.entityEdited.statuts]
       this.loadingEntityEdited = false
       this.loadAccounts()
+      this.setCanEdit()
+      this.entityEdited.statuts = ''
     },
     loadAccounts() {
       this.loadAccountsByType({id: this.entityEdited.type_account_id})
     },
     goBack() {
       this.$router.replace(this.backLink)
+    },
+    setCanEdit() {
+      console.log('this.currentAdminId', this.currentAdminId);
+      console.log('this.entityEdited.admin_fund_requestor_id', this.entityEdited.admin_fund_requestor_id);
+      console.log('this.entityEdited.statuts', this.entityEdited.statuts);
+
+      if (this.entityEdited.admin_fund_requestor_id == this.currentAdminId && this.entityEdited.statuts === 'Non conforme') {
+        this.canEdit = true
+      }
     }
   },
   mounted() {
