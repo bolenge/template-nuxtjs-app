@@ -265,7 +265,7 @@
                     class="nav-link"
                     :class="setNavLinkActive('overview-finances')"
                   >
-                    Overview Financier
+                    Rapport Financier
                   </nuxt-link>
                 </li>
                 <li class="nav-item">
