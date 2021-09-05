@@ -188,10 +188,10 @@ export default {
       badges: {
         'Conforme': 'badge-success',
         'Non conforme': 'badge-danger',
-        'Approuvé': 'badge-success',
+        'Approuvé': 'badge-info',
         'Executé': 'badge-success',
         'Rejeté': 'badge-danger',
-        'En etude': 'badge-warning',
+        'En Cours': 'badge-warning',
       },
       typicons: {
         'Conforme': 'typcn-tick-outline',
@@ -199,7 +199,7 @@ export default {
         'Approuvé': 'typcn-input-checked',
         'Executé': 'typcn-tick',
         'Rejeté': 'typcn-cancel',
-        'En etude': 'typcn-time',
+        'En Cours': 'typcn-time',
       },
       badgeStatut: null,
       requestStatus: null,
@@ -450,7 +450,7 @@ export default {
       return fields
     },
     showValidationForm() {
-      return (this.requestStatuts === 'En etude' && this.isCompliance) ||
+      return (this.requestStatuts === 'En Cours' && this.isCompliance) ||
              (this.requestStatuts === 'Conforme' && this.isOfficeManager) ||
              (this.requestStatuts === 'Approuvé' && this.isCompliance)
     }
