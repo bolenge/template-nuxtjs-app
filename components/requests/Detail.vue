@@ -30,6 +30,7 @@
               ></em>
             </nuxt-link>
             <nuxt-link
+              v-if="requestExecuted && !loadingEntityEdited"
               :to="`/requests/print/${slug}`"
               class="float-right badge badge-info mx-2"
             >
