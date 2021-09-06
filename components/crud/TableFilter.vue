@@ -60,6 +60,7 @@
           <div class="input-group">
             <label for="search" class="mr-3 mt-2">Filtre : </label>
             <select
+              v-if="false"
               name="mounth"
               id="mounth"
               class="form-control form-control-sm mr-2"
