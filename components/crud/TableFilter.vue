@@ -26,7 +26,7 @@
 
           <download-csv
             v-if="extractData"
-            class="btn btn-info btn-sm mr-lg-3"
+            class="btn btn-info btn-sm mr-lg-3 cursor-pointer"
             :class="{'disabled btn-in-loading': !exportItems.length}"
             :data="exportItems"
             delimiter=";"
