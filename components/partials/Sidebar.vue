@@ -393,6 +393,6 @@ export default {
     font-size: 1.8em !important;
   }
   .menu-arrow {
-    margin-bottom: -10px;
+    margin-bottom: -9px;
   }
 </style>
