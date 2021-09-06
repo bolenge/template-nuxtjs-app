@@ -1,5 +1,6 @@
 export const state = () => ({
   fund_requests: [],
+  fund_requests_notification: [],
   inbox_fund_requests: [],
   loading: false
 })
@@ -7,6 +8,9 @@ export const state = () => ({
 export const mutations = {
   SET_FUND_REQUESTS(State, payload) {
     State.fund_requests = payload
+  },
+  SET_FUND_REQUESTS_NOTIFICATION(State, payload) {
+    State.fund_requests_notification = payload
   },
   SET_LOADING(State, payload) {
     State.loading = payload
@@ -22,6 +26,16 @@ export const actions = {
 
     this.$axios.get('fund_requests').then(({ data }) => {
       commit('SET_FUND_REQUESTS', data.results)
+    }).finally((_) => {
+      commit('SET_LOADING', false)
+    })
+  },
+
+  loadFundRequestsForNotification({ commit }) {
+    commit('SET_LOADING', true)
+
+    this.$axios.get('fund_requests').then(({ data }) => {
+      commit('SET_FUND_REQUESTS_NOTIFICATION', data.results)
     }).finally((_) => {
       commit('SET_LOADING', false)
     })

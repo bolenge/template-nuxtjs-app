@@ -1,6 +1,8 @@
 <template>
   <div class="content-wrapper">
-    <h4 class="font-weight-400 mb-4"><span class="typcn typcn-credit-card"></span> Encaissement</h4>
+    <div class="container-fluid">
+      <h4 class="font-weight-400 mb-4"><span class="typcn typcn-credit-card"></span> Encaissement</h4>
+    </div>
 
     <div class="row justify-content-center">
       <div class="col-lg-8 grid-margin stretch-card">
@@ -46,7 +48,16 @@ export default {
       },
       typeAccounts(state) {
         return state.type_account.type_accounts
-      }
+      },
+      natures(state) {
+        return state.nature.natures_for_collection
+      },
+      compteNatures(state) {
+        return state.compte_nature.compte_natures
+      },
+      subNatures(state) {
+        return state.sub_nature.sub_natures
+      },
     }),
     adminId() {
       return this.currentAdmin.id
@@ -62,6 +73,42 @@ export default {
     },
     fields() {
       return [
+        {
+          name: 'nature_id',
+          type: 'select',
+          required: false,
+          itemText: 'name',
+          items: this.natures,
+          label: 'Nature Op. Niv. 1',
+          childSync: 'sub_nature_id',
+          childItems: 'sub_natures',
+        },
+        {
+          name: 'sub_nature_id',
+          type: 'select',
+          required: false,
+          itemText: 'name',
+          items: this.subNatures,
+          label: 'Nature Op. Niv. 2',
+          childSync: 'compte_nature_id',
+          childItems: 'compte_natures',
+          objetEmpty: {
+            id: '',
+            name: 'Aucune nature op. (Niv. 2)'
+          }
+        },
+        {
+          name: 'compte_nature_id',
+          type: 'select',
+          required: false,
+          itemText: 'name',
+          items: this.compteNatures,
+          label: 'Compte Op. (Niv. 3)',
+          objetEmpty: {
+            id: '',
+            name: 'Aucun compte op. (Niv. 3)'
+          }
+        },
         {
           name: 'source',
           type: 'text',
@@ -118,7 +165,7 @@ export default {
           value: TYPE_TRANSACTION_COLLECTION
         },
       ]
-    }
+    },
   },
   watch: {
     currencies() {
@@ -127,11 +174,35 @@ export default {
     typeAccounts() {
       this.$set(this.fields[3], 'items', this.typeAccounts)
     },
+    natures() {
+      const index = this.fields.findIndex((field) => field.name == 'nature_id')
+
+      if (index > -1) {
+        this.$set(this.fields[index], 'items', this.natures)
+      }
+    },
+    compteNatures() {
+      const index = this.fields.findIndex((field) => field.name == 'compte_nature_id')
+
+      if (index > -1) {
+        this.$set(this.fields[index], 'items', this.compteNatures)
+      }
+    },
+    subNatures() {
+      const index = this.fields.findIndex((field) => field.name == 'sub_nature_id')
+
+      if (index > -1) {
+        this.$set(this.fields[index], 'items', this.subNatures)
+      }
+    },
   },
   methods: {
     ...mapActions({
       loadCurrencies: 'currency/load',
-      loadTypeAccounts: 'type_account/load'
+      loadTypeAccounts: 'type_account/load',
+      loadNatures: 'nature/loadNaturesForCollection',
+      loadCompteNatures: 'compte_nature/load',
+      loadSubNatures: 'sub_nature/load',
     }),
     onSubmit(entity) {
       this.entity = {}
@@ -141,6 +212,9 @@ export default {
   mounted() {
     this.loadCurrencies()
     this.loadTypeAccounts()
+    this.loadNatures()
+    this.loadCompteNatures()
+    this.loadSubNatures()
   }
 }
 </script>

@@ -169,14 +169,20 @@
           </li>
           <!-- End item Gestion courriers -->
 
-          <!-- Item Requête de fonds -->
+          <!-- Item Requête de fonds hasNotificationFundRequests -->
           <li
             class="nav-item"
             :class="setPageActive('requests')"
           >
             <a class="nav-link" data-toggle="collapse" href="#requests" aria-expanded="false" aria-controls="requests">
               <em class="typcn typcn-film menu-icon"></em>
-              <span class="menu-title">Requête de Fonds</span>
+              <span class="menu-title">
+                Requête de Fonds
+                <span
+                  v-if="hasNotificationFundRequests"
+                  class="badge badge-primary p-1"
+                >{{ ' ' }}</span>
+              </span>
               <em class="typcn typcn-chevron-right menu-arrow"></em>
             </a>
             <div class="collapse" id="requests">
@@ -209,6 +215,12 @@
                     :class="setNavLinkActive('synthesis-requests')"
                   >
                     Synthèse CRF
+                    <span
+                      v-if="countFundRequestsEnCours"
+                      class="badge badge-primary p-1"
+                    >
+                      {{ countFundRequestsEnCours }}
+                    </span>
                   </nuxt-link>
                 </li>
               </ul>
@@ -253,7 +265,7 @@
                     class="nav-link"
                     :class="setNavLinkActive('overview-finances')"
                   >
-                    Overview Financier
+                    Rapport Financier
                   </nuxt-link>
                 </li>
                 <li class="nav-item">
@@ -262,7 +274,7 @@
                     class="nav-link"
                     :class="setNavLinkActive('synthesis-finances')"
                   >
-                    Rapport Financier
+                    Avoirs en Compte
                   </nuxt-link>
                 </li>
               </ul>
@@ -312,6 +324,10 @@ export default {
       type: Number,
       default: 0
     },
+    countFundRequestsEnCours: {
+      type: Number,
+      default: 0
+    },
     countNoTransmittedCourriers: {
       type: Number,
       default: 0
@@ -337,6 +353,10 @@ export default {
     },
     hasNotificationCourriers() {
       return (this.countNewCourriers || this.countNoTransmittedCourriers) &&
+             (this.isSuperAdmin || this.isSimpleAdmin)
+    },
+    hasNotificationFundRequests() {
+      return (this.countFundRequestsEnCours) &&
              (this.isSuperAdmin || this.isSimpleAdmin)
     }
   },

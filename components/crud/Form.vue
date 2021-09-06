@@ -75,6 +75,7 @@
                   v-for="(item, it) in field.items"
                   :key="it"
                   :value="item.id"
+                  :selected="item.id === field.selected"
                 >
                   {{ item[field.itemText || 'name'] }}
                 </option>
@@ -94,6 +95,7 @@
                   v-for="(item, it) in field.items"
                   :key="it"
                   :value="item.id"
+                  :selected="item.id === field.selected"
                 >
                   {{ item[field.itemText || 'name'] }}
                 </option>

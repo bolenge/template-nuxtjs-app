@@ -29,15 +29,6 @@
                 class="typcn typcn-pencil "
               ></em>
             </nuxt-link>
-            <nuxt-link
-              :to="`/requests/print/${slug}`"
-              class="float-right badge badge-info mx-2"
-            >
-              Imprimer
-              <em
-                class="typcn typcn-printer"
-              ></em>
-            </nuxt-link>
             <h3 class="card-title mb-0">Détail CRF</h3>
           </div>
           <div class="card-body">

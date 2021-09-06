@@ -3,12 +3,14 @@ export default {
   computed: {
   },
   mounted() {
+    this.loadFundRequests()
     this.loadInboxCourriers()
     this.loadCourriersNoTransmitted()
     this.commitSetPageActive()
   },
   methods: {
     ...mapActions({
+      loadFundRequests: 'fund_request/loadFundRequestsForNotification',
       loadInboxCourriers: 'courrier/loadInboxCourriersAdmin',
       loadCourriersNoTransmitted: 'courrier/loadCourriersNoTransmitted',
     }),
