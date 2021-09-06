@@ -29,16 +29,17 @@
                 class="typcn typcn-pencil "
               ></em>
             </nuxt-link>
-            <nuxt-link
-              v-if="requestExecuted && !loadingEntityEdited"
-              :to="`/requests/print/${slug}`"
+            <a
+              v-if="requestExecuted && !loadingEntityEdited && synthesis"
+              :href="`/requests/print/${slug}`"
               class="float-right badge badge-info mx-2"
+              target="_blank"
             >
               Imprimer
               <em
                 class="typcn typcn-printer"
               ></em>
-            </nuxt-link>
+            </a>
             <h3 class="card-title mb-0">Détail CRF</h3>
           </div>
           <div class="card-body">
@@ -188,6 +189,10 @@ export default {
     title: {
       type: String,
       default: 'Synthèse CRF'
+    },
+    synthesis: {
+      type: Boolean,
+      default: false
     }
   },
   mixins: [Global, Account],
