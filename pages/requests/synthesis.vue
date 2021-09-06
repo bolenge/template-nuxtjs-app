@@ -8,10 +8,10 @@
         <TableFilter
           :headers="headers"
           model="fund_request"
-          :fileExtractName="fileExtractName"
           :buttonCreate="buttonCreate"
           :buttons="buttonsAction"
           :extractData="true"
+          :fileExtractName="fileExtractName"
           :fieldsExtract="fieldsExtract"
           @launchEdited="onLaunchEdited"
           @showed="onShowed"
