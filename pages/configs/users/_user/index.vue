@@ -174,6 +174,7 @@ export default {
     },
     async setEntityEdited() {
       this.entityEdited = await this.showAdmin({id: this.slug})
+      this.setFonctionWatching()
     },
     setRolesWatching() {
       let roles = this.roles
@@ -189,15 +190,27 @@ export default {
       }
 
       this.$set(this.fields[5], 'items', roles)
+    },
+    setFonctionWatching() {
+      let fonctions
+
+      if (this.entityEdited && this.entityEdited.role_id != ROLE_PLATINUM) {
+        fonctions = this.fonctions
+      }else {
+        fonctions = [{
+          id: '',
+          name: 'Aucune fonction pour ce rôle'
+        }]
+      }
+
+      this.$set(this.fields[6], 'items', fonctions)
     }
-  },
-  beforeMount() {
-    this.setEntityEdited()
   },
   mounted() {
     this.loadRoles()
     this.loadFonctions()
     this.loadDepartments()
+    this.setEntityEdited()
   }
 }
 </script>
