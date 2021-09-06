@@ -4,6 +4,9 @@
     model="transaction"
     actionLoad="loadCollectionTransactions"
     computedItems="collection_transactions"
+    :extractData="true"
+    :fileExtractName="fileExtractName"
+    :fieldsExtract="fieldsExtract"
   />
 </template>
 
@@ -26,13 +29,13 @@ export default {
           filterable: true
         },
         {
-          text: 'Compte',
-          value: 'compte_nature.name',
+          text: 'Nature OP (Niv. 1)',
+          value: 'sub_nature.nature.name',
           type: 'object',
           filterable: true
         },
         {
-          text: 'Regroupement Niveau 2',
+          text: 'Nature OP (Niv. 2)',
           value: 'sub_nature.name',
           type: 'object',
           filterable: true
@@ -55,10 +58,39 @@ export default {
           type: 'amount-money',
           filterable: true
         },
+      ],
+      fieldsExtract: [
+        {
+          text: 'Date',
+          value: 'created_at',
+        },
+        {
+          text: 'Nature OP (Niv. 1)',
+          value: 'sub_nature.nature.name',
+        },
+        {
+          text: 'Nature OP (Niv. 2)',
+          value: 'sub_nature.name',
+        },
+        {
+          text: 'Devise',
+          value: 'currency.code',
+        },
+        {
+          text: 'Montant',
+          value: 'amount',
+        },
+        {
+          text: 'Montant en USD',
+          value: 'usd',
+        },
       ]
     }
   },
   computed: {
+    fileExtractName() {
+      return 'extraction-rapport-fiancier-' + this.formatDate('hh-mm-ss-dd-MM-yy', new Date)
+    }
   },
   methods: {
     onLaunchEdited(id) {
