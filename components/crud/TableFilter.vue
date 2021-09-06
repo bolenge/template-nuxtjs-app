@@ -8,7 +8,7 @@
     </div>
     <div class="card-body">
       <div class="d-flex">
-        <div class="col-lg-8">
+        <div class="col-lg-7">
           <nuxt-link
             v-if="showButtonCreate"
             :to="buttonCreate.link"
@@ -56,9 +56,29 @@
             </button>
           </span>
         </div>
-        <div class="form-group col-4">
+        <div class="form-group col-5">
           <div class="input-group">
             <label for="search" class="mr-3 mt-2">Filtre : </label>
+            <select
+              name="mounth"
+              id="mounth"
+              class="form-control form-control-sm mr-2"
+              @change="filterByMounth"
+            >
+              <option value="#">Par Mois</option>
+              <option value="01">Janvier</option>
+              <option value="02">Févirier</option>
+              <option value="03">Mars</option>
+              <option value="04">Avril</option>
+              <option value="05">Mai</option>
+              <option value="06">Juin</option>
+              <option value="07">Juillet</option>
+              <option value="08">Aout</option>
+              <option value="09">Septembre</option>
+              <option value="10">Octobre</option>
+              <option value="11">Novemebre</option>
+              <option value="12">Décembre</option>
+            </select>
             <input
               v-model="search"
               type="search"
@@ -329,7 +349,7 @@ export default {
       offset: 0,
       limit: 10,
       initLimit: 10,
-      search: null
+      search: null,
     }
   },
   methods: {
@@ -407,6 +427,9 @@ export default {
       const className = this.trClassByCondition.class
       const condition = item[this.trClassByCondition.fieldCondition] == this.trClassByCondition.value
       return condition ? className : ''
+    },
+    filterByMounth(e) {
+      this.search = e.target.value
     }
   },
   computed: {
