@@ -39,3 +39,6 @@
 .font-size-13px {
   font-size: 13px !important;
 }
+.cursor-pointer {
+  cursor: pointer !important;
+}

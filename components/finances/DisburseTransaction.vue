@@ -5,6 +5,9 @@
     model="transaction"
     actionLoad="loadDisburseTransactions"
     computedItems="disburse_transactions"
+    :extractData="true"
+    :fileExtractName="fileExtractName"
+    :fieldsExtract="fieldsExtract"
   />
 </template>
 
@@ -69,15 +72,56 @@ export default {
           filterable: true
         },
         {
-          text: 'Status',
+          text: 'Statut',
           value: 'statuts',
           type: 'string',
           filterable: true
+        },
+      ],
+      fieldsExtract: [
+        {
+          text: 'Date',
+          value: 'created_at',
+        },
+        {
+          text: 'Nature Op. Niv. 2',
+          value: 'sub_nature.name',
+        },
+        {
+          text: 'Compte Op.',
+          value: 'compte_nature.name',
+        },
+        {
+          text: 'Bénéficiaire',
+          value: 'admin_beneficiary.user.name',
+        },
+        {
+          text: 'Devise',
+          value: 'currency.code',
+        },
+        {
+          text: 'Montant',
+          value: 'amount',
+        },
+        {
+          text: 'Montant en USD',
+          value: 'usd',
+        },
+        {
+          text: 'Compte Imputé',
+          value: 'account.name',
+        },
+        {
+          text: 'Statut',
+          value: 'statuts',
         },
       ]
     }
   },
   computed: {
+    fileExtractName() {
+      return 'extraction-decaissement-' + this.formatDate('hh-mm-ss-dd-MM-yy', new Date)
+    }
   },
   methods: {
     onLaunchEdited(id) {

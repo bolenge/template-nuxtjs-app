@@ -1,6 +1,7 @@
 <template>
   <Detail
     :slug="slug"
+    :synthesis="true"
   />
 </template>
 

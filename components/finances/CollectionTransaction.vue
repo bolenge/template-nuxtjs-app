@@ -1,10 +1,13 @@
 <template>
   <TableFilter
     title="Tableau des Encaissements"
-    :headers="headers"
     model="transaction"
     actionLoad="loadCollectionTransactions"
     computedItems="collection_transactions"
+    :headers="headers"
+    :extractData="true"
+    :fileExtractName="fileExtractName"
+    :fieldsExtract="fieldsExtract"
   />
 </template>
 
@@ -29,6 +32,12 @@ export default {
         {
           text: 'Initiateur',
           value: 'admin_initiator.user.name',
+          type: 'object',
+          filterable: true
+        },
+        {
+          text: 'Compte Op.',
+          value: 'compte_nature.name',
           type: 'object',
           filterable: true
         },
@@ -68,10 +77,51 @@ export default {
           type: 'amount-money',
           filterable: true
         },
+      ],
+      fieldsExtract: [
+        {
+          value: 'created_at',
+          text: 'Date'
+        },
+        {
+          value: 'admin_initiator.user.name',
+          text: 'Initiateur'
+        },
+        {
+          text: 'Compte Op.',
+          value: 'compte_nature.name',
+        },
+        {
+          value: 'source',
+          text: 'Source'
+        },
+        {
+          value: 'account.name',
+          text: 'Compte Approvisionné'
+        },
+        {
+          value: 'currency.code',
+          text: 'Devise'
+        },
+        {
+          value: 'amount',
+          text: 'Montant'
+        },
+        {
+          text: 'Taux',
+          value: 'rate',
+        },
+        {
+          text: 'Montant en USD',
+          value: 'usd',
+        },
       ]
     }
   },
   computed: {
+    fileExtractName() {
+      return 'extraction-encaissement-' + this.formatDate('hh-mm-ss-dd-MM-yy', new Date)
+    }
   },
   methods: {
     onLaunchEdited(id) {
