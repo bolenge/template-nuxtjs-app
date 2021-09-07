@@ -173,6 +173,24 @@
               <td>{{ item.amount.toLocaleString() }}</td>
               <td>{{ item.usd.toLocaleString() }}</td>
             </tr>
+
+            <tr
+              v-for="(item, i) in disburseTransactionsItemsFiltered"
+              :key="i+1+itemsPaginated.length"
+              :class="trClass(item)"
+              class="tr-table text-center"
+            >
+              <td
+                v-if="rowSpan[item.sub_nature.nature.id]"
+                :rowspan="rowSpan[item.sub_nature.nature.id]"
+              >
+                {{ item.sub_nature.nature.name }}
+              </td>
+              <td>{{ item.sub_nature.name }}</td>
+              <td>{{ item.currency.code }}</td>
+              <td>{{ item.amount.toLocaleString() }}</td>
+              <td>{{ item.usd.toLocaleString() }}</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -255,7 +273,7 @@ export default {
     },
     showPagination: {
       type: Boolean,
-      default: true
+      default: false
     },
     fileExtractName: {
       type: String,
@@ -274,7 +292,7 @@ export default {
       search: null,
       rowSpan: {},
       mounthValue: '',
-      yearValue: new Date().getFullYear()
+      yearValue: ''
     }
   },
   methods: {
@@ -282,10 +300,12 @@ export default {
       load(dispatch) {
         return dispatch(this.model + '/' + this.actionLoad)
       },
-      delete: 'crud/delete'
+      delete: 'crud/delete',
+      loadDisburseTransactions: 'transaction/loadDisburseTransactions'
     }),
     initItems() {
       this.load({id: this.payloadActionLoad})
+      this.loadDisburseTransactions()
     },
     onLaunchEdit(id) {
       this.$emit('launchEdited', id)
@@ -354,9 +374,8 @@ export default {
       return condition ? className : ''
     },
     filterByMounth(e) {
+      this.rowSpan = {}
       this.search = this.yearValue+'-'+this.mounthValue+'-'
-
-      console.log('this.this.items', this.itemsFiltered);
     },
     setRowSpan(id, rowspan) {
       this.rowSpan.push(id)
@@ -376,6 +395,9 @@ export default {
       itemsState(state) {
         const computedItems = this.computedItems || this.model+'s'
         return state[this.model][computedItems]
+      },
+      disburseTransactionsItems(state) {
+        return state.transaction.disburse_transactions
       }
     }),
     showButtonCreate() {
@@ -385,7 +407,11 @@ export default {
       return this.itemsFiltered.length
     },
     itemsPaginated() {
-      return this.itemsFiltered.slice(this.offset, this.limit)
+      if (this.showPagination) {
+        return this.itemsFiltered.slice(this.offset, this.limit)
+      }
+
+      return this.itemsFiltered
     },
     countItemsPaginated() {
       return this.itemsPaginated.length + this.offset
@@ -408,9 +434,26 @@ export default {
       return fields
     },
     itemsFiltered () {
-      const items = this.items
+      let items = this.items
       if (this.search) {
-        return items.filter((item) => {
+        items = items.filter((item) => {
+          if (item.created_at.split(this.search).length >= 2) {
+            return item
+          }
+        })
+      }
+
+      items.map((item) => {
+        this.rowSpan[item.sub_nature.nature.id] = this.rowSpan[item.sub_nature.nature.id] ? this.rowSpan[item.sub_nature.nature.id] + 1 : 1
+      })
+
+      return items
+    },
+    disburseTransactionsItemsFiltered() {
+      let items = this.disburseTransactionsItems
+
+      if (this.search) {
+        items = items.filter((item) => {
           if (item.created_at.split(this.search).length >= 2) {
             return item
           }
@@ -424,7 +467,9 @@ export default {
       return items
     },
     exportItems() {
-      return this.items.map((item) => {
+      const items = this.items.concat(this.disburseTransactionsItems)
+
+      return items.map((item) => {
         const result = {}
 
         for (const field of this.fieldsExtract) {
@@ -451,7 +496,6 @@ export default {
   },
   mounted() {
     this.initItems()
-    console.log('years', this.years);
   }
 }
 </script>
