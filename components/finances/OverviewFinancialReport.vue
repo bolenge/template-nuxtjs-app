@@ -1,5 +1,6 @@
 <template>
-  <TableFilter
+  <TableRapportFinancier
+    :counter="false"
     :headers="headers"
     model="transaction"
     actionLoad="loadCollectionTransactions"
@@ -13,26 +14,29 @@
 <script>
 import Global from '~/mixins/Global'
 import TableFilter from '@/components/crud/TableFilter'
+import TableRapportFinancier from './TableRapportFinancier'
 
 export default {
   mixins: [Global],
   components: {
-    TableFilter
+    TableFilter,
+    TableRapportFinancier
   },
   data () {
     return {
       headers: [
         {
-          text: 'Date',
+          text: '',
           value: 'created_at',
-          type: 'date',
+          type: 'string',
           filterable: true
         },
         {
           text: 'Nature OP (Niv. 1)',
           value: 'sub_nature.nature.name',
           type: 'object',
-          filterable: true
+          filterable: true,
+          colspan: 2
         },
         {
           text: 'Nature OP (Niv. 2)',
@@ -60,10 +64,6 @@ export default {
         },
       ],
       fieldsExtract: [
-        {
-          text: 'Date',
-          value: 'created_at',
-        },
         {
           text: 'Nature OP (Niv. 1)',
           value: 'sub_nature.nature.name',

@@ -60,13 +60,14 @@
           <div class="input-group">
             <label for="search" class="mr-3 mt-2">Filtre : </label>
             <select
-              v-if="false"
+              v-if="true"
+              v-model="mounthValue"
               name="mounth"
               id="mounth"
               class="form-control form-control-sm mr-2"
               @change="filterByMounth"
             >
-              <option value="#">Par Mois</option>
+              <option value="">Mois</option>
               <option value="01">Janvier</option>
               <option value="02">Févirier</option>
               <option value="03">Mars</option>
@@ -80,7 +81,25 @@
               <option value="11">Novemebre</option>
               <option value="12">Décembre</option>
             </select>
+            <select
+              v-if="true"
+              v-model="yearValue"
+              name="mounth"
+              id="mounth"
+              class="form-control form-control-sm mr-2"
+              @change="filterByMounth"
+            >
+              <option value="">Année</option>
+              <option
+                v-for="(year, y) in years"
+                :key="y"
+                :value="year"
+              >
+                {{ year }}
+              </option>
+            </select>
             <input
+              v-if="false"
               v-model="search"
               type="search"
               id="search"
@@ -88,7 +107,7 @@
               placeholder="Recherche..."
               aria-label="Search"
             />
-            <div class="input-group-append">
+            <div  v-if="false" class="input-group-append">
               <button class="btn btn-sm btn-light" type="button"><span class="typcn typcn-zoom"></span></button>
             </div>
           </div>
@@ -101,7 +120,7 @@
             <tr class="tr-table text-center">
               <th v-if="counter" scope="">#</th>
               <th
-                v-for="(head, i) in headers"
+                v-for="(head, i) in headersShower"
                 :key="i"
                 :id="i"
                 class="font-weight-600"
@@ -143,119 +162,16 @@
               :class="trClass(item)"
               class="tr-table text-center"
             >
-              <td v-if="counter">{{ offset + 1 + i}}</td>
               <td
-                v-for="(head, j) in headers"
-                :key="j"
-                :rowspan="head.colspan ? setRowSpan(head, item) : 1"
+                v-if="i == 0"
+                :rowspan="rowSpan[item.sub_nature.nature.id]"
               >
-                <!-- Image fields -->
-                <img
-                  v-if="head.type == 'image'"
-                  :src="`${API_BASE_URL}/${head.baseUrl}/${item[head.value]}`"
-                  alt="image"
-                  style="width: 30px;height: 30px;"
-                />
-                <!-- End image fields -->
-
-                <!-- Date fields -->
-                <span
-                  v-else-if="head.type == 'date'"
-                >
-                  {{ formatDate('dd/MM/yyyy', new Date(item[head.value])) }}
-                </span>
-                <!-- Date fields -->
-
-                <!-- Badge fields -->
-                <label
-                  v-else-if="head.type == 'badge'"
-                  class="badge"
-                  :class="head.types[item[head.value]]"
-                >
-                  {{ item[head.value] }}
-                </label>
-                <!-- Badge fields -->
-
-                <!-- Badge fields -->
-                <a
-                  v-else-if="head.type == 'attachment'"
-                  class="badge badge-info"
-                  :href="`${API_BASE_URL}/${head.baseUrl}/${item[head.value]}`"
-                  download="download"
-                  target="_blank"
-                >
-                  <span class="typcn typcn-attachment"></span>
-                </a>
-                <!-- Badge fields -->
-
-                <!-- Actions fields -->
-                <span
-                  v-else-if="head.type == 'actions'"
-                >
-                  <button
-                    v-if="buttons.edit"
-                    class="btn btn-sm btn-sm-action btn-info"
-                    @click="onLaunchEdit(item.id)"
-                  >
-                    <span class="typcn typcn-pencil"></span>
-                  </button>
-                  <button
-                    v-if="buttons.delete"
-                    class="btn btn-sm btn-sm-action btn-danger"
-                    @click="onDelete(item.id)"
-                  >
-                    <span class="typcn typcn-trash"></span>
-                  </button>
-                  <button
-                    v-if="buttons.show"
-                    class="btn btn-sm btn-sm-action btn-success"
-                    @click="onShow(item.id)"
-                  >
-                    <span class="typcn typcn-eye-outline"></span>
-                  </button>
-
-                  <span>
-                    <button
-                      v-for="(button,iB) in customButtons"
-                      :key="iB"
-                      class="btn btn-sm btn-sm-action"
-                      :class="button.type"
-                      type="button"
-                      @click="lauchCustomButtonEvent(button.event, item)"
-                    >
-                      <span
-                        class="typcn"
-                        :class="button.icon"
-                      ></span>
-                    </button>
-                  </span>
-                </span>
-                <!-- End Actions fields -->
-
-                <!-- Simple fields -->
-                <span v-else-if="head.type == 'object'">
-                  {{ getObject(item, head.value) }}
-                </span>
-                <!-- End Simple fields -->
-
-                <!-- Simple fields -->
-                <span v-else-if="head.type == 'amount-money'">
-                  {{ getItemMoney(item, head.value) }}
-                </span>
-                <!-- End Simple fields -->
-
-                <!-- Simple fields -->
-                <span v-else-if="head.defaultValue"  class="text-white">
-                  {{ head.defaultValue }}
-                </span>
-                <!-- End Simple fields -->
-
-                <!-- Simple fields -->
-                <span v-else>
-                  {{ item[head.value] || '---' }}
-                </span>
-                <!-- End Simple fields -->
+                {{ item.sub_nature.nature.name }}
               </td>
+              <td>{{ item.sub_nature.name }}</td>
+              <td>{{ item.currency.code }}</td>
+              <td>{{ item.amount.toLocaleString() }}</td>
+              <td>{{ item.usd.toLocaleString() }}</td>
             </tr>
           </tbody>
         </table>
@@ -356,7 +272,9 @@ export default {
       limit: 10,
       initLimit: 10,
       search: null,
-      rowSpan: {}
+      rowSpan: {},
+      mounthValue: '',
+      yearValue: new Date().getFullYear()
     }
   },
   methods: {
@@ -427,7 +345,7 @@ export default {
       this.offset = this.offset - this.initLimit
       this.limit = this.limit / 2
     },
-    lauchCustomButtonEvent(event, item) {;
+    lauchCustomButtonEvent(event, item) {
       this.$emit(event, item)
     },
     trClass(item) {
@@ -436,15 +354,14 @@ export default {
       return condition ? className : ''
     },
     filterByMounth(e) {
-      this.search = e.target.value
-    },
-    setRowSpan(head, item) {
-      const value = this.getObject(item, head.value, 'string', '')
-      if (value) {
-        this.rowSpan[value] = this.rowSpan[value] ? this.rowSpan[value] + 1 : 1
-      }
+      this.search = this.yearValue+'-'+this.mounthValue+'-'
 
-      return this.rowSpan[value]
+      console.log('this.this.items', this.itemsFiltered);
+    },
+    setRowSpan(id, rowspan) {
+      this.rowSpan.push(id)
+
+      return rowspan
     }
   },
   computed: {
@@ -491,21 +408,20 @@ export default {
       return fields
     },
     itemsFiltered () {
+      const items = this.items
       if (this.search) {
-        const regex = new RegExp(this.search, 'ig')
-
-        return this.items.filter((item) => {
-          for (const filter of this.fieldsFilterable) {
-            const value = this.getObject(item, filter)
-
-            if (regex.test(value)) {
-              return item
-            }
+        return items.filter((item) => {
+          if (item.created_at.split(this.search).length >= 2) {
+            return item
           }
         })
       }
 
-      return this.items
+      items.map((item) => {
+        this.rowSpan[item.sub_nature.nature.id] = this.rowSpan[item.sub_nature.nature.id] ? this.rowSpan[item.sub_nature.nature.id] + 1 : 1
+      })
+
+      return items
     },
     exportItems() {
       return this.items.map((item) => {
@@ -517,10 +433,25 @@ export default {
 
         return result
       })
+    },
+    years() {
+      const years = []
+      let currentYear = new Date().getFullYear()
+
+      while (currentYear >= 2020) {
+        years.push(currentYear)
+        currentYear--
+      }
+
+      return years
+    },
+    headersShower() {
+      return this.headers.filter((head) => head.text)
     }
   },
   mounted() {
     this.initItems()
+    console.log('years', this.years);
   }
 }
 </script>
