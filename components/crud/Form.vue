@@ -48,13 +48,14 @@
                 :id="field.name"
                 :required="field.required"
                 style="height: 39px;"
+                :disabled="field.disabled"
                 @change="onChangeSyncerField"
               >
                 <option
                   v-for="(item, it) in field.items"
                   :key="it"
                   :value="item.id"
-                  :selected="item.id === field.selected"
+                  :selected="item.id == field.selected"
                 >
                   {{ item[field.itemText || 'name'] }}
                 </option>
@@ -68,6 +69,7 @@
                 class="form-control"
                 :id="field.name"
                 :required="field.required"
+                :disabled="field.disabled"
                 style="height: 39px;"
                 @change="onSyncParentChildren(field)"
               >
@@ -89,6 +91,7 @@
                 class="form-control"
                 :id="field.name"
                 :required="field.required"
+                :disabled="field.disabled"
                 style="height: 39px;"
               >
                 <option
@@ -334,6 +337,10 @@ export default {
         if (field.type === 'select') {
           if (field.syncField !== undefined) {
             this.syncField = field.syncField
+          }
+
+          if (field.selected) {
+            this.form[field.name] = field.selected
           }
 
           if (field.childSync) {
