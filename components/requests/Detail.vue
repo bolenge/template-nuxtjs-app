@@ -251,7 +251,8 @@ export default {
         return state.sub_nature.sub_natures
       },
       natures(state) {
-        return state.nature.natures
+        const natures = state.nature.natures
+        return natures.length ? natures.filter((nature) => nature.id != 1) : natures
       },
       compteNatures(state) {
         return state.compte_nature.compte_natures
