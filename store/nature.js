@@ -1,5 +1,6 @@
 export const state = () => ({
   natures: [],
+  nature: {},
   natures_for_collection: [],
   loading: false
 })
@@ -7,6 +8,9 @@ export const state = () => ({
 export const mutations = {
   SET_NATURES(State, payload) {
     State.natures = payload
+  },
+  SET_NATURE(State, payload) {
+    State.nature = payload
   },
   SET_NATURES_FOR_COLLECTION(State, payload) {
     State.natures_for_collection = payload
@@ -37,10 +41,11 @@ export const actions = {
       commit('SET_LOADING', false)
     })
   },
-  show (_, payload) {
+  show({ commit }, payload) {
     return new Promise((resolve, reject) => {
       this.$axios.get(`natures/${payload.id}`)
         .then(({ data }) => {
+          commit('SET_NATURE', data.results)
           resolve(data.results)
         })
         .catch((error) => {

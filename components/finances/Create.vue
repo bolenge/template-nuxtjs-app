@@ -52,13 +52,13 @@ export default {
       natures(state) {
         return state.nature.natures_for_collection
       },
-      compteNatures(state) {
-        return state.compte_nature.compte_natures
-      },
-      subNatures(state) {
-        return state.sub_nature.sub_natures
-      },
     }),
+    subNatures() {
+      return this.natures[0].sub_natures
+    },
+    compteNatures() {
+      return this.natures[0].compte_natures
+    },
     adminId() {
       return this.currentAdmin.id
     },
@@ -79,9 +79,11 @@ export default {
           required: false,
           itemText: 'name',
           items: this.natures,
+          selected: 1,
           label: 'Nature Op. Niv. 1',
           childSync: 'sub_nature_id',
           childItems: 'sub_natures',
+          disabled: true
         },
         {
           name: 'sub_nature_id',
@@ -180,19 +182,17 @@ export default {
       if (index > -1) {
         this.$set(this.fields[index], 'items', this.natures)
       }
-    },
-    compteNatures() {
-      const index = this.fields.findIndex((field) => field.name == 'compte_nature_id')
 
-      if (index > -1) {
-        this.$set(this.fields[index], 'items', this.compteNatures)
+      const indexSubNature = this.fields.findIndex((field) => field.name == 'sub_nature_id'),
+            indexCompteNature = this.fields.findIndex((field) => field.name == 'compte_nature_id')
+
+      if (indexSubNature > -1) {
+        console.log('this.natures[0].sub_natures', this.natures[0].sub_natures);
+        this.$set(this.fields[indexSubNature], 'items', this.natures[0].sub_natures)
       }
-    },
-    subNatures() {
-      const index = this.fields.findIndex((field) => field.name == 'sub_nature_id')
 
-      if (index > -1) {
-        this.$set(this.fields[index], 'items', this.subNatures)
+      if (indexCompteNature > -1) {
+        this.$set(this.fields[indexCompteNature], 'items', this.compteNatures)
       }
     },
   },
