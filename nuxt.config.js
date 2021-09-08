@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://192.168.43.74:8000'
+const API_BASE_URL = 'http://localhost:8000'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
