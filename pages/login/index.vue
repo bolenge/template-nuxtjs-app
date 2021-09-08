@@ -6,7 +6,7 @@
           <div class="col-sm-3 mx-auto">
             <div class="auth-form-light text-left py-5 px-3 px-lg-4">
               <div class="brand-logo text-center">
-                <img src="/images/one-touch-logo.png" alt="Logo" />
+                <img src="/images/logo-neo-touch.png" alt="Logo" />
               </div>
 
               <form class="pt-3" @submit.prevent="loginUser">

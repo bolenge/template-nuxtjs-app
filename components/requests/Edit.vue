@@ -1,21 +1,33 @@
 <template>
   <div class="content-wrapper">
     <div class="container-fluid">
-      <h2 class="title mb-4"><span class="typcn typcn-film"></span> Detail de la requête de fonds</h2>
+      <h4 class="font-weight-300 mb-4"><span class="typcn typcn-film"></span> Edition CRF</h4>
+      <button @click="goBack" class="btn btn-sm btn-info mb-2">&#8592; Retour</button>
     </div>
 
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-lg-8 grid-margin stretch-card">
+        <div
+          v-if="!entityEdited"
+          class="card"
+        >
+          <div class="card-header">
+            <h3 class="card-title text-normal text-center mb-0 font-weight-400">Edition CRF</h3>
+          </div>
+          <div class="card-body">
+            <h4 class="text-center">Chargement...</h4>
+          </div>
+        </div>
         <!-- Form create fund_requests -->
         <Edit
+          v-else
           api="fund_requests"
           model="fund_request"
-          title="Detail de la requete de fonds"
+          title="Edition CRF"
           :fields="fields"
           :entity="entityEdited"
           :formRow="true"
           :updateConfirmation="updateConfirmation"
-          fieldComplateMessageConfirmation="statuts_conform"
           @submitted="onSubmit"
         />
         <!-- End Form create fund_requests -->
@@ -38,7 +50,11 @@ export default {
     slug: {
       type: Number,
       required: true
-    }
+    },
+    backLink: {
+      type: String,
+      default: '/requests/synthesis'
+    },
   },
   mixins: [Global, Account],
   components: {
@@ -49,8 +65,8 @@ export default {
       entity: {},
       entityEdited: null,
       updateConfirmation: {
-        title: 'Conformité',
-        message: 'Cette Requête est-elle'
+        title: 'Edition',
+        message: 'Êtes-vous sûr d\'enregistrer les modifications ?'
       }
     }
   },
@@ -109,7 +125,7 @@ export default {
       return false
     },
     fields() {
-      let fields = [
+      return [
         {
           name: 'requestor',
           type: 'text',
@@ -177,129 +193,14 @@ export default {
           items: this.currencies,
           label: 'Devise'
         },
+        {
+          name: 'statuts',
+          type: 'hidden',
+          required: false,
+          label: '',
+          value: 'En Cours'
+        },
       ]
-
-      if (this.currentAdminConnected) {
-        if (this.currentAdminConnected.fonction) {
-          const isOfficeDirector = this.currentAdminConnected.fonction.name === 'Directrice Bureau' || this.currentAdminConnected.fonction.name === 'Directeur Bureau'
-          const isCompliance = this.currentAdminConnected.fonction.name === 'Conformité'
-
-          if (isOfficeDirector || isCompliance) {
-            fields = fields.concat([
-              {
-                name: 'rate',
-                type: 'number',
-                required: false,
-                label: 'Taux',
-              },
-              {
-                name: 'type_account_id',
-                type: 'select',
-                required: false,
-                itemText: 'name',
-                items: this.typeAccounts,
-                label: 'Mode de paiement'
-              },
-              {
-                name: 'nature_id',
-                type: 'select',
-                required: false,
-                itemText: 'name',
-                items: this.natures,
-                label: 'Nature Op. Niv. 1',
-                childSync: 'sub_nature_id',
-                childItems: 'sub_natures',
-              },
-              {
-                name: 'sub_nature_id',
-                type: 'select',
-                required: false,
-                itemText: 'name',
-                items: this.subNatures,
-                label: 'Nature Op. Niv. 2',
-                childSync: 'compte_nature_id',
-                childItems: 'compte_natures',
-                objetEmpty: {
-                  id: '',
-                  name: 'Aucune nature op. (Niv. 2)'
-                }
-              },
-              {
-                name: 'compte_nature_id',
-                type: 'select',
-                required: false,
-                itemText: 'name',
-                items: this.compteNatures,
-                label: 'Compte Op. (Niv. 3)',
-                objetEmpty: {
-                  id: '',
-                  name: 'Aucun compte op. (Niv. 3)'
-                }
-              },
-              {
-                name: 'statuts_conform',
-                type: 'select',
-                required: true,
-                label: 'Conformité',
-                items: [
-                  {
-                    id: 'Conforme',
-                    name: 'Conforme'
-                  },
-                  {
-                    id: 'Non conforme',
-                    name: 'Non conforme'
-                  }
-                ]
-              },
-              {
-                name: 'observation',
-                type: 'textarea',
-                required: false,
-                label: 'Observation',
-                colClass: 'col-lg-12'
-              },
-            ])
-          }
-
-          if (isOfficeDirector || (isCompliance && this.hasApproveStatus)) {
-            fields.push({
-              name: 'statuts_approve',
-              type: 'select',
-              required: true,
-              label: 'Approbation',
-              items: [
-                {
-                  id: 'Approuvé',
-                  name: 'Approuvé'
-                },
-                {
-                  id: 'Rejeté',
-                  name: 'Rejeté'
-                }
-              ]
-            })
-
-            this.updateConfirmation.title = 'Approbation'
-            this.updateConfirmation.message = 'Etes-vous sur de votre attribution d\'approbation ?'
-
-            if (this.hasApproveStatus === 'Approuvé') {
-              fields.push({
-                name: 'account_id',
-                type: 'select',
-                required: true,
-                label: 'Compte à débuter',
-                items: this.accounts
-              })
-
-              this.updateConfirmation.title = 'Exécution paiement'
-              this.updateConfirmation.message = 'Etes-vous d\'effectuer le paiement de cette requête ?'
-            }
-          }
-        }
-      }
-
-      return fields
     },
   },
   watch: {
@@ -352,14 +253,20 @@ export default {
     }),
     onSubmit(entity) {
       this.entity = {}
-      this.$router.replace('/requests/synthesis')
+      this.$router.replace('/requests/inbox')
     },
     async setEntityEdited() {
       this.entityEdited = await this.showFundRequest({id: this.slug})
+      this.entityEdited.statuts = 'En Cours'
+      this.entityEdited.statuts_conform = ''
+      this.entityEdited.statuts_approve = ''
       this.loadAccounts()
     },
     loadAccounts() {
       this.loadAccountsByType({id: this.entityEdited.type_account_id})
+    },
+    goBack() {
+      this.$router.replace(this.backLink)
     }
   },
   mounted() {

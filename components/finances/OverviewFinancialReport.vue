@@ -1,38 +1,45 @@
 <template>
-  <TableFilter
+  <TableRapportFinancier
+    :counter="false"
     :headers="headers"
     model="transaction"
     actionLoad="loadCollectionTransactions"
     computedItems="collection_transactions"
+    :extractData="true"
+    :fileExtractName="fileExtractName"
+    :fieldsExtract="fieldsExtract"
   />
 </template>
 
 <script>
 import Global from '~/mixins/Global'
 import TableFilter from '@/components/crud/TableFilter'
+import TableRapportFinancier from './TableRapportFinancier'
 
 export default {
   mixins: [Global],
   components: {
-    TableFilter
+    TableFilter,
+    TableRapportFinancier
   },
   data () {
     return {
       headers: [
         {
-          text: 'Date',
+          text: '',
           value: 'created_at',
-          type: 'date',
+          type: 'string',
           filterable: true
         },
         {
-          text: 'Compte',
-          value: 'compte_nature.name',
+          text: 'Nature OP (Niv. 1)',
+          value: 'sub_nature.nature.name',
           type: 'object',
-          filterable: true
+          filterable: true,
+          colspan: 2
         },
         {
-          text: 'Regroupement Niveau 2',
+          text: 'Nature OP (Niv. 2)',
           value: 'sub_nature.name',
           type: 'object',
           filterable: true
@@ -55,10 +62,35 @@ export default {
           type: 'amount-money',
           filterable: true
         },
+      ],
+      fieldsExtract: [
+        {
+          text: 'Nature OP (Niv. 1)',
+          value: 'sub_nature.nature.name',
+        },
+        {
+          text: 'Nature OP (Niv. 2)',
+          value: 'sub_nature.name',
+        },
+        {
+          text: 'Devise',
+          value: 'currency.code',
+        },
+        {
+          text: 'Montant',
+          value: 'amount',
+        },
+        {
+          text: 'Montant en USD',
+          value: 'usd',
+        },
       ]
     }
   },
   computed: {
+    fileExtractName() {
+      return 'extraction-rapport-fiancier-' + this.formatDate('hh-mm-ss-dd-MM-yy', new Date)
+    }
   },
   methods: {
     onLaunchEdited(id) {

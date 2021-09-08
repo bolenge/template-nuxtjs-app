@@ -89,10 +89,10 @@ export default {
           types: {
             'Conforme': 'badge-success',
             'Non conforme': 'badge-danger',
-            'Approuvé': 'badge-success',
+            'Approuvé': 'badge-info',
             'Executé': 'badge-success',
             'Rejeté': 'badge-danger',
-            'En etude': 'badge-warning',
+            'En Cours': 'badge-warning',
           },
           filterable: true
         },

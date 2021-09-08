@@ -1,24 +1,26 @@
 <template>
-  <Detail
+  <PrintCRF
     :slug="slug"
-    :synthesis="true"
+    backLink="/requests/synthesis"
+    title="Mes Requêtes"
   />
 </template>
 
 <script>
-import Detail from '~/components/requests/Detail'
+import PrintCRF from '~/components/requests/PrintCRF'
 import Global from '~/mixins/Global'
 
 export default {
+  layout: 'login',
   middleware: 'auth',
   head() {
     return {
-      title: 'Detail d\'une requete de fonds'
+      title: 'Detail d\'un CRF'
     }
   },
   mixins: [Global],
   components: {
-    Detail
+    PrintCRF
   },
   asyncData ({ params }) {
     const slug = +params.request

@@ -8,10 +8,10 @@
         <TableFilter
           :headers="headers"
           model="fund_request"
-          :fileExtractName="fileExtractName"
           :buttonCreate="buttonCreate"
           :buttons="buttonsAction"
           :extractData="true"
+          :fileExtractName="fileExtractName"
           :fieldsExtract="fieldsExtract"
           @launchEdited="onLaunchEdited"
           @showed="onShowed"
@@ -88,10 +88,10 @@ export default {
           types: {
             'Conforme': 'badge-success',
             'Non conforme': 'badge-danger',
-            'Approuvé': 'badge-success',
+            'Approuvé': 'badge-info',
             'Executé': 'badge-success',
             'Rejeté': 'badge-danger',
-            'En etude': 'badge-warning',
+            'En Cours': 'badge-warning',
           },
           filterable: true
         },

@@ -1,10 +1,5 @@
 <template>
   <div class="content-wrapper">
-    <div class="container-fluid">
-      <h4 class="font-weight-300 mb-4"><span class="typcn typcn-film"></span> {{ title }}</h4>
-      <button @click="goBack" class="btn btn-sm btn-info mb-2">&#8592; Retour</button>
-    </div>
-
     <div class="row justify-content-center">
       <div class="col-lg-8 grid-margin stretch-card">
         <div class="card">
@@ -19,27 +14,16 @@
                 :class="badgeTypicon"
               ></em>
             </span>
-            <nuxt-link
-              v-if="canEdit"
-              :to="`/requests/inbox/edit/${slug}`"
-              class="float-right badge badge-info mx-2"
-            >
-              Modifier
-              <em
-                class="typcn typcn-pencil "
-              ></em>
-            </nuxt-link>
-            <a
-              v-if="requestExecuted && !loadingEntityEdited && synthesis"
-              :href="`/requests/print/${slug}`"
-              class="float-right badge badge-info mx-2"
-              target="_blank"
+            <span
+              v-if="showPrint"
+              class="float-right badge badge-info mx-2 cursor-pointer"
+              @click="printCRF"
             >
               Imprimer
               <em
                 class="typcn typcn-printer"
               ></em>
-            </a>
+            </span>
             <h3 class="card-title mb-0">Détail CRF</h3>
           </div>
           <div class="card-body">
@@ -189,10 +173,6 @@ export default {
     title: {
       type: String,
       default: 'Synthèse CRF'
-    },
-    synthesis: {
-      type: Boolean,
-      default: false
     }
   },
   mixins: [Global, Account],
@@ -230,7 +210,8 @@ export default {
       requestStatus: null,
       badgeTypicon: null,
       fieldComplateMessageConfirmation: 'statuts_conform',
-      canEdit: false
+      canEdit: false,
+      showPrint: false
     }
   },
   computed: {
@@ -556,6 +537,7 @@ export default {
       this.loadAccounts()
       this.setCanEdit()
       this.entityEdited.statuts = ''
+      this.showPrint = true
     },
     loadAccounts() {
       this.loadAccountsByType({id: this.entityEdited.type_account_id})
@@ -564,13 +546,18 @@ export default {
       this.$router.replace(this.backLink)
     },
     setCanEdit() {
-      console.log('this.currentAdminId', this.currentAdminId);
-      console.log('this.entityEdited.admin_fund_requestor_id', this.entityEdited.admin_fund_requestor_id);
-      console.log('this.entityEdited.statuts', this.entityEdited.statuts);
-
       if (this.entityEdited.admin_fund_requestor_id == this.currentAdminId && this.entityEdited.statuts === 'Non conforme') {
         this.canEdit = true
       }
+    },
+    printCRF() {
+      this.showPrint = false
+
+      setTimeout(() => {
+        window.print()
+
+        this.showPrint = true
+      }, 1000)
     }
   },
   mounted() {

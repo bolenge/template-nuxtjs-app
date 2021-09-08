@@ -31,6 +31,8 @@ import { mapState, mapActions } from 'vuex'
 import Global from '~/mixins/Global'
 import Edit from '~/components/crud/Edit'
 
+const ROLE_PLATINUM = 3
+
 export default {
   middleware: 'auth',
   head() {
@@ -88,14 +90,20 @@ export default {
           type: 'select',
           required: true,
           label: 'Rôle',
-          items: this.roles
+          items: this.roles,
+          childSync: 'fonction_id',
+          childItems: 'fonctions',
         },
         {
           name: 'fonction_id',
           type: 'select',
           required: false,
           label: 'Fonction',
-          items: this.fonctions
+          items: [],
+          objetEmpty: {
+            id: '',
+            name: 'Aucune fonction pour ce rôle'
+          }
         },
         {
           name: 'department_id',
@@ -140,11 +148,11 @@ export default {
     }
   },
   watch: {
-    roles() {
-      this.$set(this.fields[5], 'items', this.roles)
-    },
     fonctions() {
-      this.$set(this.fields[6], 'items', this.fonctions)
+      this.setRolesWatching()
+    },
+    roles() {
+      this.setRolesWatching()
     },
     departments() {
       this.$set(this.fields[7], 'items', this.departments)
@@ -166,15 +174,43 @@ export default {
     },
     async setEntityEdited() {
       this.entityEdited = await this.showAdmin({id: this.slug})
+      this.setFonctionWatching()
+    },
+    setRolesWatching() {
+      let roles = this.roles
+
+      if (roles) {
+        if (this.fonctions) {
+          roles = roles.map((role) => {
+            role.fonctions = role.id != ROLE_PLATINUM ? this.fonctions : []
+
+            return role
+          })
+        }
+      }
+
+      this.$set(this.fields[5], 'items', roles)
+    },
+    setFonctionWatching() {
+      let fonctions
+
+      if (this.entityEdited && this.entityEdited.role_id != ROLE_PLATINUM) {
+        fonctions = this.fonctions
+      }else {
+        fonctions = [{
+          id: '',
+          name: 'Aucune fonction pour ce rôle'
+        }]
+      }
+
+      this.$set(this.fields[6], 'items', fonctions)
     }
-  },
-  beforeMount() {
-    this.setEntityEdited()
   },
   mounted() {
     this.loadRoles()
     this.loadFonctions()
     this.loadDepartments()
+    this.setEntityEdited()
   }
 }
 </script>

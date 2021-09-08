@@ -1,24 +1,24 @@
 <template>
-  <Detail
+  <Edit
     :slug="slug"
-    :synthesis="true"
+    backLink="/requests/inbox"
   />
 </template>
 
 <script>
-import Detail from '~/components/requests/Detail'
+import Edit from '~/components/requests/Edit'
 import Global from '~/mixins/Global'
 
 export default {
   middleware: 'auth',
   head() {
     return {
-      title: 'Detail d\'une requete de fonds'
+      title: 'Edition CRF'
     }
   },
   mixins: [Global],
   components: {
-    Detail
+    Edit
   },
   asyncData ({ params }) {
     const slug = +params.request
@@ -29,7 +29,7 @@ export default {
       return 'requests'
     },
     currentNavLink() {
-      return 'synthesis-requests'
+      return 'inbox-requests'
     },
   }
 }
