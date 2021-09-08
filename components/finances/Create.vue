@@ -54,10 +54,10 @@ export default {
       },
     }),
     subNatures() {
-      return this.natures[0].sub_natures
+      return this.natures.length ? this.natures[0].sub_natures : []
     },
     compteNatures() {
-      return this.natures[0].compte_natures
+      return this.natures.length ? this.natures[0].compte_natures : []
     },
     adminId() {
       return this.currentAdmin.id
@@ -133,7 +133,7 @@ export default {
         },
         {
           name: 'rate',
-          type: 'number',
+          type: 'text',
           required: false,
           label: 'Taux',
         },
@@ -171,10 +171,18 @@ export default {
   },
   watch: {
     currencies() {
-      this.$set(this.fields[1], 'items', this.currencies)
+      const index = this.fields.findIndex((field) => field.name == 'currency_id')
+
+      if (index > -1) {
+        this.$set(this.fields[index], 'items', this.currencies)
+      }
     },
     typeAccounts() {
-      this.$set(this.fields[3], 'items', this.typeAccounts)
+      const index = this.fields.findIndex((field) => field.name == 'type_account_id')
+
+      if (index > -1) {
+        this.$set(this.fields[index], 'items', this.typeAccounts)
+      }
     },
     natures() {
       const index = this.fields.findIndex((field) => field.name == 'nature_id')
