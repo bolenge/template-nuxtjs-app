@@ -9,13 +9,15 @@
                 <img src="/images/logo-neo-touch.png" alt="Logo" />
               </div>
 
-              <form class="pt-3" @submit.prevent="loginUser">
+              <form class="pt-3" @submit.prevent="loginUser" autocomplete="on">
                 <div class="form-group">
                   <input
                     v-model="form.email"
                     type="email"
                     class="form-control form-control-sm font-weight-300 font-size-13px"
                     placeholder="Email"
+                    autocomplete="on"
+                    name="email"
                   />
                 </div>
                 <div class="form-group">
@@ -24,6 +26,7 @@
                     type="password"
                     class="form-control form-control-sm font-weight-300 font-size-13px"
                     placeholder="Mot de passe"
+                    name="email"
                   />
                 </div>
 
