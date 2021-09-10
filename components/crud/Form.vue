@@ -9,7 +9,10 @@
           {{ description }}
         </p>
     </div>
-    <div class="card-body pt-0">
+    <div
+      class="card-body pt-0"
+      :class="classCardBody"
+    >
       <form class="forms-sample" @submit.prevent="onSubmit" autocomplete="off">
         <div :class="{'row': formRow}">
           <div
@@ -293,6 +296,10 @@ export default {
     formRow: {
       type: Boolean,
       default: false
+    },
+    classCardBody: {
+      type: String,
+      default: ''
     }
   },
   data() {

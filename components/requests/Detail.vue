@@ -153,6 +153,7 @@
         <Edit
           api="fund_requests"
           model="fund_request"
+          classCardBody="bg-mutted"
           :title="updateConfirmation.title"
           :fields="fields"
           :entity="entityEdited"

@@ -8,6 +8,13 @@
             </button>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+            <ul class="navbar-nav navbar-nav-center w-100">
+                <li class="nav-item text-center w-100">
+                    <a class="nav-link font-weight-400 text-uppercase" href="#">
+                        NOM DE L'ENTREPRISE
+                    </a>
+                </li>
+            </ul>
             <ul class="navbar-nav mr-lg-2">
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
