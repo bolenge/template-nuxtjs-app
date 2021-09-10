@@ -30,21 +30,21 @@ export default {
           filterable: true
         },
         {
-          text: 'Nature Op. Niv. 2',
+          text: 'Nature Op. Niv. 3',
           value: 'sub_nature.name',
           type: 'object',
           filterable: true
         },
         {
-          text: 'Compte Op.',
+          text: 'Compte Op. (Niv. 4)',
           value: 'compte_nature.name',
           type: 'object',
           filterable: true
         },
         {
           text: 'Bénéficiaire',
-          value: 'admin_beneficiary.user.name',
-          type: 'object',
+          value: 'beneficiary',
+          type: 'string',
           filterable: true
         },
         {
@@ -72,9 +72,9 @@ export default {
           filterable: true
         },
         {
-          text: 'Statut',
-          value: 'statuts',
-          type: 'string',
+          text: 'Initiateur',
+          value: 'admin_initiator.user.name',
+          type: 'object',
           filterable: true
         },
       ],
