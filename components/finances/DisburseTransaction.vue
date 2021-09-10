@@ -1,6 +1,6 @@
 <template>
   <TableFilter
-    title="Tableau des Désencaissements"
+    title="Tableau des Décaissements"
     :headers="headers"
     model="transaction"
     actionLoad="loadDisburseTransactions"
