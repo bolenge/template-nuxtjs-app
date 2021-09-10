@@ -64,36 +64,37 @@
               v-model="mounthValue"
               name="mounth"
               id="mounth"
-              class="form-control form-control-sm mr-2"
+              class="form-control form-control-sm mr-2 text-center"
               @change="filterByMounth"
             >
-              <option value="">Mois</option>
-              <option value="01">Janvier</option>
-              <option value="02">Févirier</option>
-              <option value="03">Mars</option>
-              <option value="04">Avril</option>
-              <option value="05">Mai</option>
-              <option value="06">Juin</option>
-              <option value="07">Juillet</option>
-              <option value="08">Aout</option>
-              <option value="09">Septembre</option>
-              <option value="10">Octobre</option>
-              <option value="11">Novemebre</option>
-              <option value="12">Décembre</option>
+              <option class="text-center" value="">Mois</option>
+              <option class="text-center" value="01">Janvier</option>
+              <option class="text-center" value="02">Février</option>
+              <option class="text-center" value="03">Mars</option>
+              <option class="text-center" value="04">Avril</option>
+              <option class="text-center" value="05">Mai</option>
+              <option class="text-center" value="06">Juin</option>
+              <option class="text-center" value="07">Juillet</option>
+              <option class="text-center" value="08">Aout</option>
+              <option class="text-center" value="09">Septembre</option>
+              <option class="text-center" value="10">Octobre</option>
+              <option class="text-center" value="11">Novembre</option>
+              <option class="text-center" value="12">Décembre</option>
             </select>
             <select
               v-if="true"
               v-model="yearValue"
               name="mounth"
               id="mounth"
-              class="form-control form-control-sm mr-2"
-              @change="filterByMounth"
+              class="form-control form-control-sm mr-2 text-center"
+              @change="filterByYear"
             >
-              <option value="">Année</option>
+              <option class="text-center" value="">Année</option>
               <option
                 v-for="(year, y) in years"
                 :key="y"
                 :value="year"
+                class="text-center"
               >
                 {{ year }}
               </option>
@@ -376,6 +377,10 @@ export default {
     filterByMounth(e) {
       this.rowSpan = {}
       this.search = this.yearValue+'-'+this.mounthValue+'-'
+    },
+    filterByYear(e) {
+      this.rowSpan = {}
+      this.search = this.yearValue+'-'
     },
     setRowSpan(id, rowspan) {
       this.rowSpan.push(id)
