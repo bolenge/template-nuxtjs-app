@@ -30,27 +30,21 @@ export default {
           filterable: true
         },
         {
-          text: 'Initiateur',
-          value: 'admin_initiator.user.name',
+          text: 'Nature Op. Niv. 3',
+          value: 'sub_nature.name',
           type: 'object',
           filterable: true
         },
         {
-          text: 'Compte Op.',
+          text: 'Compte Op. (Niv. 4)',
           value: 'compte_nature.name',
           type: 'object',
           filterable: true
         },
         {
-          text: 'Source',
-          value: 'source',
+          text: 'Bénéficiaire',
+          value: 'beneficiary',
           type: 'string',
-          filterable: true
-        },
-        {
-          text: 'Compte Approvisionné',
-          value: 'account.name',
-          type: 'object',
           filterable: true
         },
         {
@@ -66,15 +60,21 @@ export default {
           filterable: true
         },
         {
-          text: 'Taux',
-          value: 'rate',
+          text: 'Montant en USD',
+          value: 'usd',
           type: 'amount-money',
           filterable: true
         },
         {
-          text: 'Montant en USD',
-          value: 'usd',
-          type: 'amount-money',
+          text: 'Compte Impacté ',
+          value: 'account.name',
+          type: 'object',
+          filterable: true
+        },
+        {
+          text: 'Initiateur',
+          value: 'admin_initiator.user.name',
+          type: 'object',
           filterable: true
         },
       ],
