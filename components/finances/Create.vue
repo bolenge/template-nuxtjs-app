@@ -112,10 +112,10 @@ export default {
           }
         },
         {
-          name: 'source',
+          name: 'beneficiary',
           type: 'text',
           required: true,
-          label: 'Source',
+          label: 'Bénéficiaire',
         },
         {
           name: 'currency_id',
