@@ -82,38 +82,61 @@ export default {
         {
           text: 'Date',
           value: 'created_at',
+          type: 'date',
+          filterable: true
         },
         {
-          text: 'Nature Op. Niv. 2',
+          text: 'Nature Op. Niv. 3',
           value: 'sub_nature.name',
+          type: 'object',
+          filterable: true
         },
         {
-          text: 'Compte Op.',
+          text: 'Compte Op. (Niv. 4)',
           value: 'compte_nature.name',
+          type: 'object',
+          filterable: true
         },
         {
-          text: 'Bénéficiaire',
-          value: 'admin_beneficiary.user.name',
+          text: 'Beneficiaire',
+          value: 'beneficiary',
+          type: 'string',
+          filterable: true
         },
         {
           text: 'Devise',
           value: 'currency.code',
+          type: 'object',
+          filterable: true
         },
         {
           text: 'Montant',
           value: 'amount',
+          type: 'amount-money',
+          filterable: true
+        },
+        {
+          text: 'Taux',
+          value: 'rate',
+          type: 'amount-money',
         },
         {
           text: 'Montant en USD',
           value: 'usd',
+          type: 'amount-money',
+          filterable: true
         },
         {
-          text: 'Compte Imputé',
+          text: 'Compte Impute',
           value: 'account.name',
+          type: 'object',
+          filterable: true
         },
         {
-          text: 'Statut',
-          value: 'statuts',
+          text: 'Initiateur',
+          value: 'admin_initiator.user.name',
+          type: 'object',
+          filterable: true
         },
       ]
     }
