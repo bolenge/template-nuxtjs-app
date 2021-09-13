@@ -5,7 +5,7 @@
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <!-- Tab config natures -->
           <li class="nav-item" role="presentation">
-            <a class="nav-link py-2" id="config-tags-tab" data-toggle="tab" href="#config-natures" role="tab" aria-controls="config-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Nature Op. (Niveau 1)</a>
+            <a class="nav-link py-2 active" id="config-tags-tab" data-toggle="tab" href="#config-natures" role="tab" aria-controls="config-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Nature Op. (Niveau 1)</a>
           </li>
           <!-- End Tab config natures -->
 
@@ -93,6 +93,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>
