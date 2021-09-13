@@ -14,24 +14,6 @@
             <a class="nav-link py-2" id="config-caisses-tab" data-toggle="tab" href="#config-caisses" role="tab" aria-controls="config-caisses" aria-selected="false"><span class="typcn typcn-document-text"></span> Comptes Caisses</a>
           </li>
           <!-- End Tab config comptes caisses -->
-
-          <!-- Tab config natures -->
-          <li class="nav-item" role="presentation">
-            <a class="nav-link py-2" id="config-tags-tab" data-toggle="tab" href="#config-natures" role="tab" aria-controls="config-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Nature Op. (Niveau 1)</a>
-          </li>
-          <!-- End Tab config natures -->
-
-          <!-- Tab config sub-natures -->
-          <li class="nav-item" role="presentation">
-            <a class="nav-link py-2" id="config-tags-tab" data-toggle="tab" href="#config-sub-natures" role="tab" aria-controls="config-sub-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Nature Op. (Niveau 2)</a>
-          </li>
-          <!-- End Tab config sub-natures -->
-
-          <!-- Tab config comptes-natures -->
-          <li class="nav-item" role="presentation">
-            <a class="nav-link py-2" id="config-tags-tab" data-toggle="tab" href="#config-comptes-natures" role="tab" aria-controls="config-comptes-natures" aria-selected="false"><span class="typcn typcn-tags"></span> Comptes Op. (Niveau 3)</a>
-          </li>
-          <!-- End Tab config comptes-natures -->
         </ul>
       </div>
     </div>
@@ -48,24 +30,6 @@
         <ConfigAccountCash />
       </div>
       <!-- End Tab config comptes caisses -->
-
-      <!-- Tab config Nature d'Operations (Niveau 1) -->
-      <div class="tab-pane fade" id="config-natures" role="tabpanel" aria-labelledby="config-natures-tab">
-        <ConfigNature />
-      </div>
-      <!-- Tab config Nature d'Operations (Niveau 1) -->
-
-      <!-- Tab config Sub Nature d'Operations (Niveau 2) -->
-      <div class="tab-pane fade" id="config-sub-natures" role="tabpanel" aria-labelledby="config-sub-natures-tab">
-        <ConfigSubNature />
-      </div>
-      <!-- Tab config Sub Nature d'Operations (Niveau 2) -->
-
-      <!-- Tab config Compte Nature d'Operations (Niveau 3) -->
-      <div class="tab-pane fade" id="config-comptes-natures" role="tabpanel" aria-labelledby="config-comptes-natures-tab">
-        <ConfigCompteNature />
-      </div>
-      <!-- Tab config Compte Nature d'Operations (Niveau 3) -->
     </div>
   </div>
 </template>
@@ -75,9 +39,6 @@
 import Global from '~/mixins/Global'
 import ConfigAccountBank from '~/components/configs/finances/ConfigAccountBank'
 import ConfigAccountCash from '~/components/configs/finances/ConfigAccountCash'
-import ConfigNature from '~/components/configs/finances/ConfigNature'
-import ConfigSubNature from '~/components/configs/finances/ConfigSubNature'
-import ConfigCompteNature from '~/components/configs/finances/ConfigCompteNature'
 export default {
   middleware: 'auth',
   head() {
@@ -89,9 +50,6 @@ export default {
   components: {
     ConfigAccountBank,
     ConfigAccountCash,
-    ConfigNature,
-    ConfigSubNature,
-    ConfigCompteNature,
   },
   computed: {
     currentPage() {
