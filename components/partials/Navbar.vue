@@ -10,8 +10,8 @@
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
             <ul class="navbar-nav navbar-nav-center w-100">
                 <li class="nav-item text-center w-100">
-                    <a class="nav-link font-weight-400 text-uppercase" href="#">
-                        NOM DE L'ENTREPRISE
+                    <a class="nav-link font-weight-bold text-uppercase" href="#">
+                        BCCE
                     </a>
                 </li>
             </ul>
