@@ -86,7 +86,7 @@ export default {
       return 'configs'
     },
     currentNavLink() {
-      return 'finances-configs'
+      return 'rubrics-configs'
     }
   },
   methods: {
