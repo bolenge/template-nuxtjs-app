@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { mapState, mapActions }  from 'vuex'
+import { mapActions }  from 'vuex'
 import Account from '~/mixins/Account'
 export default {
   mixins: [Account],
