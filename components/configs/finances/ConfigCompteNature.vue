@@ -1,6 +1,6 @@
 <template>
   <ConfigPanel
-    title="Configuration Comptes Opérations (Niveau 3)"
+    title="Configuration Comptes Opérations (Niveau 4)"
     create-form-title="Créer Compte"
     edit-form-title="Edition Compte"
     model="compte_nature"
@@ -40,7 +40,7 @@ export default {
           required: true,
           itemText: 'name',
           items: this.subNatures,
-          label: 'Nature Opération Niveau 2'
+          label: 'Nature Opération Niveau 3'
         },
       ],
       entity: {},
@@ -51,7 +51,7 @@ export default {
           type: 'string'
         },
         {
-          text: 'Nature Op. Niveau 2',
+          text: 'Nature Op. Niveau 3',
           value: 'sub_nature.name',
           type: 'object'
         },

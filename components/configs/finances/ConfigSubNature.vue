@@ -1,6 +1,6 @@
 <template>
   <ConfigPanel
-    title="Configuration Nature Operations Niveau 2"
+    title="Configuration Nature Operations Niveau 3"
     create-form-title="Créer Nature"
     edit-form-title="Edition Nature"
     model="sub_nature"
@@ -40,7 +40,7 @@ export default {
           required: true,
           itemText: 'name',
           items: this.natures,
-          label: 'Nature Opération Niveau 1'
+          label: 'Nature Opération Niveau 2'
         },
       ],
       entity: {},
@@ -51,7 +51,7 @@ export default {
           type: 'string'
         },
         {
-          text: 'Nature Niveau 1',
+          text: 'Nature Niveau 2',
           value: 'nature.name',
           type: 'object'
         },

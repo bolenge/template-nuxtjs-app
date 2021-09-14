@@ -1,6 +1,6 @@
 <template>
   <ConfigPanel
-    title="Configuration Nature Opérations Niveau 1"
+    title="Configuration Nature Opérations Niveau 2"
     create-form-title="Créer Nature"
     edit-form-title="Edition Nature"
     model="nature"
@@ -34,6 +34,14 @@ export default {
           required: true,
           label: 'Intitulé'
         },
+        {
+          name: 'category_nature_id',
+          type: 'select',
+          required: true,
+          itemText: 'name',
+          items: this.categoryNatures,
+          label: 'Nature Opération Niveau 1'
+        },
       ],
       entity: {},
       headers: [
@@ -41,6 +49,11 @@ export default {
           text: 'Intitulé',
           value: 'name',
           type: 'string'
+        },
+        {
+          text: 'Nature Niveau 1',
+          value: 'category_nature.name',
+          type: 'object'
         },
         {
           text: 'Actions',
@@ -53,8 +66,16 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      categoryNatures(state) {
+        return state.category_nature.category_natures
+      }
+    })
   },
   watch: {
+    categoryNatures() {
+      this.$set(this.fields[1], 'items', this.categoryNatures)
+    },
   },
   methods: {
     ...mapActions({
