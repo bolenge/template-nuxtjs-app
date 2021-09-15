@@ -431,7 +431,11 @@ export default {
 
         this.fields.map((child) => {
           if (child.name == field.childSync) {
-            child.items = childItems.length ? childItems : [child.objetEmpty]
+            if (childItems) {
+              child.items = childItems.length ? childItems : [child.objetEmpty]
+            }else {
+              child.items = [child.objetEmpty]
+            }
           }
         })
       }
