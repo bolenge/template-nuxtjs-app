@@ -34,9 +34,8 @@ export const actions = {
     commit('SET_LOADING', true)
 
     this.$axios.get('natures').then(({ data }) => {
-      let result = data.results.length ? [data.results.pop()] : []
       
-      commit('SET_NATURES_FOR_COLLECTION', result)
+      commit('SET_NATURES_FOR_COLLECTION', data.results)
     }).finally((_) => {
       commit('SET_LOADING', false)
     })
