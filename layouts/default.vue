@@ -68,6 +68,18 @@ export default {
     currentAdminConnected() {
       return this.currentUser.admin
     },
+    adminValidationLevel() {
+      return this.currentAdminConnected.fonction ? this.currentAdminConnected.fonction.validation_level.name : null
+    },
+    adminValidationLevelId() {
+      return this.currentAdminConnected.fonction ? this.currentAdminConnected.fonction.validation_level.id : null
+    },
+    levelNotifications() {
+      return {
+        "Conformité": 'En Cours',
+        "Chef de Bureau": 'Conforme',
+      }
+    },
     countNewCourriers() {
       return this
         .inboxCourriers
@@ -98,7 +110,7 @@ export default {
     countFundRequestsEnCours() {
       return this
         .fundRequests
-        .filter((fundRequest) => fundRequest.statuts == 'En Cours')
+        .filter((fundRequest) => this.adminValidationLevelId == 1 && (fundRequest.statuts == 'En Cours' || fundRequest.statuts == 'Approuvé') || this.adminValidationLevelId == 2 && fundRequest.statuts == 'Conforme')
         .length
     }
   },
