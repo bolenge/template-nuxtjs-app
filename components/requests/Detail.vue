@@ -256,9 +256,12 @@ export default {
       subNatures(state) {
         return state.sub_nature.sub_natures
       },
+      categoryNatures(state) {
+        const categoryNatures = state.category_nature.category_natures
+        return categoryNatures.length ? categoryNatures.filter((nature) => nature.id != 1) : categoryNatures
+      },
       natures(state) {
-        const natures = state.nature.natures
-        return natures.length ? natures.filter((nature) => nature.id != 1) : natures
+        return state.nature.natures
       },
       compteNatures(state) {
         return state.compte_nature.compte_natures
@@ -363,6 +366,7 @@ export default {
         if (this.currentAdminConnected.fonction) {
           if (this.isComplianceOrOfficeManager) {
             if (this.hasApproveStatus == 'Approuvé') {
+
               fields.push({
                 name: 'account_id',
                 type: 'select',
@@ -392,14 +396,28 @@ export default {
                     label: 'Mode de paiement'
                   },
                   {
+                    name: 'category_nature_id',
+                    type: 'select',
+                    required: false,
+                    itemText: 'name',
+                    items: this.categoryNatures,
+                    label: 'Nature Op. Niv. 1',
+                    childSync: 'nature_id',
+                    childItems: 'natures',
+                  },
+                  {
                     name: 'nature_id',
                     type: 'select',
                     required: false,
                     itemText: 'name',
                     items: this.natures,
-                    label: 'Nature Op. Niv. 1',
+                    label: 'Nature Op. Niv. 2',
                     childSync: 'sub_nature_id',
                     childItems: 'sub_natures',
+                    objetEmpty: {
+                      id: '',
+                      name: 'Aucune nature op. (Niv. 2)'
+                    }
                   },
                   {
                     name: 'sub_nature_id',
@@ -407,12 +425,12 @@ export default {
                     required: false,
                     itemText: 'name',
                     items: this.subNatures,
-                    label: 'Nature Op. Niv. 2',
+                    label: 'Nature Op. Niv. 3',
                     childSync: 'compte_nature_id',
                     childItems: 'compte_natures',
                     objetEmpty: {
                       id: '',
-                      name: 'Aucune nature op. (Niv. 2)'
+                      name: 'Aucune nature op. (Niv. 3)'
                     }
                   },
                   {
@@ -421,10 +439,10 @@ export default {
                     required: false,
                     itemText: 'name',
                     items: this.compteNatures,
-                    label: 'Compte Op. (Niv. 3)',
+                    label: 'Compte Op. (Niv. 4)',
                     objetEmpty: {
                       id: '',
-                      name: 'Aucun compte op. (Niv. 3)'
+                      name: 'Aucun compte op. (Niv. 4)'
                     }
                   },
                   {
@@ -520,6 +538,14 @@ export default {
         }
       }
     },
+    categoryNatures() {
+      if (this.isOfficeDirectorOrCompliance) {
+        const index = this.fields.findIndex((field) => field.name == 'category_nature_id')
+        if (index > -1) {
+          this.$set(this.fields[index], 'items', this.categoryNatures)
+        }
+      }
+    },
     compteNatures() {
       if (this.isOfficeDirectorOrCompliance) {
         const index = this.fields.findIndex((field) => field.name == 'compte_nature_id')
@@ -539,14 +565,15 @@ export default {
   },
   methods: {
     ...mapActions({
-      loadCurrencies: 'currency/load',
       loadUser: 'user/loadUser',
+      loadNatures: 'nature/load',
+      loadCurrencies: 'currency/load',
+      loadSubNatures: 'sub_nature/load',
       showFundRequest: 'fund_request/show',
       loadTypeAccounts: 'type_account/load',
-      loadNatures: 'nature/load',
-      loadSubNatures: 'sub_nature/load',
       loadCompteNatures: 'compte_nature/load',
-      loadAccountsByType: 'account/loadAccountsByType'
+      loadAccountsByType: 'account/loadAccountsByType',
+      loadCategoryNatures: 'category_nature/load',
     }),
     onSubmit(entity) {
       this.entity = {}
@@ -585,6 +612,7 @@ export default {
   mounted() {
     this.loadCurrencies()
     this.loadTypeAccounts()
+    this.loadCategoryNatures()
     this.loadNatures()
     this.loadSubNatures()
     this.loadCompteNatures()
