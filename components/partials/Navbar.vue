@@ -1,13 +1,20 @@
 <template>
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <nuxt-link class="navbar-brand brand-logo" to="/admin"><img src="/images/logo-neo-touch.png" alt="logo"/></nuxt-link>
+            <nuxt-link class="navbar-brand brand-logo" to="/admin"><img src="/images/logo-bcce.png" alt="logo"/></nuxt-link>
             <nuxt-link class="navbar-brand brand-logo-mini" to="/"><img src="/images/logo-neo-touch-mobile.png" alt="logo"/></nuxt-link>
             <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-none" type="button" data-toggle="minimize">
                 <span class="typcn typcn-th-menu"></span>
             </button>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+            <ul class="navbar-nav navbar-nav-center w-100">
+                <li class="nav-item text-center w-100">
+                    <a class="nav-link font-weight-bold text-uppercase" href="#">
+                        BCCE
+                    </a>
+                </li>
+            </ul>
             <ul class="navbar-nav mr-lg-2">
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">

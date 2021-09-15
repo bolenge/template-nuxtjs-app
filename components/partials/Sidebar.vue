@@ -77,6 +77,18 @@
                   </nuxt-link>
                 </li>
                 <!-- End nav item config. finances -->
+
+                <!-- Nav item config. Nature Op.  -->
+                <li class="nav-item">
+                  <nuxt-link
+                    to="/configs/rubrics"
+                    class="nav-link"
+                    :class="setNavLinkActive('rubrics-configs')"
+                  >
+                    Config. Natures Op.
+                  </nuxt-link>
+                </li>
+                <!-- End nav item config. Nature Op. -->
               </ul>
             </div>
           </li>

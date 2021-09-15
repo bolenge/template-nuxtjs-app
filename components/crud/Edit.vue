@@ -8,6 +8,7 @@
     :model="model"
     :showButtonCancel="showButtonCancel"
     :formRow="formRow"
+    :classCardBody="classCardBody"
     @submitted="onSubmit"
   />
 </template>
@@ -65,6 +66,10 @@ export default {
       }
     },
     fieldComplateMessageConfirmation: {
+      type: String,
+      default: ''
+    },
+    classCardBody: {
       type: String,
       default: ''
     }
