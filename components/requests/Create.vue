@@ -84,11 +84,11 @@ export default {
           required: true,
           label: 'Objet de la demande',
         },
-        {
-          name: 'date_use',
-          type: 'date',
-          required: false,
-          label: 'Date d\'Utilisation',
+         {
+          name: 'beneficiary',
+          type: 'text',
+          required: true,
+          label: 'Bénéficiaire',
         },
         {
           name: 'description',
@@ -102,6 +102,7 @@ export default {
           type: 'number',
           required: true,
           label: 'Montant',
+          colClass: 'col-lg-4'
         },
         {
           name: 'currency_id',
@@ -109,7 +110,15 @@ export default {
           required: true,
           itemText: 'code',
           items: this.currencies,
-          label: 'Devise'
+          label: 'Devise',
+          colClass: 'col-lg-4'
+        },
+        {
+          name: 'date_use',
+          type: 'date',
+          required: false,
+          label: 'Date d\'Utilisation',
+          colClass: 'col-lg-4'
         },
         {
           name: 'date_supporting_documents',

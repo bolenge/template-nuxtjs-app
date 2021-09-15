@@ -7,7 +7,7 @@
             <h3 class="my-4 mb-5 font-weight-400">Bienvenu(e) sur {{ APP_NAME }}</h3>
 
             <div class="p-lg-5">
-              <img src="images/logo-neo-touch.png" alt="Logo de One touch" width="180px" />
+              <img src="images/logo-bcce.png" alt="Logo de One touch" width="180px" />
             </div>
           </div>
         </div>

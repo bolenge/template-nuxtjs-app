@@ -42,3 +42,6 @@
 .cursor-pointer {
   cursor: pointer !important;
 }
+.bg-mutted {
+  background-color: rgba(10, 5, 5, 0.1) !important;
+}

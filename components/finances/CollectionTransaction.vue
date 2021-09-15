@@ -30,27 +30,77 @@ export default {
           filterable: true
         },
         {
-          text: 'Initiateur',
-          value: 'admin_initiator.user.name',
+          text: 'Nature Op. Niv. 3',
+          value: 'sub_nature.name',
           type: 'object',
           filterable: true
         },
         {
-          text: 'Compte Op.',
+          text: 'Compte Op. (Niv. 4)',
           value: 'compte_nature.name',
           type: 'object',
           filterable: true
         },
         {
-          text: 'Source',
-          value: 'source',
+          text: 'Bénéficiaire',
+          value: 'beneficiary',
           type: 'string',
           filterable: true
         },
         {
-          text: 'Compte Approvisionné',
+          text: 'Devise',
+          value: 'currency.code',
+          type: 'object',
+          filterable: true
+        },
+        {
+          text: 'Montant',
+          value: 'amount',
+          type: 'amount-money',
+          filterable: true
+        },
+        {
+          text: 'Montant en USD',
+          value: 'usd',
+          type: 'amount-money',
+          filterable: true
+        },
+        {
+          text: 'Compte Impacté ',
           value: 'account.name',
           type: 'object',
+          filterable: true
+        },
+        {
+          text: 'Initiateur',
+          value: 'admin_initiator.user.name',
+          type: 'object',
+          filterable: true
+        },
+      ],
+      fieldsExtract: [
+        {
+          text: 'Date',
+          value: 'created_at',
+          type: 'date',
+          filterable: true
+        },
+        {
+          text: 'Nature Op. Niv. 3',
+          value: 'sub_nature.name',
+          type: 'object',
+          filterable: true
+        },
+        {
+          text: 'Compte Op. (Niv. 4)',
+          value: 'compte_nature.name',
+          type: 'object',
+          filterable: true
+        },
+        {
+          text: 'Beneficiaire',
+          value: 'beneficiary',
+          type: 'string',
           filterable: true
         },
         {
@@ -69,7 +119,6 @@ export default {
           text: 'Taux',
           value: 'rate',
           type: 'amount-money',
-          filterable: true
         },
         {
           text: 'Montant en USD',
@@ -77,43 +126,17 @@ export default {
           type: 'amount-money',
           filterable: true
         },
-      ],
-      fieldsExtract: [
         {
-          value: 'created_at',
-          text: 'Date'
-        },
-        {
-          value: 'admin_initiator.user.name',
-          text: 'Initiateur'
-        },
-        {
-          text: 'Compte Op.',
-          value: 'compte_nature.name',
-        },
-        {
-          value: 'source',
-          text: 'Source'
-        },
-        {
+          text: 'Compte Impacte',
           value: 'account.name',
-          text: 'Compte Approvisionné'
+          type: 'object',
+          filterable: true
         },
         {
-          value: 'currency.code',
-          text: 'Devise'
-        },
-        {
-          value: 'amount',
-          text: 'Montant'
-        },
-        {
-          text: 'Taux',
-          value: 'rate',
-        },
-        {
-          text: 'Montant en USD',
-          value: 'usd',
+          text: 'Initiateur',
+          value: 'admin_initiator.user.name',
+          type: 'object',
+          filterable: true
         },
       ]
     }

@@ -411,7 +411,8 @@ export default {
         i = items.length
       }
 
-      objRes = typeField === 'amount-money' ? objRes.toLocaleString() : objRes
+      objRes = typeField === 'amount-money' ? Math.round(objRes).toLocaleString() : objRes
+      objRes = typeField === 'date' ? this.formatDate('dd/MM/yyyy', new Date(objRes)) : objRes
 
       return objRes || defaultValue
     },
@@ -512,7 +513,7 @@ export default {
         const result = {}
 
         for (const field of this.fieldsExtract) {
-          result[field.text] =  this.getObject(item, field.value)
+          result[field.text] =  this.getObject(item, field.value, field.type)
         }
 
         return result

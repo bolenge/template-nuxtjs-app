@@ -1,9 +1,9 @@
 <template>
   <ConfigPanel
-    title="Configuration Nature Operations Niveau 3"
+    title="Configuration Nature Opérations Niveau 1"
     create-form-title="Créer Nature"
     edit-form-title="Edition Nature"
-    model="sub_nature"
+    model="category_nature"
     table-title="Liste des Nature d'Opérations"
     icon-title="typcn-tags"
     :edited="edited"
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import ConfigPanel from '../ConfigPanel'
 
 export default {
@@ -34,14 +34,6 @@ export default {
           required: true,
           label: 'Intitulé'
         },
-        {
-          name: 'nature_id',
-          type: 'select',
-          required: true,
-          itemText: 'name',
-          items: this.natures,
-          label: 'Nature Opération Niveau 2'
-        },
       ],
       entity: {},
       headers: [
@@ -49,11 +41,6 @@ export default {
           text: 'Intitulé',
           value: 'name',
           type: 'string'
-        },
-        {
-          text: 'Nature Niveau 2',
-          value: 'nature.name',
-          type: 'object'
         },
         {
           text: 'Actions',
@@ -66,26 +53,16 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      natures(state) {
-        return state.nature.natures
-      }
-    })
   },
   watch: {
-    natures() {
-      this.$set(this.fields[1], 'items', this.natures)
-    },
   },
   methods: {
     ...mapActions({
-      showSubNature: 'sub_nature/show',
-      loadNatures: 'nature/load'
+      showCategoryNature: 'category_nature/show'
     }),
     async onLaunchEdit(id) {
-      this.entityEdited = await this.showSubNature({id})
+      this.entityEdited = await this.showCategoryNature({id})
       this.edited = true
-      console.log(this.entityEdited)
     },
     onEdited() {
       this.entityEdited = null
@@ -94,9 +71,6 @@ export default {
     onEntityReseted() {
       this.entity = {}
     }
-  },
-  mounted() {
-    this.loadNatures()
   }
 }
 </script>

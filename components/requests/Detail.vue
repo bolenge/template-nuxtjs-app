@@ -58,6 +58,11 @@
               </div>
 
               <div class="col-lg-4 col-md-3 col-sm-3 mb-4">
+                <strong class="d-block mb-2">Béneficiaire</strong>
+                <span class="">{{ entityEdited.beneficiary || '---' }}</span>
+              </div>
+
+              <div class="col-lg-4 col-md-3 col-sm-3 mb-4">
                 <strong class="d-block mb-2">Objet Demande</strong>
                 <span class="">{{ entityEdited.object || '---' }}</span>
               </div>
@@ -153,6 +158,7 @@
         <Edit
           api="fund_requests"
           model="fund_request"
+          classCardBody="bg-mutted"
           :title="updateConfirmation.title"
           :fields="fields"
           :entity="entityEdited"
@@ -557,6 +563,8 @@ export default {
       this.loadAccounts()
       this.setCanEdit()
       this.entityEdited.statuts = ''
+
+      console.log('entityEditedentityEdited', this.entityEdited);
     },
     loadAccounts() {
       this.loadAccountsByType({id: this.entityEdited.type_account_id})
