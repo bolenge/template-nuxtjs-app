@@ -69,10 +69,10 @@ export default {
       return this.currentUser.admin
     },
     adminValidationLevel() {
-      return this.currentAdminConnected.fonction.validation_level.name
+      return this.currentAdminConnected.fonction ? this.currentAdminConnected.fonction.validation_level.name : null
     },
     adminValidationLevelId() {
-      return this.currentAdminConnected.fonction.validation_level.id
+      return this.currentAdminConnected.fonction ? this.currentAdminConnected.fonction.validation_level.id : null
     },
     levelNotifications() {
       return {
