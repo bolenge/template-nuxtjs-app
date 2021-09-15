@@ -80,10 +80,9 @@ export default {
           itemText: 'name',
           items: this.natures,
           selected: 1,
-          label: 'Nature Op. Niv. 1',
+          label: 'Nature Op. Niv. 2',
           childSync: 'sub_nature_id',
           childItems: 'sub_natures',
-          disabled: true
         },
         {
           name: 'sub_nature_id',
@@ -91,12 +90,12 @@ export default {
           required: false,
           itemText: 'name',
           items: this.subNatures,
-          label: 'Nature Op. Niv. 2',
+          label: 'Nature Op. Niv. 3',
           childSync: 'compte_nature_id',
           childItems: 'compte_natures',
           objetEmpty: {
             id: '',
-            name: 'Aucune nature op. (Niv. 2)'
+            name: 'Aucune nature op. (Niv. 3)'
           }
         },
         {
@@ -105,10 +104,10 @@ export default {
           required: false,
           itemText: 'name',
           items: this.compteNatures,
-          label: 'Compte Op. (Niv. 3)',
+          label: 'Compte Op. (Niv. 4)',
           objetEmpty: {
             id: '',
-            name: 'Aucun compte op. (Niv. 3)'
+            name: 'Aucun compte op. (Niv. 4)'
           }
         },
         {
