@@ -28,6 +28,7 @@
             v-if="extractData"
             class="btn btn-info btn-sm mr-lg-3 cursor-pointer"
             :class="{'disabled btn-in-loading': !exportItems.length}"
+            encoding="UTF-8"
             :data="exportItems"
             delimiter=";"
             separator-excel
@@ -118,17 +119,9 @@
       <div class="table-responsive">
         <table class="table table-hover" aria-describedby="">
           <thead>
-            <tr class="tr-table text-center">
-              <th v-if="counter" scope="">#</th>
-              <th
-                v-for="(head, i) in headersShower"
-                :key="i"
-                :id="i"
-                class="font-weight-600"
-              >
-                <span v-if="head.defaultValue" class="text-white">{{ head.defaultValue }}</span>
-                <span v-else>{{ head.text }}</span>
-              </th>
+            <tr class="tr-table bg-mutted">
+              <th scope="">Rubriques</th>
+              <th scope="" class="text-center">Montant en USD</th>
             </tr>
           </thead>
           <tbody>
@@ -156,41 +149,21 @@
               </td>
             </tr>
             <!-- End no items -->
-
+          </tbody>
+          
+          <tbody v-for="(item, i) in itemsPaginated" :key="i">
             <tr
-              v-for="(item, i) in itemsPaginated"
-              :key="i"
+              v-for="(nat, n) in item.natures"
+              :key="n"
               :class="trClass(item)"
-              class="tr-table text-center"
+              class="tr-table"
             >
-              <td
-                v-if="i == 0"
-                :rowspan="rowSpan[item.sub_nature.nature.id]"
-              >
-                {{ item.sub_nature.nature.name }}
-              </td>
-              <td>{{ item.sub_nature.name }}</td>
-              <td>{{ item.currency.code }}</td>
-              <td>{{ item.amount.toLocaleString() }}</td>
-              <td>{{ item.usd.toLocaleString() }}</td>
+              <td>{{ nat.name }}</td>
+              <td class="text-center">{{ nat.amount.toLocaleString() }}</td>
             </tr>
-
-            <tr
-              v-for="(item, i) in disburseTransactionsItemsFiltered"
-              :key="i+1+itemsPaginated.length"
-              :class="trClass(item)"
-              class="tr-table text-center"
-            >
-              <td
-                v-if="rowSpan[item.sub_nature.nature.id]"
-                :rowspan="rowSpan[item.sub_nature.nature.id]"
-              >
-                {{ item.sub_nature.nature.name }}
-              </td>
-              <td>{{ item.sub_nature.name }}</td>
-              <td>{{ item.currency.code }}</td>
-              <td>{{ item.amount.toLocaleString() }}</td>
-              <td>{{ item.usd.toLocaleString() }}</td>
+            <tr class="tr-table bg-mutted">
+              <td class=" font-weight-bold">{{ item.name }}</td>
+              <td class="text-center font-weight-bold">{{ item.amount.toLocaleString() }}</td>
             </tr>
           </tbody>
         </table>
@@ -293,7 +266,15 @@ export default {
       search: null,
       rowSpan: {},
       mounthValue: '',
-      yearValue: ''
+      yearValue: '',
+      headsNatures: [
+        {
+          value: 'name',
+        },
+        {
+          value: 'amount',
+        }
+      ]
     }
   },
   methods: {
@@ -386,6 +367,55 @@ export default {
       this.rowSpan.push(id)
 
       return rowspan
+    },
+    parseItems(items) {
+      let itemsParsed = []
+
+      if (this.showPagination) {
+        items = items.slice(this.offset, this.limit)
+      }
+
+      for (const item of items) {
+        if (item.nature) {
+          let category,
+              index = itemsParsed.findIndex((i) => i.id === item.nature.category_nature_id)
+
+          if (index >= 0) {
+            category = itemsParsed[index]
+
+            category.amount = category.amount + item.usd
+
+            let nature,
+              indexNature = category.natures.findIndex((i) => i.id === item.nature.id)
+
+            if (indexNature >= 0) {
+              nature = category.natures[indexNature]
+              nature.amount = nature.amount + item.usd
+
+              category.natures[indexNature] = nature
+            }else {
+              item.nature.amount = item.usd
+              category.natures.push(item.nature)
+            }
+
+            itemsParsed[index] = category
+            // category.natures.push({id: 0})
+          }else {
+            category = {
+              ...item.nature.category_nature
+            }
+
+            item.nature.amount = item.usd
+            category.natures = [item.nature]
+
+            category.amount = item.usd
+            // category.natures.push({id: 0})
+            itemsParsed.push(category)
+          }
+        }
+      }
+
+      return itemsParsed
     }
   },
   computed: {
@@ -412,11 +442,7 @@ export default {
       return this.itemsFiltered.length
     },
     itemsPaginated() {
-      if (this.showPagination) {
-        return this.itemsFiltered.slice(this.offset, this.limit)
-      }
-
-      return this.itemsFiltered
+      return this.parseItems(this.itemsFiltered)
     },
     countItemsPaginated() {
       return this.itemsPaginated.length + this.offset
@@ -472,17 +498,25 @@ export default {
       return items
     },
     exportItems() {
-      const items = this.items.concat(this.disburseTransactionsItems)
+      const items = this.parseItems(this.items)
+      const results = []
 
-      return items.map((item) => {
-        const result = {}
+      for (const item of items) {
 
-        for (const field of this.fieldsExtract) {
-          result[field.text] =  this.getObject(item, field.value)
+        for (const nature of item.natures) {
+          results.push({
+            'Rubriques': nature.name,
+            'Montant en USD': nature.amount,
+          })
         }
 
-        return result
-      })
+        results.push({
+          'Rubriques': item.name,
+          'Montant en USD': item.amount,
+        })
+      }
+
+      return results
     },
     years() {
       const years = []
