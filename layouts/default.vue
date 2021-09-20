@@ -110,7 +110,7 @@ export default {
     countFundRequestsEnCours() {
       return this
         .fundRequests
-        .filter((fundRequest) => this.adminValidationLevelId == 1 && (fundRequest.statuts == 'En Cours' || fundRequest.statuts == 'Approuvé') || this.adminValidationLevelId == 2 && fundRequest.statuts == 'Conforme')
+        .filter((fundRequest) => this.adminValidationLevelId == 1 && (fundRequest.statuts == 'En Cours' || fundRequest.statuts == 'Approuvée') || this.adminValidationLevelId == 2 && fundRequest.statuts == 'Conforme')
         .length
     }
   },
