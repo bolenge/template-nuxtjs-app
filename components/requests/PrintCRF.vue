@@ -191,7 +191,7 @@ export default {
       requestStatuts: null,
       loadingEntityEdited: true,
       badges: {
-        'Conforme': 'badge-success',
+        'Conforme': 'badge-light',
         'Non conforme': 'badge-danger',
         'Approuvée': 'badge-info',
         'Executé': 'badge-success',
