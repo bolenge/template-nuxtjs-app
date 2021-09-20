@@ -74,15 +74,20 @@
 
               <div class="col-lg-4 col-md-3 col-sm-3 mb-4">
                 <strong class="d-block mb-2">Date Remise Pièces Justificatives</strong>
+                <span class="">{{ entityEdited.date_supporting_documents || '---' }}</span>
+              </div>
+
+              <div class="col-lg-4 col-md-3 col-sm-3 mb-4">
+                <strong class="d-block mb-2">Soubassements Administratifs</strong>
                 <a
-                  v-if="entityEdited.date_supporting_documents"
-                  :href="`${API_BASE_URL}/storage/fichiers/${entityEdited.date_supporting_documents}`"
+                  v-if="entityEdited.insert_administration_bases"
+                  :href="`${API_BASE_URL}/storage/fichiers/${entityEdited.insert_administration_bases}`"
                   class="btn btn-sm btn-light text-info"
                   target="_blank"
-                  :download="`${API_BASE_URL}/storage/fichiers/${entityEdited.date_supporting_documents}`"
+                  :download="`${API_BASE_URL}/storage/fichiers/${entityEdited.insert_administration_bases}`"
                 >
                   <span class="typcn typcn-download-outline"></span>
-                  Téléchqrger le fichier
+                  Télécharger le fichier
                 </a>
                 <span v-else class="">Aucun fichier</span>
               </div>
@@ -113,7 +118,7 @@
               </div>
 
               <div class="col-lg-4 col-md-3 col-sm-3 mb-4">
-                <strong class="d-block mb-2">Compte à débuter</strong>
+                <strong class="d-block mb-2">Compte à débiter</strong>
                 <span class="">{{ entityEdited.account ? entityEdited.account.name : '---' }}</span>
               </div>
 
@@ -219,17 +224,17 @@ export default {
       badges: {
         'Conforme': 'badge-success',
         'Non conforme': 'badge-danger',
-        'Approuvé': 'badge-info',
+        'Approuvée': 'badge-info',
         'Executé': 'badge-success',
-        'Rejeté': 'badge-danger',
+        'Rejetée': 'badge-danger',
         'En Cours': 'badge-warning',
       },
       typicons: {
         'Conforme': 'typcn-tick-outline',
         'Non conforme': 'typcn-times',
-        'Approuvé': 'typcn-input-checked',
+        'Approuvée': 'typcn-input-checked',
         'Executé': 'typcn-tick',
-        'Rejeté': 'typcn-cancel',
+        'Rejetée': 'typcn-cancel',
         'En Cours': 'typcn-time',
       },
       badgeStatut: null,
@@ -365,13 +370,13 @@ export default {
       if (this.currentAdminConnected) {
         if (this.currentAdminConnected.fonction) {
           if (this.isComplianceOrOfficeManager) {
-            if (this.hasApproveStatus == 'Approuvé') {
+            if (this.hasApproveStatus == 'Approuvée') {
 
               fields.push({
                 name: 'account_id',
                 type: 'select',
                 required: true,
-                label: 'Compte à débuter',
+                label: 'Compte à débiter',
                 items: this.accounts
               })
 
@@ -383,7 +388,7 @@ export default {
                 fields = fields.concat([
                   {
                     name: 'rate',
-                    type: 'number',
+                    type: 'text',
                     required: false,
                     label: 'Taux',
                   },
@@ -481,12 +486,12 @@ export default {
               label: 'Approbation',
               items: [
                 {
-                  id: 'Approuvé',
-                  name: 'Approuvé'
+                  id: 'Approuvée',
+                  name: 'Approuvée'
                 },
                 {
-                  id: 'Rejeté',
-                  name: 'Rejeté'
+                  id: 'Rejetée',
+                  name: 'Rejetée'
                 }
               ]
             })
@@ -503,7 +508,7 @@ export default {
     showValidationForm() {
       return (this.requestStatuts === 'En Cours' && this.isCompliance) ||
              (this.requestStatuts === 'Conforme' && this.isOfficeManager) ||
-             (this.requestStatuts === 'Approuvé' && this.isCompliance)
+             (this.requestStatuts === 'Approuvée' && this.isCompliance)
     }
   },
   watch: {
