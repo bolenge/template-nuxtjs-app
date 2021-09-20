@@ -382,7 +382,7 @@ export default {
 
               this.fieldComplateMessageConfirmation = ''
               this.updateConfirmation.title = 'Exécution Paiement'
-              this.updateConfirmation.message = 'Etes-vous d\'effectuer le paiement de cette requête ?'
+              this.updateConfirmation.message = 'Voulez vous exécuter le paiement de cette requête ?'
             }else {
               if (this.requestStatuts !== 'Conforme') {
                 fields = fields.concat([
@@ -498,7 +498,7 @@ export default {
 
             this.fieldComplateMessageConfirmation = ''
             this.updateConfirmation.title = 'Approbation'
-            this.updateConfirmation.message = 'Etes-vous sur de votre attribution d\'approbation ?'
+            this.updateConfirmation.message = 'Etes-vous sur de votre approbation ?'
           }
         }
       }
