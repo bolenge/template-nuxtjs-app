@@ -264,8 +264,8 @@ export default {
               'Initiées : '+this.statsFundRequests.initiated,
               'Conformes : '+this.statsFundRequests.conform,
               'Non conformes : '+this.statsFundRequests.unconform,
-              'Approuvées : '+this.statsFundRequests.approved,
-              'Rejetées : '+this.statsFundRequests.rejected,
+              'Approuvéees : '+this.statsFundRequests.approved,
+              'Rejetéees : '+this.statsFundRequests.rejected,
               'Exécutées : '+this.statsFundRequests.executed
             ]
           };
