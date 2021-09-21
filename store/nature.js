@@ -1,3 +1,5 @@
+const FIRST_CATEGORY_NATURE = 1
+
 export const state = () => ({
   natures: [],
   nature: {},
@@ -34,8 +36,13 @@ export const actions = {
     commit('SET_LOADING', true)
 
     this.$axios.get('natures').then(({ data }) => {
+      let results = data.results
+
+      if (results && results.length) {
+        results = results.filter((n) => n.category_nature_id === FIRST_CATEGORY_NATURE)
+      }
       
-      commit('SET_NATURES_FOR_COLLECTION', data.results)
+      commit('SET_NATURES_FOR_COLLECTION', results)
     }).finally((_) => {
       commit('SET_LOADING', false)
     })
