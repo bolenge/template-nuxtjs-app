@@ -471,7 +471,6 @@ export default {
                     type: 'textarea',
                     required: false,
                     label: 'Observation',
-                    colClass: 'col-lg-12'
                   },
                 ])
               }
@@ -479,7 +478,7 @@ export default {
           }
 
           if (this.isOfficeManager) {
-            fields.push({
+            fields = fields.concat([{
               name: 'statuts_approve',
               type: 'select',
               required: true,
@@ -494,11 +493,17 @@ export default {
                   name: 'Rejetée'
                 }
               ]
-            })
+            },
+            {
+              name: 'observation',
+              type: 'textarea',
+              required: false,
+              label: 'Observation',
+            },])
 
             this.fieldComplateMessageConfirmation = ''
             this.updateConfirmation.title = 'Approbation'
-            this.updateConfirmation.message = 'Etes-vous sur de votre approbation ?'
+            this.updateConfirmation.message = 'Pouvez-vous confirmer cette action ?'
           }
         }
       }
