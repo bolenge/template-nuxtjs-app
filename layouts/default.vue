@@ -110,13 +110,14 @@ export default {
     countFundRequestsEnCours() {
       return this
         .fundRequests
-        .filter((fundRequest) => this.adminValidationLevelId == 1 && (fundRequest.statuts == 'En Cours' || fundRequest.statuts == 'Approuvé') || this.adminValidationLevelId == 2 && fundRequest.statuts == 'Conforme')
+        .filter((fundRequest) => this.adminValidationLevelId == 1 && (fundRequest.statuts == 'En Cours' || fundRequest.statuts == 'Approuvée') || this.adminValidationLevelId == 2 && fundRequest.statuts == 'Conforme')
         .length
     }
   },
   mounted() {
     this.collapseItemSidebar()
     this.autoActiveCollapseItem()
+    // TODO this.permissionNotification()
   },
   methods: {
     collapseItemSidebar() {
@@ -156,6 +157,49 @@ export default {
           setTimeout(() => {
             $(containerCollapse).addClass('collapse show')
           }, 500);
+        }
+      }
+    },
+    notificationFundReauests() {
+      const events = {
+        onerror: function () {
+          // Todo : console.log('Custom error event was called');
+        },
+        onclick: function () {
+          this.$router.push('/requests/synthesis')
+        },
+        onclose: function () {
+          // Todo : console.log('Custom close event was called');
+        },
+        onshow: function () {
+          // Todo : console.log('Custom show event was called');
+        }
+      }
+
+      const notification = new Notification("Notification", {
+        body: 'Des nouvelles requêtes de fonds ont été enregistrées',
+        icon: '/images/logo-bcce.png'
+      }, events);
+
+        const audio = new Audio('/sounds/messenger.mp3')
+
+        audio.play()
+    },
+    permissionNotification() {
+      const countFundRequests = localStorage.getItem('countFundRequests') ? localStorage.getItem('countFundRequests') :  0
+      
+      if (this.countFundRequestsEnCours > countFundRequests) {
+        localStorage.setItem('countFundRequests', this.countFundRequestsEnCours)
+
+        if (Notification.permission === "granted") {
+          this.notificationFundReauests()
+        }
+        else if (Notification.permission !== "denied") {
+          Notification.requestPermission().then(function (permission) {
+            if (permission === "granted") {
+              this.notificationFundReauests()
+            }
+          });
         }
       }
     }

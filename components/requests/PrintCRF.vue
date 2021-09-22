@@ -92,7 +92,7 @@
               </div>
 
               <div class="col-lg-4 col-md-3 col-sm-3 mb-4">
-                <strong class="d-block mb-2">Compte à débuter</strong>
+                <strong class="d-block mb-2">Compte à débiter</strong>
                 <span class="">{{ entityEdited.account ? entityEdited.account.name : '---' }}</span>
               </div>
 
@@ -191,19 +191,19 @@ export default {
       requestStatuts: null,
       loadingEntityEdited: true,
       badges: {
-        'Conforme': 'badge-success',
+        'Conforme': 'badge-light',
         'Non conforme': 'badge-danger',
-        'Approuvé': 'badge-info',
+        'Approuvée': 'badge-info',
         'Executé': 'badge-success',
-        'Rejeté': 'badge-danger',
+        'Rejetée': 'badge-danger',
         'En Cours': 'badge-warning',
       },
       typicons: {
         'Conforme': 'typcn-tick-outline',
         'Non conforme': 'typcn-times',
-        'Approuvé': 'typcn-input-checked',
+        'Approuvée': 'typcn-input-checked',
         'Executé': 'typcn-tick',
-        'Rejeté': 'typcn-cancel',
+        'Rejetée': 'typcn-cancel',
         'En Cours': 'typcn-time',
       },
       badgeStatut: null,
@@ -336,12 +336,12 @@ export default {
       if (this.currentAdminConnected) {
         if (this.currentAdminConnected.fonction) {
           if (this.isComplianceOrOfficeManager) {
-            if (this.hasApproveStatus == 'Approuvé') {
+            if (this.hasApproveStatus == 'Approuvée') {
               fields.push({
                 name: 'account_id',
                 type: 'select',
                 required: true,
-                label: 'Compte à débuter',
+                label: 'Compte à débiter',
                 items: this.accounts
               })
 
@@ -437,12 +437,12 @@ export default {
               label: 'Approbation',
               items: [
                 {
-                  id: 'Approuvé',
-                  name: 'Approuvé'
+                  id: 'Approuvée',
+                  name: 'Approuvée'
                 },
                 {
-                  id: 'Rejeté',
-                  name: 'Rejeté'
+                  id: 'Rejetée',
+                  name: 'Rejetée'
                 }
               ]
             })
@@ -459,7 +459,7 @@ export default {
     showValidationForm() {
       return (this.requestStatuts === 'En Cours' && this.isCompliance) ||
              (this.requestStatuts === 'Conforme' && this.isOfficeManager) ||
-             (this.requestStatuts === 'Approuvé' && this.isCompliance)
+             (this.requestStatuts === 'Approuvée' && this.isCompliance)
     }
   },
   watch: {

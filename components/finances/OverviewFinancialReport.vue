@@ -3,7 +3,7 @@
     :counter="false"
     :headers="headers"
     model="transaction"
-    actionLoad="load"
+    actionLoad="loadFinancialReport"
     :extractData="true"
     :fileExtractName="fileExtractName"
     :fieldsExtract="fieldsExtract"

@@ -28,7 +28,7 @@
             v-if="extractData"
             class="btn btn-info btn-sm mr-lg-3 cursor-pointer"
             :class="{'disabled btn-in-loading': !exportItems.length}"
-            encoding="UTF-8"
+            encoding="utf-8"
             :data="exportItems"
             delimiter=";"
             separator-excel
@@ -68,7 +68,7 @@
               class="form-control form-control-sm mr-2 text-center"
               @change="filterByMounth"
             >
-              <option class="text-center" value="">Mois</option>
+              <option class="text-center" value="" disabled="disabled">Mois</option>
               <option class="text-center" value="01">Janvier</option>
               <option class="text-center" value="02">Février</option>
               <option class="text-center" value="03">Mars</option>
@@ -90,7 +90,7 @@
               class="form-control form-control-sm mr-2 text-center"
               @change="filterByYear"
             >
-              <option class="text-center" value="">Année</option>
+              <option class="text-center" value="" disabled="disabled">Année</option>
               <option
                 v-for="(year, y) in years"
                 :key="y"
@@ -153,17 +153,20 @@
           
           <tbody v-for="(item, i) in itemsPaginated" :key="i">
             <tr
-              v-for="(nat, n) in item.natures"
+              v-for="(nat, n) in item.sub_natures"
               :key="n"
               :class="trClass(item)"
               class="tr-table"
             >
               <td>{{ nat.name }}</td>
-              <td class="text-center">{{ nat.amount.toLocaleString() }}</td>
+              <td class="text-center">{{ Math.round(nat.amount).toLocaleString() }}</td>
             </tr>
-            <tr class="tr-table bg-mutted">
+            <tr
+              class="tr-table"
+              :class="item.id === 1 ? 'bg-warning' : 'bg-mutted'"
+            >
               <td class=" font-weight-bold">{{ item.name }}</td>
-              <td class="text-center font-weight-bold">{{ item.amount.toLocaleString() }}</td>
+              <td class="text-center font-weight-bold">{{ Math.round(item.amount).toLocaleString() }}</td>
             </tr>
           </tbody>
         </table>
@@ -385,31 +388,31 @@ export default {
 
             category.amount = category.amount + item.usd
 
-            let nature,
-              indexNature = category.natures.findIndex((i) => i.id === item.nature.id)
+            let sub_nature,
+              indexNature = category.sub_natures.findIndex((i) => i.id === item.sub_nature.id)
 
             if (indexNature >= 0) {
-              nature = category.natures[indexNature]
-              nature.amount = nature.amount + item.usd
+              sub_nature = category.sub_natures[indexNature]
+              sub_nature.amount = sub_nature.amount + item.usd
 
-              category.natures[indexNature] = nature
+              category.sub_natures[indexNature] = sub_nature
             }else {
-              item.nature.amount = item.usd
-              category.natures.push(item.nature)
+              item.sub_nature.amount = item.usd
+              category.sub_natures.push(item.sub_nature)
             }
 
             itemsParsed[index] = category
-            // category.natures.push({id: 0})
+            // category.sub_natures.push({id: 0})
           }else {
             category = {
               ...item.nature.category_nature
             }
 
-            item.nature.amount = item.usd
-            category.natures = [item.nature]
+            item.sub_nature.amount = item.usd
+            category.sub_natures = [item.sub_nature]
 
             category.amount = item.usd
-            // category.natures.push({id: 0})
+            // category.sub_natures.push({id: 0})
             itemsParsed.push(category)
           }
         }
@@ -503,16 +506,16 @@ export default {
 
       for (const item of items) {
 
-        for (const nature of item.natures) {
+        for (const nature of item.sub_natures) {
           results.push({
             'Rubriques': nature.name,
-            'Montant en USD': nature.amount,
+            'Montant en USD': Math.round(nature.amount),
           })
         }
 
         results.push({
           'Rubriques': item.name,
-          'Montant en USD': item.amount,
+          'Montant en USD': Math.round(item.amount),
         })
       }
 
