@@ -30,6 +30,7 @@ export const actions = {
       commit('SET_LOADING', false)
     })
   },
+
   show (_, payload) {
     return new Promise((resolve, reject) => {
       this.$axios.get(`transactions/${payload.id}`)
@@ -57,6 +58,24 @@ export const actions = {
 
     this.$axios.get('transactions/all/disburse').then(({ data }) => {
       commit('SET_DISBURSE_TRANSACTIONS', data.results)
+    }).finally((_) => {
+      commit('SET_LOADING', false)
+    })
+  },
+
+  loadFinancialReport({ commit }) {
+    commit('SET_LOADING', true)
+
+    this.$axios.get('transactions').then(({ data }) => {
+      let results = data.results
+
+      if (results) {
+        results = results.sort((a, b) => {
+          return a.nature.category_nature_id < b.nature.category_nature_id
+        })
+      }
+
+      commit('SET_TRANSACTIONS', results)
     }).finally((_) => {
       commit('SET_LOADING', false)
     })
