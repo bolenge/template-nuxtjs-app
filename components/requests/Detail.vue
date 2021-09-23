@@ -389,7 +389,7 @@ export default {
                   {
                     name: 'rate',
                     type: 'text',
-                    required: false,
+                    required: true,
                     label: 'Taux',
                   },
                   {

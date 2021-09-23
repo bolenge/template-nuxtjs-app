@@ -54,10 +54,10 @@ export default {
       },
     }),
     subNatures() {
-      return this.natures.length ? this.natures[0].sub_natures : []
+      return []
     },
     compteNatures() {
-      return this.natures.length ? this.natures[0].compte_natures : []
+      return []
     },
     adminId() {
       return this.currentAdmin.id
@@ -79,7 +79,6 @@ export default {
           required: false,
           itemText: 'name',
           items: this.natures,
-          selected: 1,
           label: 'Nature Op. Niv. 2',
           childSync: 'sub_nature_id',
           childItems: 'sub_natures',
@@ -190,17 +189,17 @@ export default {
         this.$set(this.fields[index], 'items', this.natures)
       }
 
-      const indexSubNature = this.fields.findIndex((field) => field.name == 'sub_nature_id'),
-            indexCompteNature = this.fields.findIndex((field) => field.name == 'compte_nature_id')
+      /* TODO Comment for some moment
+      const indexSubNature = this.fields.findIndex((field) => field.name == 'sub_nature_id')
+      const indexCompteNature = this.fields.findIndex((field) => field.name == 'compte_nature_id')
 
       if (indexSubNature > -1) {
-        console.log('this.natures[0].sub_natures', this.natures[0].sub_natures);
         this.$set(this.fields[indexSubNature], 'items', this.natures[0].sub_natures)
       }
 
       if (indexCompteNature > -1) {
         this.$set(this.fields[indexCompteNature], 'items', this.compteNatures)
-      }
+      } */
     },
   },
   methods: {
