@@ -148,7 +148,7 @@ export default {
         {
           name: 'account_id',
           type: 'select',
-          required: false,
+          required: true,
           itemText: 'name',
           items: [],
           label: 'Compte à approvionner ',
