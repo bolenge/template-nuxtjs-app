@@ -90,6 +90,9 @@ if (!Vue.__global__) {
       },
       random(min, max) {
         return ~~(Math.random() * (max - min + 1) + min);
+      },
+      decodeUtf8(s) {
+        return decodeURIComponent(escape(s));
       }
     }
   }) // Set up your mixin then
