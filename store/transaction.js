@@ -71,7 +71,7 @@ export const actions = {
 
       if (results) {
         results = results.sort((a, b) => {
-          return a.nature.category_nature_id < b.nature.category_nature_id
+          return a.nature.category_nature_id - b.nature.category_nature_id
         })
       }
 

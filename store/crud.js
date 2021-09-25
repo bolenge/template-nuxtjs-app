@@ -19,10 +19,13 @@ export function objectToFormData (entity) {
 }
 
 export const state = () => ({
-
+  loading: false
 })
 
 export const mutations = {
+  SET_LOADING(State, payload) {
+    State.loading = payload
+  }
 }
 
 export const actions = {
@@ -49,8 +52,9 @@ export const actions = {
     )
   },
 
-  update ({ dispatch }, { entity, api, model, actionLoad }) {
-    
+  update ({ dispatch, commit }, { entity, api, model, actionLoad }) {
+    commit('SET_LOADING', true)
+
     const formData = serialize(entity)
     formData.append('_method', 'PUT')
     actionLoad = actionLoad || 'load'
@@ -84,6 +88,8 @@ export const actions = {
             }else {
               this.$toast.error('Une erreur est survenue, réessayez svp !')
             }
+
+            commit('SET_LOADING', false)
             
             reject(error)
           })

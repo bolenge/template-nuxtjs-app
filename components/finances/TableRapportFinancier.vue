@@ -163,7 +163,7 @@
             </tr>
             <tr
               class="tr-table"
-              :class="item.id === 1 ? 'bg-warning' : 'bg-mutted'"
+              :class="item.id == 1 ? 'bg-warning' : 'bg-mutted'"
             >
               <td class=" font-weight-bold">{{ item.name }}</td>
               <td class="text-center font-weight-bold">{{ Math.round(item.amount).toLocaleString() }}</td>
