@@ -67,10 +67,14 @@ export const actions = {
           }
         })
           .then((_) => {
+            commit('SET_LOADING', false)
+            
             resolve()
             dispatch(`${model}/${actionLoad}`, true, { root: true })
           })
           .catch((error) => {
+            commit('SET_LOADING', false)
+
             if (error.response && (error.response.status === 422 || error.response.status === 401)) {
               if (error.response.data) {
                 const data = error.response.data
@@ -88,8 +92,6 @@ export const actions = {
             }else {
               this.$toast.error('Une erreur est survenue, réessayez svp !')
             }
-
-            commit('SET_LOADING', false)
             
             reject(error)
           })
