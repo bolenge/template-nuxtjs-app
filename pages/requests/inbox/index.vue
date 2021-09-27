@@ -90,7 +90,7 @@ export default {
             'Conforme': 'badge-light',
             'Non conforme': 'badge-danger',
             'Approuvée': 'badge-info',
-            'Executé': 'badge-success',
+            'Executée': 'badge-success',
             'Rejetée': 'badge-danger',
             'En Cours': 'badge-warning',
           },
