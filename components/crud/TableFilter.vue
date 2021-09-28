@@ -396,7 +396,7 @@ export default {
         this.$toast.error('Une erreur est survenue, réessayez svp !')
       }
     },
-    getObject(obj, path, typeField = 'string', defaultValue = '---') {
+    getObject(obj, path, typeField = 'string', defaultValue = '---', forExtract = false) {
       let items = path.split('.')
       let objRes = obj,
           i = items.length
@@ -411,7 +411,7 @@ export default {
         i = items.length
       }
 
-      objRes = typeField === 'amount-money' ? Math.round(objRes).toLocaleString() : objRes
+      objRes = typeField === 'amount-money' && !forExtract ? Math.round(objRes).toLocaleString() : Math.round(objRes)
       objRes = typeField === 'date' ? this.formatDate('dd/MM/yyyy', new Date(objRes)) : objRes
 
       return objRes || defaultValue
@@ -513,7 +513,7 @@ export default {
         const result = {}
 
         for (const field of this.fieldsExtract) {
-          result[field.text] = this.convertSpecialChars(this.getObject(item, field.value, field.type))
+          result[field.text] = this.convertSpecialChars(this.getObject(item, field.value, field.type, '---', true))
         }
 
         return result
