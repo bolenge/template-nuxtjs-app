@@ -513,7 +513,7 @@ export default {
         const result = {}
 
         for (const field of this.fieldsExtract) {
-          result[field.text] =  this.getObject(item, field.value, field.type)
+          result[field.text] = this.convertSpecialChars(this.getObject(item, field.value, field.type))
         }
 
         return result

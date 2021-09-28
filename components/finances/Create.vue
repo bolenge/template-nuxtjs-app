@@ -54,10 +54,10 @@ export default {
       },
     }),
     subNatures() {
-      return this.natures.length ? this.natures[0].sub_natures : []
+      return []
     },
     compteNatures() {
-      return this.natures.length ? this.natures[0].compte_natures : []
+      return []
     },
     adminId() {
       return this.currentAdmin.id
@@ -79,11 +79,9 @@ export default {
           required: false,
           itemText: 'name',
           items: this.natures,
-          selected: 1,
-          label: 'Nature Op. Niv. 1',
+          label: 'Nature Op. Niv. 2',
           childSync: 'sub_nature_id',
           childItems: 'sub_natures',
-          disabled: true
         },
         {
           name: 'sub_nature_id',
@@ -91,12 +89,12 @@ export default {
           required: false,
           itemText: 'name',
           items: this.subNatures,
-          label: 'Nature Op. Niv. 2',
+          label: 'Nature Op. Niv. 3',
           childSync: 'compte_nature_id',
           childItems: 'compte_natures',
           objetEmpty: {
             id: '',
-            name: 'Aucune nature op. (Niv. 2)'
+            name: 'Aucune nature op. (Niv. 3)'
           }
         },
         {
@@ -105,10 +103,10 @@ export default {
           required: false,
           itemText: 'name',
           items: this.compteNatures,
-          label: 'Compte Op. (Niv. 3)',
+          label: 'Compte Op. (Niv. 4)',
           objetEmpty: {
             id: '',
-            name: 'Aucun compte op. (Niv. 3)'
+            name: 'Aucun compte op. (Niv. 4)'
           }
         },
         {
@@ -150,7 +148,7 @@ export default {
         {
           name: 'account_id',
           type: 'select',
-          required: false,
+          required: true,
           itemText: 'name',
           items: [],
           label: 'Compte à approvionner ',
@@ -191,17 +189,17 @@ export default {
         this.$set(this.fields[index], 'items', this.natures)
       }
 
-      const indexSubNature = this.fields.findIndex((field) => field.name == 'sub_nature_id'),
-            indexCompteNature = this.fields.findIndex((field) => field.name == 'compte_nature_id')
+      /* TODO Comment for some moment
+      const indexSubNature = this.fields.findIndex((field) => field.name == 'sub_nature_id')
+      const indexCompteNature = this.fields.findIndex((field) => field.name == 'compte_nature_id')
 
       if (indexSubNature > -1) {
-        console.log('this.natures[0].sub_natures', this.natures[0].sub_natures);
         this.$set(this.fields[indexSubNature], 'items', this.natures[0].sub_natures)
       }
 
       if (indexCompteNature > -1) {
         this.$set(this.fields[indexCompteNature], 'items', this.compteNatures)
-      }
+      } */
     },
   },
   methods: {

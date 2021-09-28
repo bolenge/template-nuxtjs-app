@@ -87,11 +87,11 @@ export default {
           value: 'statuts',
           type: 'badge',
           types: {
-            'Conforme': 'badge-success',
+            'Conforme': 'badge-light',
             'Non conforme': 'badge-danger',
-            'Approuvé': 'badge-info',
-            'Executé': 'badge-success',
-            'Rejeté': 'badge-danger',
+            'Approuvée': 'badge-info',
+            'Executée': 'badge-success',
+            'Rejetée': 'badge-danger',
             'En Cours': 'badge-warning',
           },
           filterable: true

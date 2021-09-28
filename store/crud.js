@@ -19,10 +19,13 @@ export function objectToFormData (entity) {
 }
 
 export const state = () => ({
-
+  loading: false
 })
 
 export const mutations = {
+  SET_LOADING(State, payload) {
+    State.loading = payload
+  }
 }
 
 export const actions = {
@@ -49,8 +52,9 @@ export const actions = {
     )
   },
 
-  update ({ dispatch }, { entity, api, model, actionLoad }) {
-    
+  update ({ dispatch, commit }, { entity, api, model, actionLoad }) {
+    commit('SET_LOADING', true)
+
     const formData = serialize(entity)
     formData.append('_method', 'PUT')
     actionLoad = actionLoad || 'load'
@@ -63,10 +67,14 @@ export const actions = {
           }
         })
           .then((_) => {
+            commit('SET_LOADING', false)
+            
             resolve()
             dispatch(`${model}/${actionLoad}`, true, { root: true })
           })
           .catch((error) => {
+            commit('SET_LOADING', false)
+
             if (error.response && (error.response.status === 422 || error.response.status === 401)) {
               if (error.response.data) {
                 const data = error.response.data

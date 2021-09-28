@@ -66,7 +66,7 @@ export default {
       entityEdited: null,
       updateConfirmation: {
         title: 'Edition',
-        message: 'Êtes-vous sûr d\'enregistrer les modifications ?'
+        message: 'Voulez vous enregistrer cette modification ?'
       }
     }
   },

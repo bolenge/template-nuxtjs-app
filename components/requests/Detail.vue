@@ -74,15 +74,20 @@
 
               <div class="col-lg-4 col-md-3 col-sm-3 mb-4">
                 <strong class="d-block mb-2">Date Remise Pièces Justificatives</strong>
+                <span class="">{{ entityEdited.date_supporting_documents || '---' }}</span>
+              </div>
+
+              <div class="col-lg-4 col-md-3 col-sm-3 mb-4">
+                <strong class="d-block mb-2">Soubassements Administratifs</strong>
                 <a
-                  v-if="entityEdited.date_supporting_documents"
-                  :href="`${API_BASE_URL}/storage/fichiers/${entityEdited.date_supporting_documents}`"
+                  v-if="entityEdited.insert_administration_bases"
+                  :href="`${API_BASE_URL}/storage/fichiers/${entityEdited.insert_administration_bases}`"
                   class="btn btn-sm btn-light text-info"
                   target="_blank"
-                  :download="`${API_BASE_URL}/storage/fichiers/${entityEdited.date_supporting_documents}`"
+                  :download="`${API_BASE_URL}/storage/fichiers/${entityEdited.insert_administration_bases}`"
                 >
                   <span class="typcn typcn-download-outline"></span>
-                  Téléchqrger le fichier
+                  Télécharger le fichier
                 </a>
                 <span v-else class="">Aucun fichier</span>
               </div>
@@ -113,7 +118,7 @@
               </div>
 
               <div class="col-lg-4 col-md-3 col-sm-3 mb-4">
-                <strong class="d-block mb-2">Compte à débuter</strong>
+                <strong class="d-block mb-2">Compte à débiter</strong>
                 <span class="">{{ entityEdited.account ? entityEdited.account.name : '---' }}</span>
               </div>
 
@@ -217,19 +222,19 @@ export default {
       requestStatuts: null,
       loadingEntityEdited: true,
       badges: {
-        'Conforme': 'badge-success',
+        'Conforme': 'badge-light',
         'Non conforme': 'badge-danger',
-        'Approuvé': 'badge-info',
-        'Executé': 'badge-success',
-        'Rejeté': 'badge-danger',
+        'Approuvée': 'badge-info',
+        'Executée': 'badge-success',
+        'Rejetée': 'badge-danger',
         'En Cours': 'badge-warning',
       },
       typicons: {
         'Conforme': 'typcn-tick-outline',
         'Non conforme': 'typcn-times',
-        'Approuvé': 'typcn-input-checked',
-        'Executé': 'typcn-tick',
-        'Rejeté': 'typcn-cancel',
+        'Approuvée': 'typcn-input-checked',
+        'Executée': 'typcn-tick',
+        'Rejetée': 'typcn-cancel',
         'En Cours': 'typcn-time',
       },
       badgeStatut: null,
@@ -256,9 +261,12 @@ export default {
       subNatures(state) {
         return state.sub_nature.sub_natures
       },
+      categoryNatures(state) {
+        const categoryNatures = state.category_nature.category_natures
+        return categoryNatures.length ? categoryNatures.filter((nature) => nature.id != 1) : categoryNatures
+      },
       natures(state) {
-        const natures = state.nature.natures
-        return natures.length ? natures.filter((nature) => nature.id != 1) : natures
+        return state.nature.natures
       },
       compteNatures(state) {
         return state.compte_nature.compte_natures
@@ -362,25 +370,26 @@ export default {
       if (this.currentAdminConnected) {
         if (this.currentAdminConnected.fonction) {
           if (this.isComplianceOrOfficeManager) {
-            if (this.hasApproveStatus == 'Approuvé') {
+            if (this.hasApproveStatus == 'Approuvée') {
+
               fields.push({
                 name: 'account_id',
                 type: 'select',
                 required: true,
-                label: 'Compte à débuter',
+                label: 'Compte à débiter',
                 items: this.accounts
               })
 
               this.fieldComplateMessageConfirmation = ''
               this.updateConfirmation.title = 'Exécution Paiement'
-              this.updateConfirmation.message = 'Etes-vous d\'effectuer le paiement de cette requête ?'
+              this.updateConfirmation.message = 'Voulez vous exécuter le paiement de cette requête ?'
             }else {
               if (this.requestStatuts !== 'Conforme') {
                 fields = fields.concat([
                   {
                     name: 'rate',
-                    type: 'number',
-                    required: false,
+                    type: 'text',
+                    required: true,
                     label: 'Taux',
                   },
                   {
@@ -392,14 +401,28 @@ export default {
                     label: 'Mode de paiement'
                   },
                   {
+                    name: 'category_nature_id',
+                    type: 'select',
+                    required: false,
+                    itemText: 'name',
+                    items: this.categoryNatures,
+                    label: 'Nature Op. Niv. 1',
+                    childSync: 'nature_id',
+                    childItems: 'natures',
+                  },
+                  {
                     name: 'nature_id',
                     type: 'select',
                     required: false,
                     itemText: 'name',
                     items: this.natures,
-                    label: 'Nature Op. Niv. 1',
+                    label: 'Nature Op. Niv. 2',
                     childSync: 'sub_nature_id',
                     childItems: 'sub_natures',
+                    objetEmpty: {
+                      id: '',
+                      name: 'Aucune nature op. (Niv. 2)'
+                    }
                   },
                   {
                     name: 'sub_nature_id',
@@ -407,12 +430,12 @@ export default {
                     required: false,
                     itemText: 'name',
                     items: this.subNatures,
-                    label: 'Nature Op. Niv. 2',
+                    label: 'Nature Op. Niv. 3',
                     childSync: 'compte_nature_id',
                     childItems: 'compte_natures',
                     objetEmpty: {
                       id: '',
-                      name: 'Aucune nature op. (Niv. 2)'
+                      name: 'Aucune nature op. (Niv. 3)'
                     }
                   },
                   {
@@ -421,10 +444,10 @@ export default {
                     required: false,
                     itemText: 'name',
                     items: this.compteNatures,
-                    label: 'Compte Op. (Niv. 3)',
+                    label: 'Compte Op. (Niv. 4)',
                     objetEmpty: {
                       id: '',
-                      name: 'Aucun compte op. (Niv. 3)'
+                      name: 'Aucun compte op. (Niv. 4)'
                     }
                   },
                   {
@@ -448,7 +471,6 @@ export default {
                     type: 'textarea',
                     required: false,
                     label: 'Observation',
-                    colClass: 'col-lg-12'
                   },
                 ])
               }
@@ -456,26 +478,32 @@ export default {
           }
 
           if (this.isOfficeManager) {
-            fields.push({
+            fields = fields.concat([{
               name: 'statuts_approve',
               type: 'select',
               required: true,
               label: 'Approbation',
               items: [
                 {
-                  id: 'Approuvé',
-                  name: 'Approuvé'
+                  id: 'Approuvée',
+                  name: 'Approuvée'
                 },
                 {
-                  id: 'Rejeté',
-                  name: 'Rejeté'
+                  id: 'Rejetée',
+                  name: 'Rejetée'
                 }
               ]
-            })
+            },
+            {
+              name: 'observation',
+              type: 'textarea',
+              required: false,
+              label: 'Observation',
+            },])
 
             this.fieldComplateMessageConfirmation = ''
             this.updateConfirmation.title = 'Approbation'
-            this.updateConfirmation.message = 'Etes-vous sur de votre attribution d\'approbation ?'
+            this.updateConfirmation.message = 'Pouvez-vous confirmer cette action ?'
           }
         }
       }
@@ -485,7 +513,7 @@ export default {
     showValidationForm() {
       return (this.requestStatuts === 'En Cours' && this.isCompliance) ||
              (this.requestStatuts === 'Conforme' && this.isOfficeManager) ||
-             (this.requestStatuts === 'Approuvé' && this.isCompliance)
+             (this.requestStatuts === 'Approuvée' && this.isCompliance)
     }
   },
   watch: {
@@ -520,6 +548,14 @@ export default {
         }
       }
     },
+    categoryNatures() {
+      if (this.isOfficeDirectorOrCompliance) {
+        const index = this.fields.findIndex((field) => field.name == 'category_nature_id')
+        if (index > -1) {
+          this.$set(this.fields[index], 'items', this.categoryNatures)
+        }
+      }
+    },
     compteNatures() {
       if (this.isOfficeDirectorOrCompliance) {
         const index = this.fields.findIndex((field) => field.name == 'compte_nature_id')
@@ -539,14 +575,15 @@ export default {
   },
   methods: {
     ...mapActions({
-      loadCurrencies: 'currency/load',
       loadUser: 'user/loadUser',
+      loadNatures: 'nature/load',
+      loadCurrencies: 'currency/load',
+      loadSubNatures: 'sub_nature/load',
       showFundRequest: 'fund_request/show',
       loadTypeAccounts: 'type_account/load',
-      loadNatures: 'nature/load',
-      loadSubNatures: 'sub_nature/load',
       loadCompteNatures: 'compte_nature/load',
-      loadAccountsByType: 'account/loadAccountsByType'
+      loadAccountsByType: 'account/loadAccountsByType',
+      loadCategoryNatures: 'category_nature/load',
     }),
     onSubmit(entity) {
       this.entity = {}
@@ -585,6 +622,7 @@ export default {
   mounted() {
     this.loadCurrencies()
     this.loadTypeAccounts()
+    this.loadCategoryNatures()
     this.loadNatures()
     this.loadSubNatures()
     this.loadCompteNatures()

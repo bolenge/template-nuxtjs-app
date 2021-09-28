@@ -90,6 +90,13 @@ if (!Vue.__global__) {
       },
       random(min, max) {
         return ~~(Math.random() * (max - min + 1) + min);
+      },
+      decodeUtf8(s) {
+        return decodeURIComponent(escape(s));
+      },
+      convertSpecialChars(str) {
+        var originalText = ""+str
+        return  originalText.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
       }
     }
   }) // Set up your mixin then

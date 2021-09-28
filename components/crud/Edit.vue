@@ -76,16 +76,20 @@ export default {
   },
   data() {
     return {
-      loading: false
     }
+  },
+  computed: {
+    ...mapState({
+      loading(state) {
+        return state.crud.loading
+      }
+    })
   },
   methods: {
     ...mapActions({
       update: 'crud/update'
     }),
     async onSubmit (entity) {
-      this.loading = true
-
       try {
         if (this.updateConfirmation.message) {
           const message = this.fieldComplateMessageConfirmation
@@ -105,20 +109,14 @@ export default {
               this.$toast.success('Opération effectuée avec succès')
               this.$emit('submitted')
             }
-
-            this.loading = false
           });
         }else {
           await this.update({ entity, api: this.api, model: this.model, actionLoad: this.actionLoad })
           this.$toast.success('Opération effectuée avec succès')
           this.$emit('submitted')
-          this.loading = false
         }
       } catch (error) {
-        this.loading = false
         this.$toast.error('Une erreur est survenue, réessayez svp !')
-
-        this.loading = false
       }
     }
   }
