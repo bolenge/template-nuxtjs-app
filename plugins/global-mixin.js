@@ -93,6 +93,10 @@ if (!Vue.__global__) {
       },
       decodeUtf8(s) {
         return decodeURIComponent(escape(s));
+      },
+      convertSpecialChars(str) {
+        var originalText = ""+str
+        return  originalText.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
       }
     }
   }) // Set up your mixin then
