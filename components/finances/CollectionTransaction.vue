@@ -112,18 +112,18 @@ export default {
         {
           text: 'Montant',
           value: 'amount',
-          type: 'amount-money',
+          type: 'amount',
           filterable: true
         },
         {
           text: 'Taux',
           value: 'rate',
-          type: 'amount-money',
+          type: 'amount',
         },
         {
           text: 'Montant en USD',
           value: 'usd',
-          type: 'amount-money',
+          type: 'amount',
           filterable: true
         },
         {
