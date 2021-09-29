@@ -411,7 +411,14 @@ export default {
         i = items.length
       }
 
-      objRes = typeField === 'amount-money' ? Math.round(objRes).toLocaleString() : objRes
+      if (typeField === 'amount-money') {
+        objRes = Math.round(objRes).toLocaleString()
+      }
+
+      if (typeField === 'amount') {
+        objRes = Math.round(objRes)
+      }
+
       objRes = typeField === 'date' ? this.formatDate('dd/MM/yyyy', new Date(objRes)) : objRes
 
       return objRes || defaultValue
