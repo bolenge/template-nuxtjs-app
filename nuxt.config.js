@@ -21,39 +21,10 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Neo Touch est un Progiciel de gestion des données et des procédures  accessibles sur Smart Phone, Tablette et Ordinateur en temps réel.Il vous permet de collecter, de canaliser, d’analyser, de retracer et gérer toutes vos activités en temps réel avec une option (Intelligent Data Access) par utilisateurs.' },
-      { hid: 'author', name: 'author', content: 'Mtech Interactives, Don de Dieu Bolenge, Emmanuel Matondo' },
+      { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      {
-        rel: 'stylesheet',
-        href: '"https://fonts.googleapis.com/css?family=Montserrat:400,500,700"'
-      },
-      {
-        rel: "stylesheet",
-        href: "/vendors/typicons.font/font/typicons.css",
-      },
-      {
-        rel: "stylesheet",
-        href: "/vendors/css/vendor.bundle.base.css",
-      },
-      {
-        rel: "stylesheet",
-        href: "/vendors/select2/select2.min.css",
-      },
-      {
-        rel: "stylesheet",
-        href: "/vendors/select2-bootstrap-theme/select2-bootstrap.min.css",
-      },
-      {
-        rel: "stylesheet",
-        href: "/vendors/mdi/css/materialdesignicons.min.css",
-      },
-      {
-        rel: "stylesheet",
-        href: "/css/vertical-layout-light/style.css",
-      },
       {
         rel: "stylesheet",
         href: "/css/main.css",
@@ -66,53 +37,9 @@ export default {
     ],
     script: [
       {
-        src: "/js/jquery.js",
+        src: "/js/main.js",
         defer: true,
       },
-      {
-        src: "/vendors/js/vendor.bundle.base.js",
-        defer: true,
-      },
-      {
-        src:"/js/off-canvas.js",
-        defer: true,
-      },
-      {
-        src:"/js/hoverable-collapse.js",
-        defer: true
-      },
-      {
-        src:"/js/template.js",
-        defer: true
-      },
-      {
-        src:"/js/settings.js",
-        defer: true
-      },
-      {
-        src:"/js/todolist.js",
-        defer: true
-      },
-      {
-        src:"/vendors/typeahead.js/typeahead.bundle.min.js",
-        defer: true
-      },
-      {
-        src:"/vendors/select2/select2.min.js",
-        defer: true
-      },
-      {
-        src:"/js/file-upload.js",
-        defer: true
-      },
-      {
-        src:"/js/typeahead.js",
-        defer: true
-      },
-      {
-        src:"/js/select2.js",
-        defer: true
-      }
     ],
   },
 
