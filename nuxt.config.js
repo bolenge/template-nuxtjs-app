@@ -14,7 +14,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Neo Touch',
+    title: 'Template NuxtJS App',
     htmlAttrs: {
       lang: 'fr'
     },
