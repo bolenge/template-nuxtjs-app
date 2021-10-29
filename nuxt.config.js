@@ -34,91 +34,11 @@ export default {
         type: 'image/x-icon',
         href: '/favicon.png'
       },
-      {
-        href: "https://fonts.googleapis.com/css?family=Montserrat:400,700,200",
-        rel: "stylesheet",
-      },
-      {
-        href: "https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css",
-        rel: "stylesheet"
-      },
-      {
-        href: "/css/bootstrap.min.css",
-        rel: "stylesheet"
-      },
-      {
-        href: "/css/paper-dashboard.css?v=2.0.1",
-        rel: "stylesheet"
-      },
-      {
-        rel: "stylesheet",
-        href: "/node_modules/swiper/swiper-bundle.min.css"
-      },
-      {
-        href: "/demo/demo.css",
-        rel: "stylesheet"
-      },
-      {
-        href: "/css/style.css",
-        rel: "stylesheet"
-      },
-      {
-        href: "/css/loader.css",
-        rel: "stylesheet"
-      },
     ],
     script: [
       {
         src: "/js/main.js",
         defer: true,
-      },
-      {
-        src: "/js/core/jquery.min.js",
-        defer: true
-      },
-      {
-        src: "/js/core/popper.min.js",
-        defer: true
-      },
-      {
-        src: "/js/core/bootstrap.min.js",
-        defer: true
-      },
-      {
-        src: "/js/plugins/perfect-scrollbar.jquery.min.js",
-        defer: true
-      },
-      {
-        src: "/js/plugins/chartjs.min.js",
-        defer: true
-      },
-      {
-        src: "/node_modules/swiper/swiper-bundle.min.js",
-        defer: true
-      },
-      {
-        src: "/node_modules/sweetalert/dist/sweetalert.min.js",
-        defer: true
-      },
-      {
-        src: "/js/plugins/bootstrap-notify.js",
-        defer: true
-      },
-      {
-        src: "/js/paper-dashboard.js",
-        defer: true
-      },
-      {
-        src: "/demo/demo.js",
-        defer: true
-      },
-      {
-        src: "/js/utils/functions.js",
-        defer: true
-      },
-      {
-        src: "/js/api/router.js",
-        defer: true
       },
     ],
   },

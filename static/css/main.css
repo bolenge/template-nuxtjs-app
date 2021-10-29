@@ -45,3 +45,8 @@
 .bg-mutted {
   background-color: rgba(10, 5, 5, 0.1) !important;
 }
+
+#home {
+    padding-top: 130px !important;
+    padding-bottom: 50px !important;
+}
