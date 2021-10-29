@@ -3,8 +3,12 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top alt animated navbar-custom">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="/img/logos/logo-congo-book.png" alt="Logo de ISI-BIBLIO" width="40px" />
-                ISI-BIBLIO
+                <img
+                    src="/img/logos/logo-congo-book.png"
+                    :alt="`Logo de ${APP_NAME}`"
+                    width="40px"
+                />
+                {{ APP_NAME }}
             </a>
 
             <button class="navbar-toggler material-ripple" type="button" data-toggle="collapse"
@@ -47,8 +51,8 @@
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="hero-text">
-                            <h1>ISI-BIBLIO</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam ipsa iure placeat iusto incidunt facilis temporibus ducimus. Ea mollitia temporibus ipsum vitae recusandae possimus! Consectetur ut temporibus obcaecati quia tempora!</p>
+                            <h1>{{ APP_NAME }}</h1>
+                            <p>{{ APP_DESCRIPTION }}</p>
                             <a href="/register" class="btn btn-light btn-lg t-cap mt-3 material-ripple">Créer un compte</a>
                         </div>
                     </div>
@@ -235,7 +239,7 @@
         <div class="container">
             <div class="section-title">
                 <h2>A propos de nous</h2>
-                <p>Un petit apperçu sur <strong>ISI-BIBLIO</strong></p>
+                <p>Un petit apperçu sur <strong>{{ APP_NAME }}</strong></p>
                 <hr class="left"><i class="icon icon-basic-spread-text"></i>
                 <hr class="right">
             </div>
@@ -255,7 +259,7 @@
                 </div>
                 <div class="col-lg-7">
                     <h4>Qui sommes-nous ?</h4>
-                    <p><strong>ISI-BIBLIO</strong> est une bibliothèque numérique qui permet à tout le monde de lire et de publier de livres dans tous les domaines.</p>
+                    <p><strong>{{ APP_NAME }}</strong> est une bibliothèque numérique qui permet à tout le monde de lire et de publier de livres dans tous les domaines.</p>
 
                     <p>Après que vous ayez souscrit à un abonnement, ceci vous permet d'avoir accès aux livres offerts par cette souscription.</p>
                     <br>
@@ -368,7 +372,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <p class="copy-line">© {{ (new Date()).getFullYear() }} - ISI-BIBLIO - Tous droits reservés.</p>
+                    <p class="copy-line">© {{ (new Date()).getFullYear() }} - {{ APP_NAME }} - Tous droits reservés.</p>
                 </div>
                 <div class="col-lg-6">
                     <div class="footer-social-links">

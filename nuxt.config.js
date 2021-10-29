@@ -7,21 +7,22 @@ export default {
     API_BASE_URL: API_BASE_URL,
     DEFAULT_USER_AVATAR: `${API_BASE_URL}/storage/user_pictures/profile.png`,
     BASE_PATH_USER_PICTURES: `${API_BASE_URL}/storage/user_pictures`,
-    APP_NAME: 'Neo Touch',
+    APP_NAME: 'ISI-BIBLIO',
+    APP_DESCRIPTION: 'Nous sommes une bibliothèque numérique qui met à votre disposition de milliers de livres à votre choix, à lire quand et ou vous voudrez.',
     TYPE_ACCOUNT_BANK: 1,
     TYPE_ACCOUNT_CASH: 2,
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Template NuxtJS App',
+    title: 'ISI-BIBLIO',
     htmlAttrs: {
       lang: 'fr'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'Nous sommes une bibliothèque numérique qui met à votre disposition de milliers de livres à votre choix, à lire quand et ou vous voudrez.' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [

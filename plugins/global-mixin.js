@@ -13,7 +13,8 @@ if (!Vue.__global__) {
         BASE_PATH_USER_PICTURES: null,
         APP_NAME: null,
         TYPE_ACCOUNT_BANK: null,
-        TYPE_ACCOUNT_CASH: null
+        TYPE_ACCOUNT_CASH: null,
+        APP_DESCRIPTION: null
       }
     },
     computed: {
@@ -33,6 +34,7 @@ if (!Vue.__global__) {
         this.APP_NAME = this.$nuxt.context.env.APP_NAME
         this.TYPE_ACCOUNT_BANK = this.$nuxt.context.env.TYPE_ACCOUNT_BANK
         this.TYPE_ACCOUNT_CASH = this.$nuxt.context.env.TYPE_ACCOUNT_CASH
+        this.APP_DESCRIPTION = this.$nuxt.context.env.APP_DESCRIPTION
       }
     },
     methods: {
