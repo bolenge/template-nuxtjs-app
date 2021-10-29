@@ -34,7 +34,12 @@
                         <a class="nav-link mr-4" href="#author">A propos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-secondary mr-3" href="/register">Créer un compte <i class="fa fa-pencil-alt"></i></a>
+                        <nuxt-link
+                            to="/register"
+                            class="btn btn-secondary mr-3"
+                        >
+                            Créer un compte <i class="fa fa-pencil-alt"></i>
+                        </nuxt-link>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-primary" href="/login">Connexion <i class="fa fa-sign-in-alt"></i></a>
